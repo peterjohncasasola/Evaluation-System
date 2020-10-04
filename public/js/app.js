@@ -3385,10 +3385,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 // @ is an alias to /src
 
 
@@ -84320,16 +84316,6 @@ var render = function() {
                   )
                 : _vm._e()
             ]
-          ),
-          _vm._v(" "),
-          _c(
-            "card-component",
-            {
-              staticClass: "has-table has-mobile-sort-spaced",
-              attrs: { title: "Clients" }
-            },
-            [_c("clients-table-sample", { attrs: { "data-url": "/clients" } })],
-            1
           )
         ],
         1
@@ -102637,25 +102623,25 @@ vue_router__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.open = function (ro
     path: '/users',
     name: 'users-list',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ./views/Users.vue */ "./resources/js/views/Users.vue"));
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./views/Users.vue */ "./resources/js/views/Users.vue"));
     }
   }, {
     path: '/students/new',
     name: 'students-new',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./views/Students/Form.vue */ "./resources/js/views/Students/Form.vue"));
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/Students/Form.vue */ "./resources/js/views/Students/Form.vue"));
     }
   }, {
     path: '/students/:id/edit',
     name: 'students-edit',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./views/Students/Form.vue */ "./resources/js/views/Students/Form.vue"));
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/Students/Form.vue */ "./resources/js/views/Students/Form.vue"));
     }
   }, {
     path: '/subjects',
     name: 'subjects-list',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./views/Subjects.vue */ "./resources/js/views/Subjects.vue"));
+      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ./views/Subjects.vue */ "./resources/js/views/Subjects.vue"));
     },
     children: [{
       path: '/subjects/new',
@@ -102668,7 +102654,7 @@ vue_router__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.open = function (ro
     path: '/academic-years',
     name: 'academic-years-list',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./views/AcademicYear.vue */ "./resources/js/views/AcademicYear.vue"));
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./views/AcademicYear.vue */ "./resources/js/views/AcademicYear.vue"));
     }
   }, {
     path: '/students',
@@ -102680,25 +102666,25 @@ vue_router__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.open = function (ro
     path: '/instructors',
     name: 'instructors-list',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./views/Instructors.vue */ "./resources/js/views/Instructors.vue"));
+      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./views/Instructors.vue */ "./resources/js/views/Instructors.vue"));
     }
   }, {
     path: '/curriculums',
     name: 'curriculums-list',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./views/CoursesSubjects/Index.vue */ "./resources/js/views/CoursesSubjects/Index.vue"));
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./views/CoursesSubjects/Index.vue */ "./resources/js/views/CoursesSubjects/Index.vue"));
     }
   }, {
     path: '/forms',
     name: 'forms',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/Forms.vue */ "./resources/js/views/Forms.vue"));
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./views/Forms.vue */ "./resources/js/views/Forms.vue"));
     }
   }, {
     path: '/courses',
     name: 'courses-list',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./views/Courses.vue */ "./resources/js/views/Courses.vue"));
+      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./views/Courses.vue */ "./resources/js/views/Courses.vue"));
     }
   }, {
     path: '/tables',

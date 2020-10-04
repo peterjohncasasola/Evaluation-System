@@ -2,7 +2,7 @@
   <div>
     <title-bar :title-stack="titleStack" />
     <hero-bar>
-      New Student
+      {{ isNew ? "New Student" : "Edit Student" }}
       <router-link slot="right" :to="{ name: 'students-list' }" class="button"
         >List</router-link
       >
@@ -321,7 +321,9 @@ export default {
   },
   computed: {
     titleStack() {
-      return ["Master Files", "Students", "New"];
+      return this.isNew
+        ? ["Master Files", "Students", "New"]
+        : ["Master Files", "Students", "Edit"];
     },
     ...mapGetters("students", ["student"])
   },

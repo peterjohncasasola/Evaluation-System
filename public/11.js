@@ -38,10 +38,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/AcademicYear.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/AcademicYear.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Users.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Users.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -200,6 +200,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -218,35 +232,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       isModalActive: false,
-      isLoading: true,
+      isLoading: false,
       paginated: false,
       perPage: 10,
       checkedRows: [],
       isNew: true,
       formData: {
         id: "",
-        school_year: "",
-        description: ""
+        name: "",
+        source_id: 0,
+        email: "",
+        user_type: "admin",
+        password: ""
       }
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("academicYears", ["academicYears"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("users", ["users", "user"])),
   created: function created() {
-    var _this = this;
-
-    this.fetchAcademicYears();
-    setTimeout(function () {
-      _this.isLoading = false;
-    }, 300);
+    this.fetchUsers();
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("academicYears", ["fetchAcademicYears", "fetchAcademicYear", "createAY", "updateAY", "deleteAY"])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("users", ["fetchUsers", "fetctUser", "createUser", "updateUser", "deleteUser"])), {}, {
     edit: function edit(data) {
       this.isModalActive = true;
       this.isNew = false;
       Object.assign(this.formData, data);
     },
     deleteConfirmation: function deleteConfirmation() {
-      var _this2 = this;
+      var _this = this;
 
       var trashObject = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       this.trashObject = trashObject;
@@ -254,12 +266,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (trashObject || this.checkedRows.length) {
         this.$buefy.dialog.confirm({
           title: "Deleting",
-          message: "Are you sure you want to <b>delete ".concat(trashObject.description, "</b>?"),
+          message: "Are you sure you want to <b>delete ".concat(trashObject.name, "</b> this?"),
           confirmText: "DELETE",
           type: "is-danger",
           hasIcon: true,
           onConfirm: function onConfirm() {
-            _this2.remove(_this2.trashObject);
+            _this.remove(_this.trashObject);
           }
         });
       }
@@ -277,7 +289,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     save: function save() {
-      var _this3 = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var response, key, message, _response;
@@ -287,51 +299,52 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context.prev = _context.next) {
               case 0:
                 response = "";
+                console.log(_this2.formData);
 
-                if (!_this3.isNew) {
-                  _context.next = 8;
+                if (!_this2.isNew) {
+                  _context.next = 9;
                   break;
                 }
 
-                _context.next = 4;
-                return _this3.createAY(_this3.formData);
+                _context.next = 5;
+                return _this2.createUser(_this2.formData);
 
-              case 4:
+              case 5:
                 response = _context.sent;
 
                 if (response == undefined) {
-                  _this3.isModalActive = false;
+                  _this2.isModalActive = false;
 
-                  _this3.showNotification("Successfully created", "success");
+                  _this2.showNotification("Successfully created", "success");
                 } else {
                   key = Object.keys(response.errors);
                   message = response.errors[key[0]][0];
 
-                  _this3.showNotification(message, "danger");
+                  _this2.showNotification(message, "danger");
                 }
 
-                _context.next = 12;
+                _context.next = 13;
                 break;
 
-              case 8:
-                _context.next = 10;
-                return _this3.updateAY(_this3.formData);
+              case 9:
+                _context.next = 11;
+                return _this2.updateUser(_this2.formData);
 
-              case 10:
+              case 11:
                 _response = _context.sent;
 
                 if (_response == undefined) {
-                  _this3.isModalActive = false;
+                  _this2.isModalActive = false;
 
-                  _this3.showNotification("Successfully updated", "success");
+                  _this2.showNotification("Successfully updated", "success");
                 } else {
                   key = Object.keys(_response.errors);
                   message = _response.errors[key[0]][0];
 
-                  _this3.showNotification(message, "error");
+                  _this2.showNotification(message, "error");
                 }
 
-              case 12:
+              case 13:
               case "end":
                 return _context.stop();
             }
@@ -340,7 +353,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     remove: function remove(data) {
-      this.deleteAY(data);
+      this.deleteUser(data);
       this.showNotification("Successfully deleted", "info");
     },
     cancel: function cancel() {
@@ -352,10 +365,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.isNew = true;
     },
     clearForm: function clearForm() {
-      this.formData = {
+      this.form = {
         id: "",
-        school_year: "",
-        description: ""
+        first_name: "",
+        middle_name: "",
+        last_name: "",
+        is_active: true
       };
     }
   })
@@ -494,10 +509,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/AcademicYear.vue?vue&type=template&id=ba2796fa&":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/AcademicYear.vue?vue&type=template&id=ba2796fa& ***!
-  \**********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Users.vue?vue&type=template&id=e2911f0e&":
+/*!***************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Users.vue?vue&type=template&id=e2911f0e& ***!
+  \***************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -513,11 +528,11 @@ var render = function() {
     "div",
     [
       _c("title-bar", {
-        attrs: { "title-stack": ["Master Files", "Academic Years", "List"] }
+        attrs: { "title-stack": ["Admin Settings", "Users", "List"] }
       }),
       _vm._v(" "),
       _c("hero-bar", [
-        _vm._v("\n  Academic Years\n  "),
+        _vm._v("\n  Users\n  "),
         _c(
           "button",
           {
@@ -536,7 +551,7 @@ var render = function() {
               attrs: { icon: "file-plus", "custom-size": "default" }
             }),
             _vm._v(" "),
-            _c("span", [_vm._v("New")])
+            _c("span", [_vm._v("New Users")])
           ],
           1
         )
@@ -550,7 +565,7 @@ var render = function() {
             "card-component",
             {
               staticClass: "has-table has-mobile-sort-spaced",
-              attrs: { title: "Academic Years" }
+              attrs: { title: "Users" }
             },
             [
               _c(
@@ -662,8 +677,8 @@ var render = function() {
                             _vm._v(
                               _vm._s(
                                 _vm.isNew
-                                  ? "Creating Academic Year"
-                                  : "Editing Academic Year"
+                                  ? "Creating Instructor"
+                                  : "Editing Instructor"
                               )
                             )
                           ]),
@@ -681,20 +696,22 @@ var render = function() {
                           [
                             _c(
                               "b-field",
-                              { attrs: { label: "School Year" } },
+                              { attrs: { label: "First Name" } },
                               [
                                 _c("b-input", {
                                   attrs: {
-                                    placeholder: "Enter School Year",
+                                    placeholder: "Enter First Name",
                                     type: "text",
-                                    required: ""
+                                    required: "",
+                                    minlength: "4",
+                                    maxlength: "30"
                                   },
                                   model: {
-                                    value: _vm.formData.school_year,
+                                    value: _vm.formData.first_name,
                                     callback: function($$v) {
-                                      _vm.$set(_vm.formData, "school_year", $$v)
+                                      _vm.$set(_vm.formData, "first_name", $$v)
                                     },
-                                    expression: "formData.school_year"
+                                    expression: "formData.first_name"
                                   }
                                 })
                               ],
@@ -703,20 +720,46 @@ var render = function() {
                             _vm._v(" "),
                             _c(
                               "b-field",
-                              { attrs: { label: "Description" } },
+                              { attrs: { label: "Middle Name" } },
                               [
                                 _c("b-input", {
                                   attrs: {
-                                    placeholder: "Enter Description",
+                                    placeholder: "Enter Middle Name",
                                     type: "text",
-                                    required: ""
+                                    required: "",
+                                    minlength: "4",
+                                    maxlength: "30"
                                   },
                                   model: {
-                                    value: _vm.formData.description,
+                                    value: _vm.formData.middle_name,
                                     callback: function($$v) {
-                                      _vm.$set(_vm.formData, "description", $$v)
+                                      _vm.$set(_vm.formData, "middle_name", $$v)
                                     },
-                                    expression: "formData.description"
+                                    expression: "formData.middle_name"
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-field",
+                              { attrs: { label: "Last Name" } },
+                              [
+                                _c("b-input", {
+                                  attrs: {
+                                    placeholder: "Enter Last Name",
+                                    type: "text",
+                                    required: "",
+                                    minlength: "4",
+                                    maxlength: "30"
+                                  },
+                                  model: {
+                                    value: _vm.formData.last_name,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.formData, "last_name", $$v)
+                                    },
+                                    expression: "formData.last_name"
                                   }
                                 })
                               ],
@@ -733,7 +776,13 @@ var render = function() {
                               staticClass: "button is-success",
                               attrs: { type: "submit" }
                             },
-                            [_vm._v(_vm._s(_vm.isNew ? "Save" : "Update"))]
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.isNew ? "Save Course" : "Update Course"
+                                )
+                              )
+                            ]
                           ),
                           _vm._v(" "),
                           _c(
@@ -765,7 +814,8 @@ var render = function() {
                     "per-page": _vm.perPage,
                     checkable: true,
                     hoverable: true,
-                    data: _vm.academicYears
+                    "default-sort": "name",
+                    data: _vm.users
                   },
                   on: {
                     "update:checkedRows": function($event) {
@@ -785,12 +835,12 @@ var render = function() {
                             {
                               attrs: {
                                 searchable: "",
-                                label: "School Year",
-                                field: "school_year",
+                                label: "Account Name",
+                                field: "name",
                                 sortable: ""
                               }
                             },
-                            [_vm._v(_vm._s(props.row.school_year))]
+                            [_vm._v(_vm._s(props.row.name))]
                           ),
                           _vm._v(" "),
                           _c(
@@ -798,12 +848,25 @@ var render = function() {
                             {
                               attrs: {
                                 searchable: "",
-                                label: "Description",
-                                field: "description",
+                                label: "Email Address",
+                                field: "email",
                                 sortable: ""
                               }
                             },
-                            [_vm._v(_vm._s(props.row.description))]
+                            [_vm._v(_vm._s(props.row.email))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            {
+                              attrs: {
+                                searchable: "",
+                                label: "User Type",
+                                field: "user_type",
+                                sortable: ""
+                              }
+                            },
+                            [_vm._v(_vm._s(props.row.user_type))]
                           ),
                           _vm._v(" "),
                           _c(
@@ -822,7 +885,6 @@ var render = function() {
                                     {
                                       attrs: {
                                         label: "Click to edit",
-                                        type: "is-dark",
                                         position: "is-left"
                                       }
                                     },
@@ -856,7 +918,6 @@ var render = function() {
                                     {
                                       attrs: {
                                         label: "Click to Delete",
-                                        type: "is-dark",
                                         position: "is-left"
                                       }
                                     },
@@ -1025,17 +1086,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/AcademicYear.vue":
-/*!*********************************************!*\
-  !*** ./resources/js/views/AcademicYear.vue ***!
-  \*********************************************/
+/***/ "./resources/js/views/Users.vue":
+/*!**************************************!*\
+  !*** ./resources/js/views/Users.vue ***!
+  \**************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AcademicYear_vue_vue_type_template_id_ba2796fa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AcademicYear.vue?vue&type=template&id=ba2796fa& */ "./resources/js/views/AcademicYear.vue?vue&type=template&id=ba2796fa&");
-/* harmony import */ var _AcademicYear_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AcademicYear.vue?vue&type=script&lang=js& */ "./resources/js/views/AcademicYear.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Users_vue_vue_type_template_id_e2911f0e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Users.vue?vue&type=template&id=e2911f0e& */ "./resources/js/views/Users.vue?vue&type=template&id=e2911f0e&");
+/* harmony import */ var _Users_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Users.vue?vue&type=script&lang=js& */ "./resources/js/views/Users.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1045,9 +1106,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AcademicYear_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AcademicYear_vue_vue_type_template_id_ba2796fa___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AcademicYear_vue_vue_type_template_id_ba2796fa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Users_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Users_vue_vue_type_template_id_e2911f0e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Users_vue_vue_type_template_id_e2911f0e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1057,38 +1118,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/AcademicYear.vue"
+component.options.__file = "resources/js/views/Users.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/AcademicYear.vue?vue&type=script&lang=js&":
-/*!**********************************************************************!*\
-  !*** ./resources/js/views/AcademicYear.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************/
+/***/ "./resources/js/views/Users.vue?vue&type=script&lang=js&":
+/*!***************************************************************!*\
+  !*** ./resources/js/views/Users.vue?vue&type=script&lang=js& ***!
+  \***************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AcademicYear_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./AcademicYear.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/AcademicYear.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AcademicYear_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Users_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Users.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Users.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Users_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/AcademicYear.vue?vue&type=template&id=ba2796fa&":
-/*!****************************************************************************!*\
-  !*** ./resources/js/views/AcademicYear.vue?vue&type=template&id=ba2796fa& ***!
-  \****************************************************************************/
+/***/ "./resources/js/views/Users.vue?vue&type=template&id=e2911f0e&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/views/Users.vue?vue&type=template&id=e2911f0e& ***!
+  \*********************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AcademicYear_vue_vue_type_template_id_ba2796fa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AcademicYear.vue?vue&type=template&id=ba2796fa& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/AcademicYear.vue?vue&type=template&id=ba2796fa&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AcademicYear_vue_vue_type_template_id_ba2796fa___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Users_vue_vue_type_template_id_e2911f0e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Users.vue?vue&type=template&id=e2911f0e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Users.vue?vue&type=template&id=e2911f0e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Users_vue_vue_type_template_id_e2911f0e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AcademicYear_vue_vue_type_template_id_ba2796fa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Users_vue_vue_type_template_id_e2911f0e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
