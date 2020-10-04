@@ -34,7 +34,7 @@ export default {
     "General",
     [
      {
-      to: "/",
+      to: { name: "home" },
       icon: "desktop-mac",
       label: "Dashboard",
      },
@@ -42,67 +42,46 @@ export default {
     "Master Files",
     [
      {
-      to: "/students",
+      to: { name: "students-list" },
       label: "Students",
       icon: "account-multiple",
       updateMark: true,
      },
 
      {
-      to: "/academic-years",
+      to: { name: "academic-years-list" },
       label: "Academic Year",
       icon: "account-multiple",
       updateMark: true,
      },
      {
-      to: "/subjects",
+      to: { name: "subjects-list" },
       label: "Subjects",
       icon: "book-multiple",
      },
      {
-      to: "/curriculums/view",
+      to: { name: "curriculums-list" },
       label: "Curriculums",
       icon: "book-multiple",
      },
      {
-      to: "/school-year",
-      label: "School Year",
-      icon: "book-multiple",
-     },
-     {
-      to: "/instructors",
+      to: { name: "instructors-list" },
       label: "Instructors",
       icon: "book-multiple",
      },
      {
-      to: "/users",
+      to: { name: "users-list" },
       label: "Users",
       icon: "book-multiple",
      },
      {
-      to: "/courses",
+      to: { name: "courses-list" },
       label: "Courses",
-      icon: "book-multiple",
-     },
-     {
-      to: "/courses/index",
-      label: "Courses View",
       icon: "book-multiple",
      },
     ],
     "Transactions",
     [
-     {
-      to: "/tables",
-      label: "Tables",
-      icon: "table",
-     },
-
-     {
-      to: "/open-subjects",
-      label: "Subject Offer",
-      icon: "account-circle",
-     },
      {
       to: "/enroll-student",
       label: "Registration",

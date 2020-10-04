@@ -4,12 +4,18 @@ const state = {
   subjects: [],
   subject: {},
   errors: null,
+  filteredSubjectsTags: [],
+  subjectTags: [],
+  errors: [],
+
 }
 
 const getters = {
   getBySubjectId: state => id => {
     return state.subjects.find(subject => subject.id === id);
   },
+
+  filteredSubjectsTags: state => state.filteredSubjectsTags,
   subjects: state => state.subjects,
   subject: state => state.subject,
   errors: state => state.errors
@@ -37,17 +43,23 @@ const mutations = {
   },
   SET_ERRORS(state, errors) {
     state.errors = errors;
+  },
+
+  SET_FILTERED_SUBJECTS(state, data) {
+    state.filteredSubjectsTags = data
   }
+
 }
 
 const actions = {
+
   async createSubject({
     commit,
     dispatch
   }, payload) {
     try {
-      await SubjectService.postSubject(payload);
-      commit('ADD_SUBJECT', payload);
+      let response = await SubjectService.postSubject(payload);
+      commit('ADD_SUBJECT', response.data.data);
     } catch (errors) {
       return errors.response.data
     }
@@ -59,6 +71,7 @@ const actions = {
 
     SubjectService.getSubjects().then(response => {
       commit('SET_SUBJECTS', response.data.data)
+      commit('SET_FILTERED_SUBJECTS', response.data.data)
     }).catch(error => {
 
     })
@@ -97,8 +110,8 @@ const actions = {
     commit
   }, payload) {
     try {
-      await SubjectService.updateSubject(payload);
-      commit('UPDATE_SUBJECT', payload);
+      let response = await SubjectService.updateSubject(payload);
+      commit('UPDATE_SUBJECT', response.data.data);
     } catch (error) {
       return error.response.data
     }

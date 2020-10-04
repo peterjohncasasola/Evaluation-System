@@ -2,19 +2,19 @@ import apiClient from '../apiClient'
 
 export default {
   getCourses() {
-    return apiClient.get('/api/courses')
+    return apiClient.get('/courses')
   },
   getCourse(id) {
-    return apiClient.get(`/api/courses/${id}`)
+    return apiClient.get(`/courses/${id}`)
   },
   postCourse(course) {
-    return apiClient.post('/api/courses', course)
+    return apiClient.post('/courses', course)
   },
   deleteCourse(id) {
-    return apiClient.delete(`/api/courses/${id}`)
+    return apiClient.delete(`/courses/${id}`)
   },
 
   putCourse(course) {
-    return apiClient.put(`/api/courses/${course.id}`, course)
+    return apiClient.put(`/courses/${course.id}`, course)
   }
 }

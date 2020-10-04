@@ -30,11 +30,13 @@
      </b-select>
     </card-toolbar>
 
-    <b-modal :active.sync="isModalActive" has-modal-card can-cancel="[]">
+    <b-modal :active.sync="isModalActive" has-modal-card :can-cancel="[]">
      <form @submit.prevent="save()" novalidate>
       <div class="modal-card">
        <header class="modal-card-head">
-        <h3 class="modal-card-title">{{ isNew ? "Creating Instructor" : "Editing Instructor" }}</h3>
+        <h3 class="modal-card-title">
+         {{ isNew ? "Creating Instructor" : "Editing Instructor" }}
+        </h3>
         <button type="button" class="delete" @click="cancel" />
        </header>
        <section class="modal-card-body">
@@ -44,8 +46,6 @@
           type="text"
           v-model="formData.first_name"
           required
-          minlength="4"
-          maxlength="30"
          ></b-input>
         </b-field>
 
@@ -55,8 +55,6 @@
           type="text"
           v-model="formData.middle_name"
           required
-          minlength="4"
-          maxlength="30"
          ></b-input>
         </b-field>
 
@@ -66,16 +64,13 @@
           type="text"
           v-model="formData.last_name"
           required
-          minlength="4"
-          maxlength="30"
          ></b-input>
         </b-field>
        </section>
        <footer class="modal-card-foot">
-        <button
-         type="submit"
-         class="button is-success"
-        >{{ isNew ? "Save Course" : "Update Course" }}</button>
+        <button type="submit" class="button is-success">
+         {{ isNew ? "Save" : "Update" }}
+        </button>
         <a class="button" @click="cancel()">Cancel</a>
        </footer>
       </div>
@@ -98,21 +93,20 @@
        label="First Name"
        field="first_name"
        sortable
-      >{{ props.row.first_name }}</b-table-column>
+       >{{ props.row.first_name }}</b-table-column
+      >
 
       <b-table-column
        searchable
        label="Middle Name"
        field="middle_name"
        sortable
-      >{{ props.row.middle_name }}</b-table-column>
+       >{{ props.row.middle_name }}</b-table-column
+      >
 
-      <b-table-column
-       searchable
-       label="Last Name"
-       field="last_name"
-       sortable
-      >{{ props.row.last_name }}</b-table-column>
+      <b-table-column searchable label="Last Name" field="last_name" sortable>{{
+       props.row.last_name
+      }}</b-table-column>
 
       <b-table-column custom-key="actions" class="is-actions-cell">
        <div class="buttons is-right">
@@ -216,7 +210,7 @@ export default {
    if (trashObject || this.checkedRows.length) {
     this.$buefy.dialog.confirm({
      title: "Deleting",
-     message: `Are you sure you want to <b>delete ${trashObject.code}</b> this? This action cannot be undone.`,
+     message: `Are you sure you want to <b>delete ${trashObject.first_name} ${trashObject.last_name}</b> this? This action cannot be undone.`,
      confirmText: "Delete",
      type: "is-danger",
      hasIcon: true,
@@ -231,7 +225,7 @@ export default {
    this.$buefy.notification.open({
     duration: 4000,
     message: message,
-    position: "is-bottom-right",
+    position: "is-top-right",
     type: `is-${type}`,
     hasIcon: true,
     closable: true,
@@ -245,12 +239,12 @@ export default {
    console.log(this.formData);
    if (this.isNew) {
     response = await this.createInstructor(this.formData);
-    if (response == undefined) {
+    if (response == undefined || response == null) {
      this.isModalActive = false;
      this.showNotification("Successfully created", "success");
     } else {
      var key = Object.keys(response.errors);
-     var message = response.errors[key[0]][0];
+     if (key) var message = response.errors[key[0]][0];
 
      this.showNotification(message, "danger");
     }
@@ -283,7 +277,7 @@ export default {
   },
 
   clearForm() {
-   this.form = {
+   this.formData = {
     id: "",
     first_name: "",
     middle_name: "",

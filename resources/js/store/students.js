@@ -45,40 +45,38 @@ const actions = {
     commit,
     dispatch
   }, payload) {
+    let response = null;
     try {
-      await StudentService.postStudent(payload);
-      commit('ADD_STUDENT', payload);
-    } catch (errors) {
-      return errors.response.data
+      response = await StudentService.postStudent(payload);
+      commit('ADD_STUDENT', response.data.data);
+    } catch (error) {
+      if (error.response && error.response.status === 422) {
+        return error.response.data;
+      }
     }
+
   },
 
-  fetchStudents({
+  async fetchStudents({
     commit
   }) {
-
-    StudentService.getStudents().then(response => {
-      commit('SET_STUDENTS', response.data.data)
-    }).catch(error => {
-
-    })
+    try {
+      let response = await StudentService.getStudents();
+      commit('SET_STUDENTS', response.data.data);
+    } catch (error) {
+      return error.response;
+    }
   },
 
   async fetchStudent({
     commit
   }, id) {
-
-    let student = getters.getByStudentId(id);
-
-    if (student) {
-      commit('SET_STUDENT', student)
-    } else {
-      await StudentService.getStudent(id).then(response => {
-        commit('SET_STUDENT', response.data)
-      }).catch(error => {
+    await StudentService.getStudent(id).then(response => {
+        commit('SET_STUDENT', response.data.data);
+      })
+      .catch(error => {
         return error.response.data;
       })
-    }
   },
 
   deleteStudent({
@@ -96,11 +94,14 @@ const actions = {
   async updateStudent({
     commit
   }, payload) {
+    let response = null;
     try {
-      await StudentService.updateStudent(payload);
-      commit('UPDATE_STUDENT', payload);
+      response = await StudentService.updateStudent(payload);
+      commit('UPDATE_STUDENT', response.data.data);
     } catch (error) {
-      return error.response.data
+      if (error.response && error.response.status === 422) {
+        return error.response.data;
+      }
     }
   }
 

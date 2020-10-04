@@ -3,7 +3,7 @@
   <title-bar :title-stack="['Master Files', 'Subjects', 'List']" />
   <hero-bar>
    Subjects
-   <button class="button is-default" @click="showModal()" slot="right">
+   <button class="button is-default" @click="showModal" slot="right">
     <b-icon icon="file-plus" custom-size="default" class="i" />
     <span>New Subject</span>
    </button>
@@ -27,47 +27,59 @@
       <option value="10">10 per page</option>
       <option value="15">15 per page</option>
       <option value="20">20 per page</option>
+      <option value="25">25 per page</option>
+      <option value="50">50 per page</option>
      </b-select>
     </card-toolbar>
 
-    <b-modal :active.sync="isModalActive" has-modal-card>
+    <b-modal :active.sync="isModalActive" has-modal-card :can-cancel="[]">
      <form @submit.prevent="save()" novalidate>
       <div class="modal-card">
        <header class="modal-card-head">
-        <h3 class="modal-card-title">{{ isNew ? "Creating Subject" : "Editing Subject" }}</h3>
+        <h3 class="modal-card-title">
+         {{ isNew ? "Creating Subject" : "Editing Subject" }}
+        </h3>
         <button type="button" class="delete" @click="cancel" />
        </header>
        <section class="modal-card-body">
         <b-field label="Subject Code">
+         <template slot="label">
+          Subject Code
+          <span class="has-text-danger">*</span>
+         </template>
          <b-input
           placeholder="Subject Code"
           type="text"
           v-model="formData.code"
           required
-          minlength="3"
-          maxlength="10"
          ></b-input>
         </b-field>
 
         <b-field label="Subject Description">
+         <template slot="label">
+          Subject Description
+          <span class="has-text-danger">*</span>
+         </template>
          <b-input
           placeholder="Subject Description"
           type="text"
           v-model="formData.description"
+          :message="
+           errors !== null && errors.description ? errors.description : ''
+          "
           required
-          minlength="10"
-          maxlength="200"
          ></b-input>
         </b-field>
 
         <b-field label="Units">
+         <template slot="label">
+          Units
+          <span class="has-text-danger">*</span>
+         </template>
          <b-input
           placeholder="Number of Units"
           type="number"
           v-model="formData.unit"
-          required
-          minlength="1"
-          maxlength="3"
          ></b-input>
         </b-field>
 
@@ -76,9 +88,6 @@
           placeholder="Lab"
           type="number"
           v-model="formData.lab"
-          required
-          minlength="1"
-          maxlength="2"
          ></b-input>
         </b-field>
 
@@ -87,17 +96,13 @@
           placeholder="Lecture"
           type="number"
           v-model="formData.lec"
-          required
-          minlength="1"
-          maxlength="2"
          ></b-input>
         </b-field>
        </section>
        <footer class="modal-card-foot">
-        <button
-         type="submit"
-         class="button is-success"
-        >{{ isNew ? "Save Course" : "Update Course" }}</button>
+        <button type="submit" class="button is-success">
+         {{ isNew ? "Save Subject" : "Update Subject" }}
+        </button>
         <a class="button" @click="cancel()">Cancel</a>
        </footer>
       </div>
@@ -111,11 +116,13 @@
      :per-page="perPage"
      :checkable="true"
      :hoverable="true"
-     default-sort="subject_code"
+     :default-sort="['code', 'desc']"
      :data="subjects"
     >
      <template slot-scope="props">
-      <b-table-column searchable label="Subject Code" field="code" sortable>{{ props.row.code }}</b-table-column>
+      <b-table-column searchable label="Subject Code" field="code" sortable>{{
+       props.row.code
+      }}</b-table-column>
 
       <b-table-column
        searchable
@@ -124,23 +131,18 @@
        sortable
        class="wrap-text"
        width="50%"
-      >{{ props.row.description }}</b-table-column>
+       >{{ props.row.description }}</b-table-column
+      >
       <b-table-column label="Units" field="unit" width="8%" sortable>
-       {{
-       props.row.unit
-       }}
+       {{ props.row.unit }}
       </b-table-column>
 
       <b-table-column label="Laboratory" field="lab" width="8%" sortable>
-       {{
-       props.row.lab
-       }}
+       {{ props.row.lab }}
       </b-table-column>
 
       <b-table-column label="Lectures" field="lec" width="8%" sortable>
-       {{
-       props.row.lec
-       }}
+       {{ props.row.lec }}
       </b-table-column>
 
       <b-table-column custom-key="actions" class="is-actions-cell" width="10%">
@@ -218,11 +220,14 @@ export default {
   };
  },
  computed: {
-  ...mapGetters("subjects", ["subjects", "subject"]),
+  ...mapGetters("subjects", ["subjects", "subject", "errors"]),
  },
 
  created() {
   this.fetchSubjects();
+  if (this.currentRouteName == "subjects.new") {
+   this.showModal();
+  }
  },
 
  methods: {
@@ -236,9 +241,9 @@ export default {
 
   edit(data) {
    this.isModalActive = true;
+   history.pushState({}, null, `/subjects/${data.code}/edit`);
    this.isNew = false;
    Object.assign(this.formData, data);
-   console.log(this.formData);
   },
 
   deleteConfirmation(trashObject = null) {
@@ -275,25 +280,19 @@ export default {
    let response = null;
    if (this.isNew) {
     response = await this.createSubject(this.formData);
-    if (response == undefined) {
+    if (response == undefined && response == null) {
      this.isModalActive = false;
      this.showNotification("Successfully created", "success");
     } else {
-     var key = Object.keys(response.errors);
-     var message = response.errors[key[0]][0];
-
-     this.showNotification(message, "danger");
+     this.showErrorMessage(response);
     }
    } else {
-    let response = await this.updateSubject(this.formData);
-    if (response == undefined) {
+    response = await this.updateSubject(this.formData);
+    if (response == undefined && response == null) {
      this.isModalActive = false;
-
      this.showNotification("Successfully updated", "success");
     } else {
-     var key = Object.keys(response.errors);
-     var message = response.errors[key[0]][0];
-     this.showNotification(message, "error");
+     this.showErrorMessage(response);
     }
    }
   },
@@ -304,19 +303,25 @@ export default {
   },
 
   cancel() {
+   history.pushState({}, null, `/subjects`);
    this.isModalActive = false;
   },
+
   showModal() {
+   history.pushState({}, null, "/subjects/new");
    this.clearForm();
    this.isModalActive = true;
    this.isNew = true;
   },
 
   clearForm() {
-   this.form = {
+   this.formData = {
     id: "",
-    course_code: "",
+    code: "",
     description: "",
+    unit: "",
+    lab: "",
+    lec: "",
    };
   },
  },

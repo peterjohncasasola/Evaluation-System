@@ -12,7 +12,6 @@ class CourseTableSeeder extends Seeder
    */
   public function run()
   {
-    // factory(App\Course::class, 50)->create();
     Course::create(
       [
         'id' => 1,
@@ -26,6 +25,22 @@ class CourseTableSeeder extends Seeder
         'id' => 2,
         'course_code' => 'BSCE',
         'description' => 'Bachelor of Science in Civil Engineering',
+      ],
+    );
+
+    Course::create(
+      [
+        'id' => 3,
+        'course_code' => 'BSEE',
+        'description' => 'Bachelor of Science in Electrical Engineering',
+      ],
+    );
+
+    Course::create(
+      [
+        'id' => 4,
+        'course_code' => 'BSArch',
+        'description' => 'Bachelor of Science in Architecture',
       ],
     );
   }

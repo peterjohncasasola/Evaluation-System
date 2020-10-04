@@ -20,9 +20,6 @@ class InstructorTableSeeder extends Seeder
             'created_at' => now()->subDays(rand(1, 180))
         ]);
 
-
-
-
         factory(App\Instructor::class, 49)->create();
     }
 }

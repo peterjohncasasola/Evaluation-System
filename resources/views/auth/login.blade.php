@@ -77,10 +77,13 @@
 @endsection
 
 @section('custom-script')
+
+<!--
 <script src="{{ asset('particles/particles.js') }}"></script>
 <script>
   particlesJS.load('particles-js', 'particles/particles.json', function() {
     console.log('callback - particles.js config loaded');
   })
 </script>
+-->
 @endsection

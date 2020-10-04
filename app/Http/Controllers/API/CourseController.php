@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Course;
-use App\Http\Controllers\Controller;
+use App\CourseSubject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class CourseController extends Controller
@@ -16,7 +18,11 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::latest()->get();
+
+        $courses = Course::with(['subjects'])->latest()->get();
+
+
+        // $courses = \App\CourseSubject::with(['subject', 'course'])->get();
 
         return response()->json([
             'data' => $courses
@@ -112,9 +118,9 @@ class CourseController extends Controller
      * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Course $course)
+    public function destroy($id)
     {
-        $course->delete();
+        Course::findOFail($id)->delete();
 
         return response()->json([
             'status' => true
@@ -131,6 +137,42 @@ class CourseController extends Controller
 
         return response()->json([
             'status' => true
+        ]);
+    }
+
+    public function getCurriculumsByCourse($course_id)
+    {
+        $curriculums = DB::table('course_subjects')
+            ->where('course_subjects.course_id', '=', $course_id)
+            ->join('academic_years', 'course_subjects.id', '=', 'academic_years.id')
+            ->get(['description as curriculum']);
+
+        return response()->json([
+            'data' => $curriculums,
+        ]);
+    }
+
+    public function subjectsByCourse($course_id)
+    {
+        $subjectsByCourse = DB::table('course_subjects')
+            ->where('course_subjects.course_id', '=', $course_id)
+            ->join('courses', 'course_subjects.course_id', '=', 'courses.id')
+            ->join('academic_years', 'course_subjects.sy_id', '=', 'academic_years.id')
+            ->join('subjects', 'course_subjects.subject_id', '=', 'subjects.id')
+            ->join('semesters', 'course_subjects.semester', '=', 'semesters.id')
+            ->select(
+                'subjects.description as subject_description',
+                'academic_years.description as curriculum_year',
+                'courses.course_code',
+                'courses.description as course_description',
+                'semesters.semester as  ',
+                "course_subjects.*",
+
+            )
+            ->get();
+
+        return response()->json([
+            'data' => $subjectsByCourse,
         ]);
     }
 }

@@ -21,7 +21,7 @@ import AsideMenuList from "@/components/AsideMenuList";
 
 /* Collapse mobile aside menu on route change */
 router.afterEach(() => {
-  store.commit("asideMobileStateToggle", false);
+  store.commit("asideMobileStateToggle", true);
 });
 
 Vue.config.productionTip = false;
@@ -35,11 +35,20 @@ Vue.component("App", App);
 /* Buefy */
 Vue.use(Buefy);
 
+Vue.filter('format_bday', function (date) {
+  return moment(date).startOf('hours').fromNow();
+});
+
 Vue.filter('relativeTime', function (date) {
 
   return moment(date).startOf('hours').fromNow();
 
-})
+});
+
+Vue.filter('isEmpty', function (value) {
+  return (value === "" || value === null) ? "N/A" : value;
+});
+
 
 /* This is main entry point */
 

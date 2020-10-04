@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,7 +20,8 @@ class SubjectController extends Controller
         $subjects = Subject::latest()->get();
 
         return response()->json([
-            'data' => $subjects
+            'data' => $subjects,
+            'user' => auth('api')->user(),
         ]);
     }
 
@@ -32,10 +34,21 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
+        // 
+        $messages = [
+            'description.unique' => 'subject description already taken by subject code ' . $request->code,
+        ];
+
         $validator = Validator::make($request->all(), [
-            'code' => 'required|string|min:3|max:10|unique:subjects,code',
-            'description' => 'required|string|required|unique:subjects,description'
-        ]);
+            'code' => 'required|string|min:3|max:10|unique:subjects,code,regex:/\s+/',
+            'description' => ['required', 'string', Rule::unique('subjects')->where(function ($query) use ($request) {
+                return $query->where([
+                    ['code', $request->code],
+                    ['description', $request->description]
+                ]);
+            })],
+            'unit' => 'required|integer'
+        ], $messages);
 
         if ($validator->fails()) {
             return  response()->json([
@@ -46,11 +59,11 @@ class SubjectController extends Controller
 
 
         $course = Subject::create([
-            'code' => $request['code'],
-            'description' => $request['description'],
+            'code' => trim($request['code']),
+            'description' => trim($request['description']),
             'unit' => $request['unit'],
-            'lab' => $request['lab'],
-            'lec' => $request['lec'],
+            'lab' => (int) $request['lab'],
+            'lec' => (int) $request['lec'],
         ]);
 
         return response()->json([
@@ -67,7 +80,7 @@ class SubjectController extends Controller
      */
     public function show($id)
     {
-        $selected = Subject::findOrFail($id);
+        $selected = Subject::find($id);
 
         return response()->json([
             'data' => $selected
@@ -86,7 +99,14 @@ class SubjectController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'code' => 'required|string|min:3|max:10|unique:subjects,code,' . $id,
-            'description' => 'required|string|required|unique:subjects,description,' . $id,
+            'description' => ['required', 'string', Rule::unique('subjects')->where(function ($query) use ($request) {
+                return $query->where([
+                    ['code', $request->code],
+                    ['description', $request->description],
+                    ['id', '!=', $request->id]
+                ]);
+            })],
+            'unit' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -97,7 +117,14 @@ class SubjectController extends Controller
         }
 
         $subject = Subject::findOrFail($id);
-        $subject->update($request->all());
+
+        $subject->code = trim($request->code);
+        $subject->description = trim($request->description);
+        $subject->unit = $request->unit;
+        $subject->lab = $request->lab;
+        $subject->lec = $request->lec;
+
+        $subject->save();
 
         return response()->json([
             'failed' => true,

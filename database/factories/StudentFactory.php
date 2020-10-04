@@ -21,7 +21,7 @@ $factory->define(Student::class, function (Faker $faker) {
         'sex' => "",
         'nationality' => "",
         'religion' => "",
-        'course_id' => 0,
+        'course_id' => 1,
         'created_at' => now()->subDays(rand(1, 180))
     ];
 });

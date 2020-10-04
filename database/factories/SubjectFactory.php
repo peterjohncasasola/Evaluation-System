@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Subject::class, function (Faker $faker) {
     return [
         'code' => $faker->ean8,
-        'description' => $faker->text,
+        'description' => $faker->text(50),
         'unit' => $faker->randomDigit,
         'lab' => $faker->randomDigit,
         'lec' => $faker->randomDigit,

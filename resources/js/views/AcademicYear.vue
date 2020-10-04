@@ -34,48 +34,32 @@
      <form @submit.prevent="save()" novalidate>
       <div class="modal-card">
        <header class="modal-card-head">
-        <h3 class="modal-card-title">{{ isNew ? "Creating Instructor" : "Editing Instructor" }}</h3>
+        <h3
+         class="modal-card-title"
+        >{{ isNew ? "Creating Academic Year" : "Editing Academic Year" }}</h3>
         <button type="button" class="delete" @click="cancel" />
        </header>
        <section class="modal-card-body">
-        <b-field label="First Name">
+        <b-field label="School Year">
          <b-input
-          placeholder="Enter First Name"
+          placeholder="Enter School Year"
           type="text"
-          v-model="formData.first_name"
+          v-model="formData.school_year"
           required
-          minlength="4"
-          maxlength="30"
          ></b-input>
         </b-field>
 
-        <b-field label="Middle Name">
+        <b-field label="Description">
          <b-input
-          placeholder="Enter Middle Name"
+          placeholder="Enter Description"
           type="text"
-          v-model="formData.middle_name"
+          v-model="formData.description"
           required
-          minlength="4"
-          maxlength="30"
-         ></b-input>
-        </b-field>
-
-        <b-field label="Last Name">
-         <b-input
-          placeholder="Enter Last Name"
-          type="text"
-          v-model="formData.last_name"
-          required
-          minlength="4"
-          maxlength="30"
          ></b-input>
         </b-field>
        </section>
        <footer class="modal-card-foot">
-        <button
-         type="submit"
-         class="button is-success"
-        >{{ isNew ? "Save Course" : "Update Course" }}</button>
+        <button type="submit" class="button is-success">{{ isNew ? "Save" : "Update" }}</button>
         <a class="button" @click="cancel()">Cancel</a>
        </footer>
       </div>
@@ -89,7 +73,6 @@
      :per-page="perPage"
      :checkable="true"
      :hoverable="true"
-     default-sort="name"
      :data="academicYears"
     >
      <template slot-scope="props">
@@ -109,14 +92,14 @@
 
       <b-table-column custom-key="actions" class="is-actions-cell">
        <div class="buttons is-right">
-        <b-tooltip label="Click to edit" position="is-left">
-         <button class="button is-link" @click="edit(props.row)">
+        <b-tooltip label="Click to edit" type="is-dark" position="is-left">
+         <button class="button is-link btn-rounded" @click="edit(props.row)">
           <b-icon icon="pencil" size="is-small" />
          </button>
         </b-tooltip>
-        <b-tooltip label="Click to Delete" position="is-left">
+        <b-tooltip label="Click to Delete" type="is-dark" position="is-left">
          <button
-          class="button is-danger"
+          class="button is-danger btn-rounded"
           type="button"
           @click.prevent="deleteConfirmation(props.row)"
          >
@@ -166,7 +149,7 @@ export default {
  data() {
   return {
    isModalActive: false,
-   isLoading: false,
+   isLoading: true,
    paginated: false,
    perPage: 10,
    checkedRows: [],
@@ -174,19 +157,18 @@ export default {
    formData: {
     id: "",
     school_year: "",
-    description: 0,
-    email: "",
-    user_type: "admin",
-    password: "",
+    description: "",
    },
   };
  },
  computed: {
   ...mapGetters("academicYears", ["academicYears"]),
  },
-
  created() {
   this.fetchAcademicYears();
+  setTimeout(() => {
+   this.isLoading = false;
+  }, 300);
  },
 
  methods: {
@@ -210,7 +192,7 @@ export default {
    if (trashObject || this.checkedRows.length) {
     this.$buefy.dialog.confirm({
      title: "Deleting",
-     message: `Are you sure you want to <b>delete ${trashObject.description}</b> this?`,
+     message: `Are you sure you want to <b>delete ${trashObject.description}</b>?`,
      confirmText: "DELETE",
      type: "is-danger",
      hasIcon: true,
@@ -236,7 +218,6 @@ export default {
 
   async save() {
    let response = "";
-   console.log(this.formData);
    if (this.isNew) {
     response = await this.createAY(this.formData);
     if (response == undefined) {
@@ -249,7 +230,7 @@ export default {
      this.showNotification(message, "danger");
     }
    } else {
-    let response = await this.updateUser(this.formData);
+    let response = await this.updateAY(this.formData);
     if (response == undefined) {
      this.isModalActive = false;
 
@@ -277,12 +258,10 @@ export default {
   },
 
   clearForm() {
-   this.form = {
+   this.formData = {
     id: "",
-    first_name: "",
-    middle_name: "",
-    last_name: "",
-    is_active: true,
+    school_year: "",
+    description: "",
    };
   },
  },

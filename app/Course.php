@@ -9,10 +9,12 @@ class Course extends Model
 {
   use SoftDeletes;
   protected $dates = ['deleted_at'];
-  // protected $hidden = [
-  //   'created_at',
-  //   'updated_at',
-  // ];
+
+  protected $hidden = [
+    'created_at',
+    'updated_at',
+    'deleted_at'
+  ];
 
   protected $fillable = [
     'name',
@@ -20,13 +22,18 @@ class Course extends Model
     'description',
   ];
 
-  public function students()
+  public function student()
   {
-    return $this->belongsTo('App\Student', 'courseId');
+    return $this->belongsTo('App\Student');
   }
 
-  // public function subjects()
-  // {
-  //   return $this->hasMany('App\Subject', 'courseId');
-  // }
+  public function subjects()
+  {
+    return $this->hasMany(CourseSubject::class);
+  }
+
+  public function enrolledStudents()
+  {
+    return $this->hasMany(EnrolledStudent::class);
+  }
 }

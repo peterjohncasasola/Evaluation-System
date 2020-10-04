@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Client;
-use App\Http\Requests\ClientStoreRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ClientStoreRequest;
 
 class ClientsController extends Controller
 {
@@ -32,7 +33,7 @@ class ClientsController extends Controller
         });
 
         return response()->json([
-            'data' => $clients
+            'data' => $clients,
         ]);
     }
 

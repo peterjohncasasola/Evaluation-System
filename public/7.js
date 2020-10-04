@@ -218,12 +218,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -275,7 +269,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (trashObject || this.checkedRows.length) {
         this.$buefy.dialog.confirm({
           title: "Deleting",
-          message: "Are you sure you want to <b>delete ".concat(trashObject.code, "</b> this? This action cannot be undone."),
+          message: "Are you sure you want to <b>delete ".concat(trashObject.first_name, " ").concat(trashObject.last_name, "</b> this? This action cannot be undone."),
           confirmText: "Delete",
           type: "is-danger",
           hasIcon: true,
@@ -289,7 +283,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$buefy.notification.open({
         duration: 4000,
         message: message,
-        position: "is-bottom-right",
+        position: "is-top-right",
         type: "is-".concat(type),
         hasIcon: true,
         closable: true,
@@ -321,13 +315,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 5:
                 response = _context.sent;
 
-                if (response == undefined) {
+                if (response == undefined || response == null) {
                   _this2.isModalActive = false;
 
                   _this2.showNotification("Successfully created", "success");
                 } else {
                   key = Object.keys(response.errors);
-                  message = response.errors[key[0]][0];
+                  if (key) message = response.errors[key[0]][0];
 
                   _this2.showNotification(message, "danger");
                 }
@@ -374,7 +368,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.isNew = true;
     },
     clearForm: function clearForm() {
-      this.form = {
+      this.formData = {
         id: "",
         first_name: "",
         middle_name: "",
@@ -663,7 +657,7 @@ var render = function() {
                   attrs: {
                     active: _vm.isModalActive,
                     "has-modal-card": "",
-                    "can-cancel": "[]"
+                    "can-cancel": []
                   },
                   on: {
                     "update:active": function($event) {
@@ -688,11 +682,13 @@ var render = function() {
                         _c("header", { staticClass: "modal-card-head" }, [
                           _c("h3", { staticClass: "modal-card-title" }, [
                             _vm._v(
-                              _vm._s(
-                                _vm.isNew
-                                  ? "Creating Instructor"
-                                  : "Editing Instructor"
-                              )
+                              "\n        " +
+                                _vm._s(
+                                  _vm.isNew
+                                    ? "Creating Instructor"
+                                    : "Editing Instructor"
+                                ) +
+                                "\n       "
                             )
                           ]),
                           _vm._v(" "),
@@ -715,9 +711,7 @@ var render = function() {
                                   attrs: {
                                     placeholder: "Enter First Name",
                                     type: "text",
-                                    required: "",
-                                    minlength: "4",
-                                    maxlength: "30"
+                                    required: ""
                                   },
                                   model: {
                                     value: _vm.formData.first_name,
@@ -739,9 +733,7 @@ var render = function() {
                                   attrs: {
                                     placeholder: "Enter Middle Name",
                                     type: "text",
-                                    required: "",
-                                    minlength: "4",
-                                    maxlength: "30"
+                                    required: ""
                                   },
                                   model: {
                                     value: _vm.formData.middle_name,
@@ -763,9 +755,7 @@ var render = function() {
                                   attrs: {
                                     placeholder: "Enter Last Name",
                                     type: "text",
-                                    required: "",
-                                    minlength: "4",
-                                    maxlength: "30"
+                                    required: ""
                                   },
                                   model: {
                                     value: _vm.formData.last_name,
@@ -791,9 +781,9 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                _vm._s(
-                                  _vm.isNew ? "Save Course" : "Update Course"
-                                )
+                                "\n        " +
+                                  _vm._s(_vm.isNew ? "Save" : "Update") +
+                                  "\n       "
                               )
                             ]
                           ),

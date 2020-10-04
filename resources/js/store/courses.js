@@ -10,6 +10,7 @@ const getters = {
   getCourseById: state => id => {
     return state.courses.find(course => course.id === id);
   },
+
   courses: state => state.courses,
   course: state => state.course,
   errors: state => state.errors
@@ -39,12 +40,6 @@ const mutations = {
   }
 }
 
-let notify = {
-  active: true,
-  type: 'is-success',
-  message: 'Record successfully saved.',
-};
-
 const actions = {
   async createCourse({
     commit,
@@ -53,8 +48,9 @@ const actions = {
     try {
       await CourseService.postCourse(payload);
       commit('ADD_COURSE', payload);
+      commit('SET_ERRORS', null)
     } catch (errors) {
-      return errors.response.data
+      commit('SET_ERRORS', errors.response.data)
     }
   },
 

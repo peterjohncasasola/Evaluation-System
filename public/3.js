@@ -1,439 +1,33 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[3],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FilePicker.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FilePicker.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Students/Form.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Students/Form.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/each */ "./node_modules/lodash/each.js");
-/* harmony import */ var lodash_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_each__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'FilePicker',
-  props: {
-    label: {
-      type: String,
-      "default": null
-    },
-    message: {
-      type: String,
-      "default": null
-    },
-    currentFile: {
-      "default": null
-    }
-  },
-  data: function data() {
-    return {
-      errors: {},
-      file: null,
-      uploadPercent: 0,
-      isUploadSuccess: false
-    };
-  },
-  computed: {
-    fieldFileMessage: function fieldFileMessage() {
-      if (this.errors.file) {
-        return this.errors.file[0];
-      }
-
-      if (this.isUploadSuccess) {
-        return 'File uploaded. Submit to store';
-      }
-
-      if (this.uploadPercent) {
-        return "Uploading ".concat(this.uploadPercent, "%");
-      }
-
-      return this.message;
-    },
-    uploadButtonText: function uploadButtonText() {
-      return this.fileName ? null : 'Pick a file';
-    },
-    uploadButtonIcon: function uploadButtonIcon() {
-      return this.fileName ? 'cloud-sync' : 'cloud-upload';
-    },
-    fieldFileType: function fieldFileType() {
-      return this.errors.file ? 'is-danger' : null;
-    },
-    fileName: function fileName() {
-      if (this.file) {
-        return this.file.name;
-      }
-
-      if (this.currentFile) {
-        return this.currentFile;
-      }
-
-      return null;
-    }
-  },
-  methods: {
-    upload: function upload(file) {
-      var _this = this;
-
-      this.errors = {};
-      var formData = new FormData();
-      formData.append('file', this.file);
-      this.isUploadSuccess = false;
-      axios.post('/files/store', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
-        onUploadProgress: this.progressEvent
-      }).then(function (r) {
-        _this.isUploadSuccess = true; // Display success data & then drop it after a little while
-        // setTimeout(() => {
-        //   this.file = null
-        //   this.isUploadSuccess = false
-        //   this.uploadPercent = 0
-        // }, 1500)
-
-        _this.$emit('file-updated', r.data.data);
-
-        _this.$emit('file-id-updated', r.data.data.id);
-      })["catch"](function (err) {
-        _this.file = null;
-        _this.uploadPercent = 0;
-
-        if (err.response.data.errors) {
-          _this.errors = err.response.data.errors;
-        } else {
-          _this.errors = {
-            _all: ['Upload error']
-          };
-        }
-
-        lodash_each__WEBPACK_IMPORTED_MODULE_0___default()(_this.errors, function (err) {
-          _this.$buefy.toast.open({
-            message: err[0],
-            type: 'is-danger',
-            queue: false
-          });
-        });
-      });
-    },
-    dropFile: function dropFile() {
-      this.file = null;
-      this.isUploadSuccess = false;
-      this.uploadPercent = 0;
-      this.$emit('file-updated', null);
-      this.$emit('file-id-updated', null);
-    },
-    progressEvent: function progressEvent(_progressEvent) {
-      this.uploadPercent = Math.round(_progressEvent.loaded * 100 / _progressEvent.total);
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PasswordUpdateForm.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PasswordUpdateForm.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/each */ "./node_modules/lodash/each.js");
-/* harmony import */ var lodash_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_each__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _apiClient__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../apiClient */ "./resources/js/apiClient.js");
+/* harmony import */ var _components_TitleBar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/TitleBar */ "./resources/js/components/TitleBar.vue");
+/* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
+/* harmony import */ var lodash_mapValues__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash/mapValues */ "./node_modules/lodash/mapValues.js");
+/* harmony import */ var lodash_mapValues__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash_mapValues__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _components_HeroBar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/HeroBar */ "./resources/js/components/HeroBar.vue");
 
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'PasswordUpdateForm',
-  components: {
-    CardComponent: _components_CardComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  data: function data() {
-    return {
-      isLoading: false,
-      errors: {},
-      form: {
-        password_current: null,
-        password: null,
-        password_confirmation: null
-      }
-    };
-  },
-  computed: {
-    formPasswordCurrentType: function formPasswordCurrentType() {
-      return this.errors.password_current ? 'is-danger' : null;
-    },
-    formPasswordCurrentMessage: function formPasswordCurrentMessage() {
-      return this.errors.password_current ? this.errors.password_current[0] : 'Required. Your current password';
-    },
-    formPasswordType: function formPasswordType() {
-      return this.errors.password ? 'is-danger' : null;
-    },
-    formPasswordMessage: function formPasswordMessage() {
-      return this.errors.password ? this.errors.password[0] : 'Required. New password';
-    }
-  },
-  methods: {
-    submit: function submit() {
-      var _this = this;
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-      this.isLoading = true;
-      this.errors = {};
-      axios.patch('/user/password', this.form).then(function (r) {
-        _this.isLoading = false;
-        _this.form.password_current = null;
-        _this.form.password = null;
-        _this.form.password_confirmation = null;
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
-        _this.$buefy.snackbar.open({
-          message: 'Password updated',
-          duration: 1000,
-          queue: false
-        });
-      })["catch"](function (err) {
-        _this.isLoading = false;
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-        if (err.response.data.errors) {
-          _this.errors = err.response.data.errors;
-        } else {
-          _this.errors = {
-            _all: ['An error occurred']
-          };
-        }
-
-        lodash_each__WEBPACK_IMPORTED_MODULE_0___default()(_this.errors, function (err) {
-          _this.$buefy.toast.open({
-            message: err[0],
-            type: 'is-danger',
-            queue: false,
-            duration: 3000
-          });
-        });
-      });
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileUpdateForm.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfileUpdateForm.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/each */ "./node_modules/lodash/each.js");
-/* harmony import */ var lodash_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_each__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _components_FilePicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/FilePicker */ "./resources/js/components/FilePicker.vue");
-/* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'ProfileUpdateForm',
-  components: {
-    CardComponent: _components_CardComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
-    FilePicker: _components_FilePicker__WEBPACK_IMPORTED_MODULE_2__["default"]
-  },
-  data: function data() {
-    return {
-      isFileUploaded: false,
-      isLoading: false,
-      errors: {},
-      form: {
-        name: null,
-        email: null,
-        file_id: null
-      }
-    };
-  },
-  computed: _objectSpread({
-    formNameType: function formNameType() {
-      return this.errors.name ? 'is-danger' : null;
-    },
-    formNameMessage: function formNameMessage() {
-      return this.errors.name ? this.errors.name[0] : 'Required. Your name';
-    },
-    formEmailType: function formEmailType() {
-      return this.errors.email ? 'is-danger' : null;
-    },
-    formEmailMessage: function formEmailMessage() {
-      return this.errors.email ? this.errors.email[0] : 'Required. Your e-mail';
-    }
-  }, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['userName', 'userEmail'])),
-  mounted: function mounted() {
-    this.form.name = this.userName;
-    this.form.email = this.userEmail;
-  },
-  methods: {
-    fileStored: function fileStored(file) {
-      this.isFileUploaded = true;
-      this.form.file_id = file.id;
-
-      if (this.form.name && this.form.email) {
-        this.submit();
-      }
-    },
-    emitIsForbidden: function emitIsForbidden() {
-      this.$emit('is-forbidden');
-    },
-    submit: function submit() {
-      var _this = this;
-
-      this.isFileUploaded = false;
-      this.isLoading = true;
-      this.errors = {};
-      axios.patch('/user', this.form).then(function (r) {
-        _this.isLoading = false;
-
-        _this.$store.commit('user', r.data.data);
-
-        _this.$buefy.snackbar.open({
-          message: 'Profile updated',
-          duration: 1000,
-          queue: false
-        });
-      })["catch"](function (err) {
-        _this.isLoading = false;
-
-        if (err.response.data.errors) {
-          _this.errors = err.response.data.errors;
-        } else if (err.response.status === 403) {
-          _this.$emit('is-forbidden');
-
-          _this.errors = {
-            _all: ['Forbidden with demo account']
-          };
-        } else {
-          console.error(err.response);
-          _this.errors = {
-            _all: ['An error occurred']
-          };
-        }
-
-        lodash_each__WEBPACK_IMPORTED_MODULE_0___default()(_this.errors, function (err) {
-          _this.$buefy.toast.open({
-            message: err[0],
-            type: 'is-danger',
-            queue: false,
-            duration: 3000
-          });
-        });
-      });
-    }
-  },
-  watch: {
-    userName: function userName(newValue) {
-      this.form.name = newValue;
-    },
-    userEmail: function userEmail(newValue) {
-      this.form.email = newValue;
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Profile.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Profile.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
-/* harmony import */ var _components_TitleBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/TitleBar */ "./resources/js/components/TitleBar.vue");
-/* harmony import */ var _components_HeroBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/HeroBar */ "./resources/js/components/HeroBar.vue");
-/* harmony import */ var _components_ProfileUpdateForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/ProfileUpdateForm */ "./resources/js/components/ProfileUpdateForm.vue");
-/* harmony import */ var _components_PasswordUpdateForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/PasswordUpdateForm */ "./resources/js/components/PasswordUpdateForm.vue");
-/* harmony import */ var _components_Tiles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/Tiles */ "./resources/js/components/Tiles.vue");
-/* harmony import */ var _components_UserAvatar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/UserAvatar */ "./resources/js/components/UserAvatar.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -469,7 +63,252 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -478,515 +317,309 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Profile',
+  name: "Forms",
   components: {
-    UserAvatar: _components_UserAvatar__WEBPACK_IMPORTED_MODULE_7__["default"],
-    Tiles: _components_Tiles__WEBPACK_IMPORTED_MODULE_6__["default"],
-    PasswordUpdateForm: _components_PasswordUpdateForm__WEBPACK_IMPORTED_MODULE_5__["default"],
-    ProfileUpdateForm: _components_ProfileUpdateForm__WEBPACK_IMPORTED_MODULE_4__["default"],
-    HeroBar: _components_HeroBar__WEBPACK_IMPORTED_MODULE_3__["default"],
-    TitleBar: _components_TitleBar__WEBPACK_IMPORTED_MODULE_2__["default"],
-    CardComponent: _components_CardComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
+    HeroBar: _components_HeroBar__WEBPACK_IMPORTED_MODULE_7__["default"],
+    CardComponent: _components_CardComponent__WEBPACK_IMPORTED_MODULE_5__["default"],
+    TitleBar: _components_TitleBar__WEBPACK_IMPORTED_MODULE_4__["default"]
+  },
+  data: function data() {
+    return {
+      curriculums: [],
+      errors: {},
+      isNew: true,
+      paramId: this.$route.params.id,
+      isLoading: false,
+      bday: new Date(),
+      form: {
+        id: "",
+        student_id: "",
+        first_name: "",
+        middle_name: "",
+        last_name: "",
+        guardian_contact: "",
+        contact_no: "",
+        curriculum_year: "",
+        birth_place: "",
+        guardian_name: "",
+        nationality: "",
+        religion: "",
+        address: "",
+        civil_status: "",
+        course_id: "",
+        birth_date: "",
+        sex: ""
+      },
+      civilStatus: ["Single", "Married", "Widow"]
+    };
   },
   computed: _objectSpread({
     titleStack: function titleStack() {
-      return ['Admin', 'Profile'];
+      return ["Master Files", "Students", "New"];
     }
-  }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['userName', 'userEmail']))
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("students", ["student"])),
+  created: function created() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _this.fetchCourses();
+
+              if (!(_this.$route.params.id !== undefined)) {
+                _context.next = 9;
+                break;
+              }
+
+              _this.isNew = false;
+              _context.next = 5;
+              return _this.fetchStudent(_this.$route.params.id);
+
+            case 5:
+              Object.assign(_this.form, _this.student);
+              console.log(_this.form);
+
+              _this.getCurriculumsByCourse(_this.student.course_id);
+
+              _this.options.course.searchText = _this.student.course.description;
+
+            case 9:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("courses", ["fetchCourses"])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("students", ["updateStudent", "createStudent", "fetchStudent"])), {}, {
+    inputDate: function inputDate(val) {
+      this.form.birth_date = moment__WEBPACK_IMPORTED_MODULE_1___default()(val).format("L").toString();
+    },
+    getCurriculumsByCourse: function getCurriculumsByCourse(id) {
+      var _this2 = this;
+
+      this.form.course_id = id === null ? 0 : id;
+      _apiClient__WEBPACK_IMPORTED_MODULE_3__["default"].get("/courses/".concat(this.form.course_id, "/curriculums")).then(function (response) {
+        _this2.curriculums = response.data.data.map(function (cur) {
+          return cur.curriculum;
+        });
+      });
+    },
+    onInput: function onInput(event) {
+      this.form.student_id = event.target._vCleave.getFormattedValue();
+      console.log(this.form.student_id);
+    },
+    submit: function submit() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this3.errors = {};
+                response = null;
+                _this3.form.birth_date = moment__WEBPACK_IMPORTED_MODULE_1___default()(_this3.bday).format("YYYY-MM-DD");
+
+                if (!_this3.isNew) {
+                  _context2.next = 10;
+                  break;
+                }
+
+                _context2.next = 6;
+                return _this3.createStudent(_this3.form);
+
+              case 6:
+                response = _context2.sent;
+
+                if (response == undefined || response == null) {
+                  _this3.showNotification("Successfully Saved.", "success");
+                } else {
+                  _this3.errors = response.errors;
+                }
+
+                _context2.next = 12;
+                break;
+
+              case 10:
+                _context2.next = 12;
+                return _this3.update();
+
+              case 12:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    update: function update() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                response = null;
+                _context3.next = 3;
+                return _this4.updateStudent(_this4.form);
+
+              case 3:
+                response = _context3.sent;
+
+                if (response == undefined || response == null) {
+                  _this4.showNotification("Successfully updated", "success");
+                } else {
+                  _this4.errors = response.errors;
+                }
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    reset: function reset() {
+      this.form = lodash_mapValues__WEBPACK_IMPORTED_MODULE_6___default()(this.form, function (item) {
+        if (item && _typeof(item) === "object") {
+          return [];
+        }
+
+        return null;
+      });
+      this.$buefy.snackbar.open({
+        message: "Reset successfully",
+        queue: false
+      });
+    }
+  })
 });
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_arrayEach.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_arrayEach.js ***!
-  \*******************************************/
+/***/ "./node_modules/lodash/_baseAssignValue.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_baseAssignValue.js ***!
+  \*************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+var defineProperty = __webpack_require__(/*! ./_defineProperty */ "./node_modules/lodash/_defineProperty.js");
 
 /**
- * A specialized version of `_.forEach` for arrays without support for
- * iteratee shorthands.
+ * The base implementation of `assignValue` and `assignMergeValue` without
+ * value checks.
  *
  * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns `array`.
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
  */
-function arrayEach(array, iteratee) {
-  var index = -1,
-      length = array == null ? 0 : array.length;
-
-  while (++index < length) {
-    if (iteratee(array[index], index, array) === false) {
-      break;
-    }
+function baseAssignValue(object, key, value) {
+  if (key == '__proto__' && defineProperty) {
+    defineProperty(object, key, {
+      'configurable': true,
+      'enumerable': true,
+      'value': value,
+      'writable': true
+    });
+  } else {
+    object[key] = value;
   }
-  return array;
 }
 
-module.exports = arrayEach;
+module.exports = baseAssignValue;
 
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_castFunction.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_castFunction.js ***!
-  \**********************************************/
+/***/ "./node_modules/lodash/_defineProperty.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_defineProperty.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var identity = __webpack_require__(/*! ./identity */ "./node_modules/lodash/identity.js");
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js");
+
+var defineProperty = (function() {
+  try {
+    var func = getNative(Object, 'defineProperty');
+    func({}, '', {});
+    return func;
+  } catch (e) {}
+}());
+
+module.exports = defineProperty;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/mapValues.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/mapValues.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js"),
+    baseForOwn = __webpack_require__(/*! ./_baseForOwn */ "./node_modules/lodash/_baseForOwn.js"),
+    baseIteratee = __webpack_require__(/*! ./_baseIteratee */ "./node_modules/lodash/_baseIteratee.js");
 
 /**
- * Casts `value` to `identity` if it's not a function.
- *
- * @private
- * @param {*} value The value to inspect.
- * @returns {Function} Returns cast function.
- */
-function castFunction(value) {
-  return typeof value == 'function' ? value : identity;
-}
-
-module.exports = castFunction;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/each.js":
-/*!*************************************!*\
-  !*** ./node_modules/lodash/each.js ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! ./forEach */ "./node_modules/lodash/forEach.js");
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/forEach.js":
-/*!****************************************!*\
-  !*** ./node_modules/lodash/forEach.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayEach = __webpack_require__(/*! ./_arrayEach */ "./node_modules/lodash/_arrayEach.js"),
-    baseEach = __webpack_require__(/*! ./_baseEach */ "./node_modules/lodash/_baseEach.js"),
-    castFunction = __webpack_require__(/*! ./_castFunction */ "./node_modules/lodash/_castFunction.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js");
-
-/**
- * Iterates over elements of `collection` and invokes `iteratee` for each element.
- * The iteratee is invoked with three arguments: (value, index|key, collection).
- * Iteratee functions may exit iteration early by explicitly returning `false`.
- *
- * **Note:** As with other "Collections" methods, objects with a "length"
- * property are iterated like arrays. To avoid this behavior use `_.forIn`
- * or `_.forOwn` for object iteration.
+ * Creates an object with the same keys as `object` and values generated
+ * by running each own enumerable string keyed property of `object` thru
+ * `iteratee`. The iteratee is invoked with three arguments:
+ * (value, key, object).
  *
  * @static
  * @memberOf _
- * @since 0.1.0
- * @alias each
- * @category Collection
- * @param {Array|Object} collection The collection to iterate over.
+ * @since 2.4.0
+ * @category Object
+ * @param {Object} object The object to iterate over.
  * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @returns {Array|Object} Returns `collection`.
- * @see _.forEachRight
+ * @returns {Object} Returns the new mapped object.
+ * @see _.mapKeys
  * @example
  *
- * _.forEach([1, 2], function(value) {
- *   console.log(value);
- * });
- * // => Logs `1` then `2`.
+ * var users = {
+ *   'fred':    { 'user': 'fred',    'age': 40 },
+ *   'pebbles': { 'user': 'pebbles', 'age': 1 }
+ * };
  *
- * _.forEach({ 'a': 1, 'b': 2 }, function(value, key) {
- *   console.log(key);
- * });
- * // => Logs 'a' then 'b' (iteration order is not guaranteed).
+ * _.mapValues(users, function(o) { return o.age; });
+ * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
+ *
+ * // The `_.property` iteratee shorthand.
+ * _.mapValues(users, 'age');
+ * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
  */
-function forEach(collection, iteratee) {
-  var func = isArray(collection) ? arrayEach : baseEach;
-  return func(collection, castFunction(iteratee));
+function mapValues(object, iteratee) {
+  var result = {};
+  iteratee = baseIteratee(iteratee, 3);
+
+  baseForOwn(object, function(value, key, object) {
+    baseAssignValue(result, key, iteratee(value, key, object));
+  });
+  return result;
 }
 
-module.exports = forEach;
+module.exports = mapValues;
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FilePicker.vue?vue&type=template&id=7d05e4d5&":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FilePicker.vue?vue&type=template&id=7d05e4d5& ***!
-  \*************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "b-field",
-    {
-      attrs: {
-        label: _vm.label,
-        message: _vm.fieldFileMessage,
-        type: _vm.fieldFileType
-      }
-    },
-    [
-      _c(
-        "b-field",
-        [
-          _c(
-            "b-upload",
-            {
-              on: { input: _vm.upload },
-              model: {
-                value: _vm.file,
-                callback: function($$v) {
-                  _vm.file = $$v
-                },
-                expression: "file"
-              }
-            },
-            [
-              _c(
-                "a",
-                { staticClass: "button is-primary" },
-                [
-                  _c("b-icon", {
-                    attrs: {
-                      icon: _vm.uploadButtonIcon,
-                      "custom-size": "default"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm.uploadButtonText
-                    ? _c("span", [_vm._v(_vm._s(_vm.uploadButtonText))])
-                    : _vm._e()
-                ],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _vm.fileName
-            ? _c("div", { staticClass: "control" }, [
-                _c(
-                  "a",
-                  { staticClass: "button is-static is-file-upload-label" },
-                  [
-                    _c("span", { attrs: { title: _vm.fileName } }, [
-                      _vm._v(_vm._s(_vm.fileName))
-                    ]),
-                    _vm._v(" "),
-                    _c("span", {
-                      staticClass: "delete",
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.dropFile($event)
-                        }
-                      }
-                    })
-                  ]
-                )
-              ])
-            : _vm._e()
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PasswordUpdateForm.vue?vue&type=template&id=c95bd85a&":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PasswordUpdateForm.vue?vue&type=template&id=c95bd85a& ***!
-  \*********************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "card-component",
-    { attrs: { title: "Change Password", icon: "lock" } },
-    [
-      _c(
-        "form",
-        {
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.submit($event)
-            }
-          }
-        },
-        [
-          _c(
-            "b-field",
-            {
-              attrs: {
-                horizontal: "",
-                label: "Current password",
-                message: _vm.formPasswordCurrentMessage,
-                type: _vm.formPasswordCurrentType
-              }
-            },
-            [
-              _c("b-input", {
-                attrs: {
-                  name: "password_current",
-                  type: "password",
-                  required: "",
-                  autcomplete: "current-password"
-                },
-                model: {
-                  value: _vm.form.password_current,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form, "password_current", $$v)
-                  },
-                  expression: "form.password_current"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c(
-            "b-field",
-            {
-              attrs: {
-                horizontal: "",
-                label: "New password",
-                message: _vm.formPasswordMessage,
-                type: _vm.formPasswordType
-              }
-            },
-            [
-              _c("b-input", {
-                attrs: {
-                  name: "password",
-                  type: "password",
-                  required: "",
-                  autocomplete: "new-password"
-                },
-                model: {
-                  value: _vm.form.password,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form, "password", $$v)
-                  },
-                  expression: "form.password"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-field",
-            {
-              attrs: {
-                horizontal: "",
-                label: "New password (confirm)",
-                message: "Required. New password one more time"
-              }
-            },
-            [
-              _c("b-input", {
-                attrs: {
-                  name: "password_confirmation",
-                  type: "password",
-                  required: "",
-                  autocomplete: "new-password"
-                },
-                model: {
-                  value: _vm.form.password_confirmation,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form, "password_confirmation", $$v)
-                  },
-                  expression: "form.password_confirmation"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c("b-field", { attrs: { horizontal: "" } }, [
-            _c("div", { staticClass: "control" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "button is-primary",
-                  class: { "is-loading": _vm.isLoading },
-                  attrs: { type: "submit" }
-                },
-                [_vm._v("\n          Submit\n        ")]
-              )
-            ])
-          ])
-        ],
-        1
-      )
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileUpdateForm.vue?vue&type=template&id=5aad544a&":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfileUpdateForm.vue?vue&type=template&id=5aad544a& ***!
-  \********************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "card-component",
-    { attrs: { title: "Edit Profile", icon: "account-circle" } },
-    [
-      _c(
-        "form",
-        {
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.submit($event)
-            }
-          }
-        },
-        [
-          _c(
-            "b-field",
-            { attrs: { horizontal: "", label: "Avatar" } },
-            [_c("file-picker", { on: { "file-stored": _vm.fileStored } })],
-            1
-          ),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c(
-            "b-field",
-            {
-              attrs: {
-                horizontal: "",
-                label: "Name",
-                message: _vm.formNameMessage,
-                type: _vm.formNameType
-              }
-            },
-            [
-              _c("b-input", {
-                attrs: { name: "name", required: "" },
-                model: {
-                  value: _vm.form.name,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form, "name", $$v)
-                  },
-                  expression: "form.name"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-field",
-            {
-              attrs: {
-                horizontal: "",
-                label: "E-mail",
-                message: _vm.formEmailMessage,
-                type: _vm.formEmailType
-              }
-            },
-            [
-              _c("b-input", {
-                attrs: { name: "email", type: "email", required: "" },
-                model: {
-                  value: _vm.form.email,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form, "email", $$v)
-                  },
-                  expression: "form.email"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c("b-field", { attrs: { horizontal: "" } }, [
-            _c("div", { staticClass: "control" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "button is-primary",
-                  class: { "is-loading": _vm.isLoading },
-                  attrs: { type: "submit" }
-                },
-                [_vm._v("\n          Submit\n        ")]
-              )
-            ])
-          ])
-        ],
-        1
-      )
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Profile.vue?vue&type=template&id=25b9215a&":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Profile.vue?vue&type=template&id=25b9215a& ***!
-  \*****************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Students/Form.vue?vue&type=template&id=18ec12ec&":
+/*!***********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Students/Form.vue?vue&type=template&id=18ec12ec& ***!
+  \***********************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1006,15 +639,15 @@ var render = function() {
       _c(
         "hero-bar",
         [
-          _vm._v("\n    Profile\n    "),
+          _vm._v("\n    New Student\n    "),
           _c(
             "router-link",
             {
               staticClass: "button",
-              attrs: { slot: "right", to: "/" },
+              attrs: { slot: "right", to: { name: "students-list" } },
               slot: "right"
             },
-            [_vm._v("\n      Dashboard\n    ")]
+            [_vm._v("List")]
           )
         ],
         1
@@ -1024,35 +657,514 @@ var render = function() {
         "section",
         { staticClass: "section is-main-section" },
         [
-          _c(
-            "tiles",
-            [
-              _c("profile-update-form", { staticClass: "tile is-child" }),
-              _vm._v(" "),
+          _c("card-component", { attrs: { title: "Forms", icon: "ballot" } }, [
+            _c("div", { staticClass: "container" }, [
               _c(
-                "card-component",
+                "form",
                 {
-                  staticClass: "tile is-child",
-                  attrs: { title: "Profile", icon: "account" }
+                  attrs: { novalidate: "" },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.submit($event)
+                    }
+                  }
                 },
                 [
-                  _c("user-avatar", {
-                    staticClass: "image has-max-width is-aligned-center"
-                  }),
-                  _vm._v(" "),
-                  _c("hr"),
+                  _c(
+                    "b-field",
+                    { attrs: { label: "ID Number", horizontal: "" } },
+                    [
+                      _c(
+                        "b-field",
+                        {
+                          attrs: {
+                            type:
+                              _vm.errors.student_id == null ? "" : "is-danger",
+                            message:
+                              _vm.errors.student_id == null
+                                ? ""
+                                : _vm.errors.student_id
+                          }
+                        },
+                        [
+                          _c("b-input", {
+                            directives: [
+                              {
+                                name: "cleave",
+                                rawName: "v-cleave",
+                                value: _vm.masks.studentId,
+                                expression: "masks.studentId"
+                              }
+                            ],
+                            attrs: {
+                              icon: "id-card",
+                              value: _vm.form.student_id,
+                              placeholder:
+                                "Enter School ID Number | e.g 20-XXXXX",
+                              required: ""
+                            },
+                            nativeOn: {
+                              input: function($event) {
+                                return _vm.onInput($event)
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
                   _c(
                     "b-field",
-                    { attrs: { label: "Name" } },
+                    { attrs: { label: "Student Name", horizontal: "" } },
+                    [
+                      _c(
+                        "b-field",
+                        {
+                          attrs: {
+                            type:
+                              _vm.errors.last_name == null ? "" : "is-danger",
+                            message:
+                              _vm.errors.last_name == null
+                                ? ""
+                                : _vm.errors.last_name
+                          }
+                        },
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              icon: "account",
+                              placeholder: "Enter Last Name",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.form.last_name,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "last_name", $$v)
+                              },
+                              expression: "form.last_name"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        {
+                          attrs: {
+                            type:
+                              _vm.errors.first_name == null ? "" : "is-danger",
+                            message:
+                              _vm.errors.first_name == null
+                                ? ""
+                                : _vm.errors.first_name
+                          }
+                        },
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              icon: "account",
+                              placeholder: "Enter First Name",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.form.first_name,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "first_name", $$v)
+                              },
+                              expression: "form.first_name"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        {
+                          attrs: {
+                            type:
+                              _vm.errors.middle_name == null ? "" : "is-danger",
+                            message:
+                              _vm.errors.middle_name == null
+                                ? ""
+                                : _vm.errors.middle_name
+                          }
+                        },
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              icon: "account",
+                              required: "",
+                              placeholder: "Enter Middle Name"
+                            },
+                            model: {
+                              value: _vm.form.middle_name,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "middle_name", $$v)
+                              },
+                              expression: "form.middle_name"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-field",
+                    {
+                      attrs: {
+                        label: "Address",
+                        type: _vm.errors.address == null ? "" : "is-danger",
+                        message:
+                          _vm.errors.address == null ? "" : _vm.errors.address,
+                        horizontal: ""
+                      }
+                    },
                     [
                       _c("b-input", {
                         attrs: {
-                          value: _vm.userName,
-                          "custom-class": "is-static",
-                          readonly: ""
+                          icon: "map-marker",
+                          placeholder: "Enter Permanent Address"
+                        },
+                        model: {
+                          value: _vm.form.address,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "address", $$v)
+                          },
+                          expression: "form.address"
                         }
                       })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-field",
+                    [
+                      _c(
+                        "b-field",
+                        {
+                          attrs: {
+                            type: _vm.errors.sex == null ? "" : "is-danger",
+                            message:
+                              _vm.errors.sex == null ? "" : _vm.errors.sex,
+                            horizontal: "",
+                            label: "Gender"
+                          }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {},
+                            [
+                              _c(
+                                "b-radio",
+                                {
+                                  attrs: {
+                                    name: "sex",
+                                    "native-value": "Male"
+                                  },
+                                  model: {
+                                    value: _vm.form.sex,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.form, "sex", $$v)
+                                    },
+                                    expression: "form.sex"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                  Male\n                "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-radio",
+                                {
+                                  attrs: {
+                                    name: "sex",
+                                    "native-value": "Female"
+                                  },
+                                  model: {
+                                    value: _vm.form.sex,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.form, "sex", $$v)
+                                    },
+                                    expression: "form.sex"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                  Female\n                "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-field",
+                    {
+                      attrs: {
+                        type:
+                          _vm.errors.civil_status == null ? "" : "is-danger",
+                        message:
+                          _vm.errors.civil_status == null
+                            ? ""
+                            : _vm.errors.civil_status,
+                        label: "Civil Status",
+                        horizontal: ""
+                      }
+                    },
+                    [
+                      _c(
+                        "b-select",
+                        {
+                          attrs: {
+                            icon: "clipboard-list",
+                            expanded: "",
+                            placeholder: "Select Course",
+                            required: ""
+                          },
+                          model: {
+                            value: _vm.form.civil_status,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "civil_status", $$v)
+                            },
+                            expression: "form.civil_status"
+                          }
+                        },
+                        _vm._l(_vm.civilStatus, function(status, index) {
+                          return _c(
+                            "option",
+                            { key: index, domProps: { value: status } },
+                            [
+                              _vm._v(
+                                "\n                " +
+                                  _vm._s(status) +
+                                  "\n              "
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-field",
+                    {
+                      attrs: {
+                        label: "Date of Birth",
+                        type: _vm.errors.birth_date == null ? "" : "is-danger",
+                        message:
+                          _vm.errors.birth_date == null
+                            ? ""
+                            : _vm.errors.birth_date,
+                        horizontal: ""
+                      }
+                    },
+                    [
+                      _c("b-datepicker", {
+                        attrs: {
+                          placeholder: "Type or select a date...",
+                          icon: "calendar-today",
+                          editable: ""
+                        },
+                        model: {
+                          value: _vm.bday,
+                          callback: function($$v) {
+                            _vm.bday = $$v
+                          },
+                          expression: "bday"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-field",
+                    {
+                      attrs: {
+                        label: "Contact Number",
+                        type: _vm.errors.contact_no == null ? "" : "is-danger",
+                        message:
+                          _vm.errors.contact_no == null
+                            ? ""
+                            : _vm.errors.contact_no,
+                        horizontal: ""
+                      }
+                    },
+                    [
+                      _c(
+                        "b-field",
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              icon: "contact-phone",
+                              type: "text",
+                              name: "phone",
+                              expanded: ""
+                            },
+                            model: {
+                              value: _vm.form.contact_no,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "contact_no", $$v)
+                              },
+                              expression: "form.contact_no"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-field",
+                    { attrs: { label: "Course/Curriculum", horizontal: "" } },
+                    [
+                      _c(
+                        "b-field",
+                        {
+                          attrs: {
+                            type:
+                              _vm.errors.course_id == null ? "" : "is-danger",
+                            message:
+                              _vm.errors.course_id == null
+                                ? ""
+                                : _vm.errors.course_id
+                          }
+                        },
+                        [
+                          _c("b-autocomplete", {
+                            attrs: {
+                              icon: "clipboard-list",
+                              expanded: "",
+                              required: "",
+                              placeholder:
+                                "e.g. Bachelor of Science in Information Technology",
+                              data: _vm.getFilteredCourses,
+                              field: "description",
+                              "open-on-focus": true,
+                              clearable: true
+                            },
+                            on: {
+                              select: function(option) {
+                                return _vm.getCurriculumsByCourse(option.id)
+                              }
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function(props) {
+                                  return [
+                                    _c("div", { staticClass: "media" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "media-content" },
+                                        [
+                                          _c("strong", [
+                                            _vm._v(
+                                              _vm._s(props.option.course_code)
+                                            )
+                                          ]),
+                                          _vm._v(
+                                            "\n                      | " +
+                                              _vm._s(props.option.description) +
+                                              "\n                    "
+                                          )
+                                        ]
+                                      )
+                                    ])
+                                  ]
+                                }
+                              }
+                            ]),
+                            model: {
+                              value: _vm.options.course.searchText,
+                              callback: function($$v) {
+                                _vm.$set(_vm.options.course, "searchText", $$v)
+                              },
+                              expression: "options.course.searchText"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        {
+                          attrs: {
+                            type:
+                              _vm.errors.curriculum_year == null
+                                ? ""
+                                : "is-danger",
+                            message:
+                              _vm.errors.curriculum_year == null
+                                ? ""
+                                : _vm.errors.curriculum_year
+                          }
+                        },
+                        [
+                          _c(
+                            "b-select",
+                            {
+                              attrs: {
+                                icon: "calendar-account",
+                                expanded: "",
+                                placeholder: "Select Curriculum Year",
+                                required: ""
+                              },
+                              model: {
+                                value: _vm.form.curriculum_year,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.form, "curriculum_year", $$v)
+                                },
+                                expression: "form.curriculum_year"
+                              }
+                            },
+                            _vm._l(_vm.curriculums, function(
+                              curriculum,
+                              index
+                            ) {
+                              return _c(
+                                "option",
+                                { key: index, domProps: { value: curriculum } },
+                                [
+                                  _vm._v(
+                                    "\n                  " +
+                                      _vm._s(curriculum) +
+                                      "\n                "
+                                  )
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        ],
+                        1
+                      )
                     ],
                     1
                   ),
@@ -1061,26 +1173,197 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "b-field",
-                    { attrs: { label: "E-mail" } },
+                    { attrs: { label: "Place of Birth", horizontal: "" } },
                     [
                       _c("b-input", {
                         attrs: {
-                          value: _vm.userEmail,
-                          "custom-class": "is-static",
-                          readonly: ""
+                          icon: "map-marker",
+                          placeholder: "Enter Place of Birth (Optional)"
+                        },
+                        model: {
+                          value: _vm.form.birth_place,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "birth_place", $$v)
+                          },
+                          expression: "form.birth_place"
                         }
                       })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-field",
+                    {
+                      attrs: { label: "Guardian Name/Contact", horizontal: "" }
+                    },
+                    [
+                      _c(
+                        "b-field",
+                        {
+                          attrs: {
+                            type:
+                              _vm.errors.guardian_name == null
+                                ? ""
+                                : "is-danger",
+                            message:
+                              _vm.errors.guardian_name == null
+                                ? ""
+                                : _vm.errors.guardian_name
+                          }
+                        },
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              icon: "account",
+                              placeholder: "Enter Guardian Name (Optional)"
+                            },
+                            model: {
+                              value: _vm.form.guardian_name,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "guardian_name", $$v)
+                              },
+                              expression: "form.guardian_name"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        {
+                          attrs: {
+                            type:
+                              _vm.errors.guardian_contact == null
+                                ? ""
+                                : "is-danger",
+                            message:
+                              _vm.errors.guardian_contact == null
+                                ? ""
+                                : _vm.errors.guardian_contact
+                          }
+                        },
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              icon: "contact-phone",
+                              placeholder:
+                                "Enter Guardian Contact No. (Optional)"
+                            },
+                            model: {
+                              value: _vm.form.guardian_contact,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "guardian_contact", $$v)
+                              },
+                              expression: "form.guardian_contact"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-field",
+                    {
+                      attrs: { label: "Nationality/Religion", horizontal: "" }
+                    },
+                    [
+                      _c(
+                        "b-field",
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              icon: "translate",
+                              placeholder: "Enter Nationality (Optional)"
+                            },
+                            model: {
+                              value: _vm.form.nationality,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "nationality", $$v)
+                              },
+                              expression: "form.nationality"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              icon: "christianity",
+                              placeholder: "Enter Religion (Optional)"
+                            },
+                            model: {
+                              value: _vm.form.religion,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "religion", $$v)
+                              },
+                              expression: "form.religion"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c(
+                    "b-field",
+                    { attrs: { horizontal: "" } },
+                    [
+                      _c("b-field", { attrs: { grouped: "" } }, [
+                        _c(
+                          "div",
+                          { staticClass: "control" },
+                          [
+                            _c(
+                              "b-button",
+                              {
+                                attrs: {
+                                  "native-type": "submit",
+                                  type: "is-primary"
+                                }
+                              },
+                              [_vm._v("Submit")]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "control" },
+                          [
+                            _c(
+                              "b-button",
+                              {
+                                attrs: { type: "is-primary is-outlined" },
+                                on: { click: _vm.reset }
+                              },
+                              [_vm._v("Reset")]
+                            )
+                          ],
+                          1
+                        )
+                      ])
                     ],
                     1
                   )
                 ],
                 1
               )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("password-update-form")
+            ])
+          ])
         ],
         1
       )
@@ -1095,18 +1378,18 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/FilePicker.vue":
-/*!************************************************!*\
-  !*** ./resources/js/components/FilePicker.vue ***!
-  \************************************************/
+/***/ "./resources/js/views/Students/Form.vue":
+/*!**********************************************!*\
+  !*** ./resources/js/views/Students/Form.vue ***!
+  \**********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _FilePicker_vue_vue_type_template_id_7d05e4d5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FilePicker.vue?vue&type=template&id=7d05e4d5& */ "./resources/js/components/FilePicker.vue?vue&type=template&id=7d05e4d5&");
-/* harmony import */ var _FilePicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FilePicker.vue?vue&type=script&lang=js& */ "./resources/js/components/FilePicker.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _Form_vue_vue_type_template_id_18ec12ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Form.vue?vue&type=template&id=18ec12ec& */ "./resources/js/views/Students/Form.vue?vue&type=template&id=18ec12ec&");
+/* harmony import */ var _Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Form.vue?vue&type=script&lang=js& */ "./resources/js/views/Students/Form.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -1115,9 +1398,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _FilePicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _FilePicker_vue_vue_type_template_id_7d05e4d5___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _FilePicker_vue_vue_type_template_id_7d05e4d5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Form_vue_vue_type_template_id_18ec12ec___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Form_vue_vue_type_template_id_18ec12ec___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1127,245 +1410,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/FilePicker.vue"
+component.options.__file = "resources/js/views/Students/Form.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/FilePicker.vue?vue&type=script&lang=js&":
-/*!*************************************************************************!*\
-  !*** ./resources/js/components/FilePicker.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FilePicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./FilePicker.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FilePicker.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FilePicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/FilePicker.vue?vue&type=template&id=7d05e4d5&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/components/FilePicker.vue?vue&type=template&id=7d05e4d5& ***!
-  \*******************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FilePicker_vue_vue_type_template_id_7d05e4d5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./FilePicker.vue?vue&type=template&id=7d05e4d5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FilePicker.vue?vue&type=template&id=7d05e4d5&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FilePicker_vue_vue_type_template_id_7d05e4d5___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FilePicker_vue_vue_type_template_id_7d05e4d5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/PasswordUpdateForm.vue":
-/*!********************************************************!*\
-  !*** ./resources/js/components/PasswordUpdateForm.vue ***!
-  \********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _PasswordUpdateForm_vue_vue_type_template_id_c95bd85a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PasswordUpdateForm.vue?vue&type=template&id=c95bd85a& */ "./resources/js/components/PasswordUpdateForm.vue?vue&type=template&id=c95bd85a&");
-/* harmony import */ var _PasswordUpdateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PasswordUpdateForm.vue?vue&type=script&lang=js& */ "./resources/js/components/PasswordUpdateForm.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _PasswordUpdateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _PasswordUpdateForm_vue_vue_type_template_id_c95bd85a___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _PasswordUpdateForm_vue_vue_type_template_id_c95bd85a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/PasswordUpdateForm.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/PasswordUpdateForm.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/components/PasswordUpdateForm.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PasswordUpdateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PasswordUpdateForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PasswordUpdateForm.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PasswordUpdateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/PasswordUpdateForm.vue?vue&type=template&id=c95bd85a&":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/components/PasswordUpdateForm.vue?vue&type=template&id=c95bd85a& ***!
-  \***************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PasswordUpdateForm_vue_vue_type_template_id_c95bd85a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./PasswordUpdateForm.vue?vue&type=template&id=c95bd85a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PasswordUpdateForm.vue?vue&type=template&id=c95bd85a&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PasswordUpdateForm_vue_vue_type_template_id_c95bd85a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PasswordUpdateForm_vue_vue_type_template_id_c95bd85a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/ProfileUpdateForm.vue":
-/*!*******************************************************!*\
-  !*** ./resources/js/components/ProfileUpdateForm.vue ***!
-  \*******************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ProfileUpdateForm_vue_vue_type_template_id_5aad544a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProfileUpdateForm.vue?vue&type=template&id=5aad544a& */ "./resources/js/components/ProfileUpdateForm.vue?vue&type=template&id=5aad544a&");
-/* harmony import */ var _ProfileUpdateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProfileUpdateForm.vue?vue&type=script&lang=js& */ "./resources/js/components/ProfileUpdateForm.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _ProfileUpdateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _ProfileUpdateForm_vue_vue_type_template_id_5aad544a___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _ProfileUpdateForm_vue_vue_type_template_id_5aad544a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/ProfileUpdateForm.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/ProfileUpdateForm.vue?vue&type=script&lang=js&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/ProfileUpdateForm.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileUpdateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ProfileUpdateForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileUpdateForm.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileUpdateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/ProfileUpdateForm.vue?vue&type=template&id=5aad544a&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/components/ProfileUpdateForm.vue?vue&type=template&id=5aad544a& ***!
-  \**************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileUpdateForm_vue_vue_type_template_id_5aad544a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ProfileUpdateForm.vue?vue&type=template&id=5aad544a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileUpdateForm.vue?vue&type=template&id=5aad544a&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileUpdateForm_vue_vue_type_template_id_5aad544a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileUpdateForm_vue_vue_type_template_id_5aad544a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/views/Profile.vue":
-/*!****************************************!*\
-  !*** ./resources/js/views/Profile.vue ***!
-  \****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Profile_vue_vue_type_template_id_25b9215a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Profile.vue?vue&type=template&id=25b9215a& */ "./resources/js/views/Profile.vue?vue&type=template&id=25b9215a&");
-/* harmony import */ var _Profile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Profile.vue?vue&type=script&lang=js& */ "./resources/js/views/Profile.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Profile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Profile_vue_vue_type_template_id_25b9215a___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Profile_vue_vue_type_template_id_25b9215a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/views/Profile.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/views/Profile.vue?vue&type=script&lang=js&":
-/*!*****************************************************************!*\
-  !*** ./resources/js/views/Profile.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Profile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Profile.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Profile.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Profile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/views/Profile.vue?vue&type=template&id=25b9215a&":
+/***/ "./resources/js/views/Students/Form.vue?vue&type=script&lang=js&":
 /*!***********************************************************************!*\
-  !*** ./resources/js/views/Profile.vue?vue&type=template&id=25b9215a& ***!
+  !*** ./resources/js/views/Students/Form.vue?vue&type=script&lang=js& ***!
   \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Form.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Students/Form.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/Students/Form.vue?vue&type=template&id=18ec12ec&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/views/Students/Form.vue?vue&type=template&id=18ec12ec& ***!
+  \*****************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Profile_vue_vue_type_template_id_25b9215a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Profile.vue?vue&type=template&id=25b9215a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Profile.vue?vue&type=template&id=25b9215a&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Profile_vue_vue_type_template_id_25b9215a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_18ec12ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Form.vue?vue&type=template&id=18ec12ec& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Students/Form.vue?vue&type=template&id=18ec12ec&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_18ec12ec___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Profile_vue_vue_type_template_id_25b9215a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_18ec12ec___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

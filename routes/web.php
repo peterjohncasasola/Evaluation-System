@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,12 +42,32 @@ Route::prefix('/user')->group(function () {
     Route::patch('/password', 'CurrentUserController@updatePassword');
 });
 
-/*
- * File upload (e.g. avatar)
- * */
-Route::post('/files/store', 'FilesController@store');
+Route::prefix('/api')->group(function () {
+    Route::apiResources([
+        'courses' => 'API\CourseController',
+        'users' => 'API\UserController',
+        'subjects' => 'API\SubjectController',
+        'students' => 'API\StudentController',
+        'instructors' => 'API\InstructorController',
+        'courses-subjects' => 'API\CourseSubjectController',
+        'academic-years' => 'API\AcademicYearController',
+    ]);
+    Route::get('courses/{course}/subjects', 'API\CourseSubjectController@subjectsByCourse');
+    Route::get('courses/{course}/curriculums', 'API\CourseController@getCurriculumsByCourse')->name('course-curriculums');
+});
+
+
+
+
+
 
 Route::get('{path}', "HomeController@index")->where('path', '[\/\w\.-]*');
+
+Route::fallback(function () {
+    return response()->json([
+        'message' => 'Page Not Found. If error persists, contact the Administrator'
+    ], 404);
+});
 
 // Route::get('/{vue_capture?}', function () {
 //     return view('layouts.master');

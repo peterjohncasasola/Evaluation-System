@@ -18,11 +18,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResources([
-    'courses' => 'API\CourseController',
-    'users' => 'API\UserController',
-    'subjects' => 'API\SubjectController',
-    'students' => 'API\StudentController',
-    'instructors' => 'API\InstructorController',
-    'academic-years' => 'API\AcademicYearController',
-]);
+Route::group(['prefix' => 'v1'], function () {
+    Route::apiResources([
+        'courses' => 'API\CourseController',
+        'users' => 'API\UserController',
+        'subjects' => 'API\SubjectController',
+        'students' => 'API\StudentController',
+        'instructors' => 'API\InstructorController',
+        'courses-subjects' => 'API\CourseSubjectController',
+        'academic-years' => 'API\AcademicYearController',
+    ]);
+});
+
+Route::get('courses/{course}/subjects', 'API\CourseSubjectController@subjectsByCourse');

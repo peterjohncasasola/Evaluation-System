@@ -4,7 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
@@ -14,9 +16,21 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function __construct()
     {
-        $students = Student::latest()->get();
+        // $this->middleware('auth');
+    }
+
+    public function index(Request $request)
+    {
+
+        $students = Student::with(['course'])->latest()->get();
+
+        if ($request->query('active') == 'false') {
+            $students =
+                Student::with(['course'])->onlyTrashed()->latest()->get();
+        }
 
         return response()->json([
             'data' => $students
@@ -32,54 +46,84 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'studentId' => 'required|string|unique:students,studentId',
-            'firstName' => 'required|string',
-            'lastName' => 'required|string',
-            'birthDate' => 'required|date',
-            'address' => 'required|string',
-            'sex' => 'required|string',
-            'courseId' => 'required|integer',
-            'civilStatus' => 'required|string',
-        ]);
+        try {
+            $messages = [
+                'first_name.unique' => 'student name is already exists',
+                'sex.in' => 'gender must be either Male or Female',
+                'sex.required' => 'gender is required',
+                'contact_no.required' => 'contact number is required',
+            ];
 
-        if ($validator->fails()) {
-            return  response()->json([
-                'errors' => $validator->errors(),
-                'message' => 'Something went wrong.'
-            ], 422);
+            $validator = Validator::make($request->all(), [
+                'student_id' => 'required|max:10|unique:students,student_id',
+                'last_name' => 'required|alpha_spaces',
+                'middle_name' => 'required|alpha_spaces',
+                'guardian_name' => 'nullable|alpha_spaces',
+                'nationality' => 'nullable|alpha_spaces',
+                'religion' => 'nullable|alpha_spaces',
+                'birth_date' => 'required',
+                'contact_no' => 'required|min:11|max:11|starts_with:09',
+                'guardian_contact' => 'nullable|min:11|max:11|starts_with:09',
+                'curriculum_year' => 'required|exists:academic_years,description',
+                'sex' => [
+                    'required',
+                    Rule::in(['Male', 'Female'])
+                ],
+                'first_name' => ['required', 'string', 'alpha_spaces', Rule::unique('students')->where(function ($query) use ($request) {
+                    return $query->where([
+                        ['first_name', $request->first_name],
+                        ['middle_name', $request->middle_name],
+                        ['last_name', $request->last_name],
+                    ]);
+                })],
+
+                'address' => 'required|string',
+                'course_id' => 'required|integer|exists:courses,id',
+                'civil_status' => ['required', Rule::in(['Married', 'Single', 'Divorced', 'Widowed'])],
+
+            ], $messages);
+
+            if ($validator->fails()) {
+                return  response()->json([
+                    'failed' => true,
+                    'errors' => $validator->errors(),
+                    'message' => "Something went wrong",
+                ], 422);
+            }
+
+
+            $student = Student::create([
+                'student_id' => $request->student_id,
+                'first_name' => $request->first_name,
+                'middle_name' => $request->middle_name,
+                'last_name' => $request->last_name,
+                'birth_date' => $request->birth_date,
+                'civil_status' => $request->civil_status,
+                'birth_place' => $request->birth_place,
+                'address' => $request->address,
+                'contact_no' => $request->contact_no,
+                'guardian' => $request->guardian,
+                'sex' => $request->sex,
+                'nationality' => $request->nationality,
+                'religion' => $request->religion,
+                'course_id' => $request->course_id,
+                'curriculum_year' => $request->curriculum_year,
+            ]);
+
+            return response()->json([
+                'failed' => false,
+                'data' => $student,
+                'message' => 'Student Successfully created'
+            ], 201);
+        } catch (\Throwable $th) {
+            throw $th;
         }
-
-
-
-
-        $student = Student::create([
-            'studentId' => $request->studentId,
-            'firstName' => $request->firstName,
-            'middleName' => $request->middleName,
-            'lastName' => $request->lastName,
-            'birthDate' => $request->lastName,
-            'civilStatus' => $request->civilStatus,
-            'birthPlace' => $request->birthPlace,
-            'address' => $request->address,
-            'contactNo' => $request->contactNo,
-            'guardian' => $request->guardian,
-            'sex' => $request->sex,
-            'nationality' => $request->nationality,
-            'religion' => $request->religion,
-            'courseId' => $request->courseId,
-        ]);
-
-        return response()->json([
-            'data' => $student,
-            'message' => 'Student Successfully created'
-        ], 201);
     }
 
 
     public function show($id)
     {
-        $selected = Student::findOrFail($id);
+        $selected = Student::with('course')->findOrFail($id);
 
         return response()->json([
             'data' => $selected
@@ -96,10 +140,41 @@ class StudentController extends Controller
      */
     public function update(Request $request,  $id)
     {
+        $messages = [
+            'first_name.unique' => 'student name is already exists',
+            'sex.in' => 'gender must be either Male or Female',
+        ];
+
         $validator = Validator::make($request->all(), [
-            'code' => 'required|string|min:3|max:10|unique:students,code,' . $id,
-            'description' => 'required|string|required|unique:students,description,' . $id,
-        ]);
+            'student_id' => 'required|max:10|unique:students,student_id,' . $id,
+            'last_name' => 'required|alpha_spaces',
+            'middle_name' => 'required|alpha_spaces',
+            'guardian_name' => 'nullable|alpha_spaces',
+            'nationality' => 'nullable|alpha_spaces',
+            'religion' => 'nullable|alpha_spaces',
+            'birth_date' => 'required',
+            'contact_no' => 'required|min:11|max:11|starts_with:09',
+            'guardian_contact' => 'nullable|min:11|max:11|starts_with:09',
+            'curriculum_year' => 'required|exists:academic_years,description',
+            'sex' => [
+                'required',
+                Rule::in(['Male', 'Female'])
+            ],
+            'first_name' => ['required', Rule::unique('students')->where(function ($query) use ($request) {
+                return $query->where([
+                    ['first_name', $request->first_name],
+                    ['middle_name', $request->middle_name],
+                    ['last_name', $request->last_name],
+                    ['id', '!=', $request->id]
+                ]);
+            })],
+
+            'address' => 'required|string',
+            'sex' => 'required|string', Rule::in(['Male', 'Female']),
+            'course_id' => 'required|integer|exists:courses,id',
+            'civil_status' => ['required', Rule::in(['Married', 'Single', 'Divorced', 'Widowed'])],
+
+        ], $messages);
 
         if ($validator->fails()) {
             return  response()->json([
@@ -108,20 +183,35 @@ class StudentController extends Controller
             ], 422);
         }
 
-        $subject = Student::findOrFail($id);
-        $subject->update($request->all());
+        $student = Student::findOrFail($id);
+
+        $student->student_id = $request->student_id;
+        $student->first_name = $request->first_name;
+        $student->middle_name = $request->middle_name;
+        $student->last_name = $request->last_name;
+        $student->birth_date = $request->birth_date;
+        $student->civil_status = $request->civil_status;
+        $student->birth_place = $request->birth_place;
+        $student->address = $request->address;
+        $student->contact_no = $request->contact_no;
+        $student->guardian = $request->guardian;
+        $student->sex = $request->sex;
+        $student->nationality = $request->nationality;
+        $student->religion = $request->religion;
+        $student->course_id = $request->course_id;
+        $student->curriculum_year = $request->curriculum_year;
+        $student->save();
 
         return response()->json([
-            'failed' => true,
-            'data' => $subject,
+            'failed' => false,
+            'data' => $student,
             'message' => 'Successfully updated'
         ]);
     }
 
     public function destroy($id)
     {
-        $student = Student::find($id);
-        $student->delete();
+        Student::findOrFail($id)->delete();
 
         return response()->json([
             'failed' => false,

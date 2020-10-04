@@ -4,53 +4,81 @@ import Home from './views/Home.vue'
 
 Vue.use(Router)
 
+Router.prototype.open = function (routeObject) {
+  const {
+    href
+  } = this.resolve(routeObject)
+  window.open(href, '_blank')
+}
+
 export default new Router({
   base: process.env.BASE_URL,
   mode: 'history',
   routes: [{
-      path: '/',
+      path: '/home',
       name: 'home',
       component: Home
     },
     {
       path: '/users',
-      name: 'users',
+      name: 'users-list',
       component: () => import('./views/Users.vue')
     },
     {
+      path: '/students/new',
+      name: 'students-new',
+      component: () => import('./views/Students/Form.vue')
+    },
+
+    {
+      path: '/students/:id/edit',
+      name: 'students-edit',
+      component: () => import('./views/Students/Form.vue')
+    },
+    {
       path: '/subjects',
-      name: 'subjects',
-      component: () => import('./views/Subjects.vue')
+      name: 'subjects-list',
+      component: () => import('./views/Subjects.vue'),
+      children: [{
+          path: '/subjects/new',
+          name: 'subjects-new'
+        },
+        {
+          path: '/subjects/edit',
+          name: 'subjects.edit'
+        }
+      ]
     },
 
     {
       path: '/academic-years',
-      name: 'acadyear.index',
+      name: 'academic-years-list',
       component: () => import('./views/AcademicYear.vue')
     },
     {
       path: '/students',
-      name: 'students.index',
+      name: 'students-list',
       component: () => import('./views/Students/Index.vue')
     },
     {
       path: '/instructors',
-      name: 'instructors.index',
+      name: 'instructors-list',
       component: () => import('./views/Instructors.vue')
+    },
+    {
+      path: '/curriculums',
+      name: 'curriculums-list',
+      component: () => import('./views/CoursesSubjects/Index.vue')
     },
     {
       path: '/forms',
       name: 'forms',
       component: () => import('./views/Forms.vue')
     },
-    {
-      path: '/profile',
-      name: 'profile',
-      component: () => import('./views/Profile.vue')
-    },
+
     {
       path: '/courses',
-      name: 'courses.index',
+      name: 'courses-list',
       component: () => import('./views/Courses.vue')
     },
     {
@@ -73,6 +101,10 @@ export default new Router({
       name: 'clients.edit',
       component: () => import('./views/Clients/ClientsForm.vue'),
       props: true
+    },
+    {
+      path: '*',
+      component: () => import('./views/PageNotFound.vue'),
     }
   ],
   scrollBehavior(to, from, savedPosition) {

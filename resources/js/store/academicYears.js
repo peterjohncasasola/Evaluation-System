@@ -2,38 +2,38 @@ import AcademicYearService from '../services/AcademicYearService.js'
 
 const state = {
   academicYears: [],
-  student: {},
+  academicYear: {},
   errors: null,
 }
 
 const getters = {
-  getUserById: state => id => {
-    return state.users.find(user => user.id === id);
+  getAYbyId: state => id => {
+    return state.academicYears.find(academicYear => academicYear.id === id);
   },
   academicYears: state => state.academicYears,
-  user: state => state.user,
+  academicYear: state => state.academicYear,
   errors: state => state.errors
 }
 
 const mutations = {
-  ADD_USER(state, data) {
-    state.users.unshift(data);
+  ADD_YEAR(state, data) {
+    state.academicYears.unshift(data);
   },
   SET_ACADEMIC_YEARS(state, data) {
     state.academicYears = data;
   },
-  SET_USER(state,
+  SET_YEAR(state,
     data) {
-    state.user = data;
+    state.academicYear = data;
   },
-  DELETE_USER(state, data) {
-    let index = state.users.findIndex(user => user.id === data.id);
-    state.users.splice(index, 1);
+  DELETE_YEAR(state, data) {
+    let index = state.academicYears.findIndex(ay => ay.id === data.id);
+    state.academicYears.splice(index, 1);
   },
-  UPDATE_USER(state, data) {
-    let index = state.users.findIndex(user => user.id === data.id);
-    let user = state.users[index];
-    Object.assign(user, data);
+  UPDATE_YEAR(state, data) {
+    let index = state.academicYears.findIndex(ay => ay.id === data.id);
+    let ay = state.academicYears[index];
+    Object.assign(ay, data);
   },
   SET_ERRORS(state, errors) {
     state.errors = errors;
@@ -41,13 +41,13 @@ const mutations = {
 }
 
 const actions = {
-  async createUser({
+  async createAY({
     commit,
     dispatch
   }, payload) {
     try {
-      await UserService.postUser(payload);
-      commit('ADD_USER', payload);
+      await AcademicYearService.postAY(payload);
+      commit('ADD_YEAR', payload);
     } catch (errors) {
       return errors.response.data
     }
@@ -64,41 +64,41 @@ const actions = {
     })
   },
 
-  async fetchUser({
+  async fetchAcademicYear({
     commit
   }, id) {
 
-    let user = getters.getUserById(id);
+    let user = getters.getAYbyId(id);
 
     if (user) {
-      commit('SET_USER', user)
+      commit('SET_YEAR', user)
     } else {
-      await UserService.getUser(id).then(response => {
-        commit('SET_USER', response.data)
+      await AcademicYearService.getYear(id).then(response => {
+        commit('SET_YEAR', response.data)
       }).catch(error => {
         return error.response.data;
       })
     }
   },
 
-  deleteUser({
+  deleteAY({
     commit
   }, payload) {
     try {
-      UserService.deleteUser(payload.id);
-      commit('DELETE_USER', payload)
+      AcademicYearService.deleteAY(payload.id);
+      commit('DELETE_YEAR', payload)
 
     } catch (error) {
       return error.response.data;
     }
   },
 
-  async updateUser({
+  updateAY({
     commit
   }, payload) {
     try {
-      await UserService.updateUser(payload);
-      commit('UPDATE_USER', payload);
+      AcademicYearService.updateAY(payload);
+      commit('UPDATE_YEAR', payload);
     } catch (error) {
       return error.response.data
     }

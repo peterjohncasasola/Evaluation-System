@@ -9,6 +9,7 @@ import notification from './store/notification'
 import instructors from './store/instructors'
 import users from './store/users'
 import academicYears from './store/academicYears'
+import courseSubject from './store/courseSubject'
 
 Vue.use(Vuex)
 
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     instructors,
     users,
     academicYears,
+    courseSubject,
   },
   state: {
     /* User */

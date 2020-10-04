@@ -117,6 +117,7 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    "alpha_spaces"  => "The :attribute may only contain letters and spaces.",
 
     /*
     |--------------------------------------------------------------------------
@@ -130,9 +131,27 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'course_id' => [
+            'exists' => 'course not found in the database',
+            'required' => 'course is required'
         ],
+        'sy_id' => [
+            'exists' => 'academic year not found in the database',
+            'required' => 'academic year is required'
+
+        ],
+
+        'subject_id' => [
+            'exists' => 'subject not found in the database',
+            'required' => 'subject is required'
+        ],
+
+        'student_id' => [
+            'unique' => 'Id number already exist',
+            'exists' => 'student not found in the database',
+            'required' => 'student id is required'
+        ],
+
     ],
 
     /*
