@@ -94,11 +94,14 @@ export default {
             menu: [
               {
                 href: "#void",
+                icon: "view-list",
+
                 label: "Sub-item One"
               },
               {
                 href: "#void",
-                label: "Sub-item Two"
+                label: "Sub-item Two",
+                icon: "view-list"
               }
             ]
           }
