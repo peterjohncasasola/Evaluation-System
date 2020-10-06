@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Subject;
+use App\Rules\Uppercase;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
@@ -37,16 +38,20 @@ class SubjectController extends Controller
         // 
         $messages = [
             'description.unique' => 'subject description already taken by subject code ' . $request->code,
+
         ];
 
         $validator = Validator::make($request->all(), [
-            'code' => 'required|string|min:3|max:10|unique:subjects,code,regex:/\s+/',
-            'description' => ['required', 'string', Rule::unique('subjects')->where(function ($query) use ($request) {
-                return $query->where([
-                    ['code', $request->code],
-                    ['description', $request->description]
-                ]);
-            })],
+            'code' => ['required', 'min:3', 'max:10', new Uppercase, 'alpha_num', 'unique:subjects,code'],
+            'description' => [
+                'required', 'alpha_spaces', 'string',
+                Rule::unique('subjects')->where(function ($query) use ($request) {
+                    return $query->where([
+                        ['code', $request->code],
+                        ['description', $request->description]
+                    ]);
+                })
+            ],
             'unit' => 'required|integer'
         ], $messages);
 
@@ -97,17 +102,24 @@ class SubjectController extends Controller
      */
     public function update(Request $request,  $id)
     {
+        $messages = [
+            'description.unique' => 'subject description already taken by subject code ' . $request->code,
+        ];
         $validator = Validator::make($request->all(), [
-            'code' => 'required|string|min:3|max:10|unique:subjects,code,' . $id,
-            'description' => ['required', 'string', Rule::unique('subjects')->where(function ($query) use ($request) {
-                return $query->where([
-                    ['code', $request->code],
-                    ['description', $request->description],
-                    ['id', '!=', $request->id]
-                ]);
-            })],
+            'code' => ['required', 'string', 'min:3', 'max:10', new Uppercase, 'alpha_num', 'unique:subjects,code,' . $id],
+
+            'description' => [
+                'required', 'alpha_spaces', 'string',
+                Rule::unique('subjects')->where(function ($query) use ($request) {
+                    return $query->where([
+                        ['code', $request->code],
+                        ['description', $request->description],
+                        ['id', '!=', $request->id]
+                    ]);
+                })
+            ],
             'unit' => 'required'
-        ]);
+        ], $messages);
 
         if ($validator->fails()) {
             return  response()->json([

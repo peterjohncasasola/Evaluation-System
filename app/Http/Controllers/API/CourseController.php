@@ -5,9 +5,11 @@ namespace App\Http\Controllers\API;
 use App\Course;
 use App\CourseSubject;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Rules\Uppercase;
 
 class CourseController extends Controller
 {
@@ -37,11 +39,24 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'course_code.unique' => 'using the same course code with same description is not allowed',
+            'description.unique' => ':attribute already exists in the database',
+        ];
 
         $validator = Validator::make($request->all(), [
-            'course_code' => 'required|string|min:3|max:10|unique:courses,course_code',
-            'description' => 'required|string|required|unique:courses,description'
-        ]);
+            'course_code' => [
+                'required', 'alpha', 'min:3', 'max:20',
+                new Uppercase,
+                Rule::unique('courses')->where(function ($query) use ($request) {
+                    return $query->where([
+                        ['course_code', $request->course_code],
+                        ['description', $request->description],
+                    ]);
+                })
+            ],
+            'description' => 'required|alpha_spaces|unique:courses,description'
+        ], $messages);
 
         if ($validator->fails()) {
             return  response()->json([
@@ -89,10 +104,25 @@ class CourseController extends Controller
     public function update(Request $request, $id)
     {
 
+        $messages = [
+            'course_code.unique' => 'using the same course code with same description is not allowed',
+            'description.unique' => ':attribute already exists in the database',
+        ];
+
         $validator = Validator::make($request->all(), [
-            'course_code' => 'required|string|min:3|max:10|unique:courses,course_code,' . $id,
-            'description' => 'required|string|required|unique:courses,description,' . $id,
-        ]);
+            'course_code' => [
+                'required', 'alpha', 'min:3', 'max:20',
+                new Uppercase,
+                Rule::unique('courses')->where(function ($query) use ($request) {
+                    return $query->where([
+                        ['course_code', $request->course_code],
+                        ['description', $request->description],
+                        ['id', '!-', $request->id],
+                    ]);
+                })
+            ],
+            'description' => 'required|alpha_spaces|unique:courses,description,' . $id
+        ], $messages);
 
         if ($validator->fails()) {
             return  response()->json([

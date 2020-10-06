@@ -32,8 +32,10 @@ class AcademicYearController extends Controller
      */
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
-            'school_year' => 'required|string|max:10|unique:academic_years,school_year',
+            'school_year' => 'required|max:4|unique:academic_years,school_year',
+            'description' => 'required|string|unique:academic_years,description',
         ]);
 
         if ($validator->fails()) {
@@ -83,7 +85,8 @@ class AcademicYearController extends Controller
     public function update(Request $request,  $id)
     {
         $validator = Validator::make($request->all(), [
-            'school_year' => 'required|string|max:10|unique:academic_years,school_year,' . $id,
+            'school_year' => 'required|max:4|unique:academic_years,school_year,' . $id,
+            'description' => 'required|string|unique:academic_years,description, ' . $id,
         ]);
 
         if ($validator->fails()) {

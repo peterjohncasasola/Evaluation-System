@@ -6,6 +6,7 @@ use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use App\Rules\Propercase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -52,16 +53,18 @@ class StudentController extends Controller
                 'sex.in' => 'gender must be either Male or Female',
                 'sex.required' => 'gender is required',
                 'contact_no.required' => 'contact number is required',
+                'student_id.regex' => 'student id must be in correct format XX-XXXXX',
+
             ];
 
             $validator = Validator::make($request->all(), [
-                'student_id' => 'required|max:10|unique:students,student_id',
-                'last_name' => 'required|alpha_spaces',
-                'middle_name' => 'required|alpha_spaces',
-                'guardian_name' => 'nullable|alpha_spaces',
+                'student_id' => 'required|min:8|max:10|regex:/^\d{2}-\d{5}$/|unique:students,student_id',
+                'last_name' => ['required', 'alpha_spaces', new Propercase],
+                'middle_name' => ['required', 'alpha_spaces', new Propercase],
+                'guardian_name' => ['nullable', 'alpha_spaces', new Propercase],
                 'nationality' => 'nullable|alpha_spaces',
                 'religion' => 'nullable|alpha_spaces',
-                'birth_date' => 'required',
+                'birth_date' => 'required|date',
                 'contact_no' => 'required|min:11|max:11|starts_with:09',
                 'guardian_contact' => 'nullable|min:11|max:11|starts_with:09',
                 'curriculum_year' => 'required|exists:academic_years,description',
@@ -69,7 +72,7 @@ class StudentController extends Controller
                     'required',
                     Rule::in(['Male', 'Female'])
                 ],
-                'first_name' => ['required', 'string', 'alpha_spaces', Rule::unique('students')->where(function ($query) use ($request) {
+                'last_name' => ['required', 'string', 'alpha_spaces', new Propercase, Rule::unique('students')->where(function ($query) use ($request) {
                     return $query->where([
                         ['first_name', $request->first_name],
                         ['middle_name', $request->middle_name],
@@ -143,13 +146,17 @@ class StudentController extends Controller
         $messages = [
             'first_name.unique' => 'student name is already exists',
             'sex.in' => 'gender must be either Male or Female',
+            'sex.required' => 'gender is required',
+            'contact_no.required' => 'contact number is required',
+            'student_id.regex' => 'student id must be in correct format XX-XXXXX',
+
         ];
 
         $validator = Validator::make($request->all(), [
-            'student_id' => 'required|max:10|unique:students,student_id,' . $id,
-            'last_name' => 'required|alpha_spaces',
-            'middle_name' => 'required|alpha_spaces',
-            'guardian_name' => 'nullable|alpha_spaces',
+            'student_id' => 'required|regex:/^\d{2}-\d{5}$/|unique:students,student_id,' . $id,
+            'last_name' => ['required', 'alpha_spaces', new Propercase],
+            'middle_name' => ['required', 'alpha_spaces', new Propercase],
+            'guardian_name' => ['nullable', 'alpha_spaces', new Propercase],
             'nationality' => 'nullable|alpha_spaces',
             'religion' => 'nullable|alpha_spaces',
             'birth_date' => 'required',
@@ -160,7 +167,7 @@ class StudentController extends Controller
                 'required',
                 Rule::in(['Male', 'Female'])
             ],
-            'first_name' => ['required', Rule::unique('students')->where(function ($query) use ($request) {
+            'last_name' => ['required', 'alpha_spaces', 'string', new Propercase, Rule::unique('students')->where(function ($query) use ($request) {
                 return $query->where([
                     ['first_name', $request->first_name],
                     ['middle_name', $request->middle_name],

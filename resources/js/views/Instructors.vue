@@ -221,43 +221,24 @@ export default {
    }
   },
 
-  showNotification(message, type) {
-   this.$buefy.notification.open({
-    duration: 4000,
-    message: message,
-    position: "is-top-right",
-    type: `is-${type}`,
-    hasIcon: true,
-    closable: true,
-    queue: false,
-    autoClose: true,
-   });
-  },
-
   async save() {
-   let response = "";
-   console.log(this.formData);
+   let response = null;
    if (this.isNew) {
     response = await this.createInstructor(this.formData);
     if (response == undefined || response == null) {
      this.isModalActive = false;
      this.showNotification("Successfully created", "success");
     } else {
-     var key = Object.keys(response.errors);
-     if (key) var message = response.errors[key[0]][0];
-
-     this.showNotification(message, "danger");
+     this.showErrorMessage(response, "danger");
     }
    } else {
-    let response = await this.updateInstructor(this.formData);
-    if (response == undefined) {
+    response = await this.updateInstructor(this.formData);
+    if (response == undefined || response == null) {
      this.isModalActive = false;
 
      this.showNotification("Successfully updated", "success");
     } else {
-     var key = Object.keys(response.errors);
-     var message = response.errors[key[0]][0];
-     this.showNotification(message, "error");
+     this.showErrorMessage(response, "danger");
     }
    }
   },

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\CourseSubject;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +40,6 @@ class CourseSubjectController extends Controller
 
         return response()->json([
             'data' => $course_subjects,
-            'user' => Auth::user(),
         ]);
     }
 
@@ -52,15 +52,25 @@ class CourseSubjectController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'course_id' => 'exists:courses,id',
-            'sy_id' => 'required|exists:academic_years,id',
-            'subject_id' => 'required|exists:subjects,id',
-            'curriculum_year' => 'required|exists:academic_years,description',
-            'year_level' => 'required',
-            'semester' => 'required',
+        $messages = [
+            'subject_id.unique' =>
+            "selected subject already exist in the course/academic year"
+        ];
 
-        ]);
+        $validator = Validator::make($request->all(), [
+            'sy_id' => 'required|exists:academic_years,id',
+            'course_id' => 'exists:courses,id',
+            'subject_id' => ['required', 'exists:subjects,id', Rule::unique('course_subjects')->where(function ($query) use ($request) {
+                return $query->where([
+                    ['course_id', $request->course_id],
+                    ['sy_id', $request->sy_id],
+                    ['subject_id', $request->subject_id],
+                ]);
+            })],
+            'year_level' => 'required',
+            'semester' => ['required', Rule::in(['First', 'Second', 'Summer'])],
+
+        ], $messages);
 
 
         if ($validator->fails()) {
@@ -125,7 +135,7 @@ class CourseSubjectController extends Controller
                 'academic_years.description as curriculum_year',
                 'courses.course_code',
                 'courses.description as course_description',
-                'semesters.semester as  ',
+                'semesters.semester as  semestral',
                 "course_subjects.*",
 
             )
@@ -146,15 +156,31 @@ class CourseSubjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'course_id' => 'exists:courses,id',
-            'sy_id' => 'required|exists:academic_years,id',
-            'subject_id' => 'required|exists:subjects,id',
-            'curriculum_year' => 'exists:academic_years,description',
-            'year_level' => 'required',
-            'semester' => 'required',
+        $messages = [
+            'subject_id.unique' =>
+            "selected subject already exist in the course/academic year"
+        ];
 
-        ]);
+        $validator = Validator::make($request->all(), [
+            'sy_id' => 'required|exists:academic_years,id',
+            'course_id' => 'exists:courses,id',
+            'subject_id' => [
+                'required', 'exists:subjects,id',
+                Rule::unique('course_subjects')
+                    ->where(function ($query) use ($request) {
+                        return $query->where([
+                            ['course_id', $request->course_id],
+                            ['sy_id', $request->sy_id],
+                            ['subject_id', $request->subject_id],
+                            ['id', '!=', $request->id],
+                        ]);
+                    })
+            ],
+            'year_level' => 'required',
+            'semester' => ['required', Rule::in(['First', 'Second', 'Summer'])],
+
+        ], $messages);
+
 
 
         if ($validator->fails()) {

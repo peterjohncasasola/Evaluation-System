@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Instructor;
+use App\Rules\Propercase;
 use Illuminate\Http\Request;
+use App\Rules\AlphaSpaceDash;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -32,10 +35,24 @@ class InstructorController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'first_name.unique' => "{$request->last_name} , {$request->first_name} {$request->middle_name} already exists",
+        ];
+
         $validator = Validator::make($request->all(), [
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-        ]);
+            'first_name' => [
+                'required', new AlphaSpaceDash, new Propercase,
+                Rule::unique('instructors')->where(function ($query) use ($request) {
+                    return $query->where([
+                        ['first_name', $request->first_name],
+                        ['middle_name', $request->middle_name],
+                        ['last_name', $request->last_name],
+                    ]);
+                })
+            ],
+            'middle_name' => ['required', new AlphaSpaceDash, new Propercase],
+            'last_name' => ['required', new AlphaSpaceDash, new Propercase],
+        ], $messages);
 
         if ($validator->fails()) {
             return  response()->json([
@@ -78,10 +95,26 @@ class InstructorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $messages = [
+            'first_name.unique' => "{$request->last_name} , {$request->first_name} {$request->middle_name} already exists",
+        ];
+
         $validator = Validator::make($request->all(), [
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-        ]);
+            'first_name' => [
+                'required', new AlphaSpaceDash,
+                new Propercase,
+                Rule::unique('instructors')->where(function ($query) use ($request) {
+                    return $query->where([
+                        ['first_name', $request->first_name],
+                        ['middle_name', $request->middle_name],
+                        ['last_name', $request->last_name],
+                        ['id', '!=', $request->id],
+                    ]);
+                })
+            ],
+            'middle_name' => ['required', new AlphaSpaceDash, new Propercase],
+            'last_name' => ['required', new AlphaSpaceDash, new Propercase],
+        ], $messages);
 
 
 
