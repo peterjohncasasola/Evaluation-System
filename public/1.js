@@ -299,23 +299,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -419,8 +402,7 @@ __webpack_require__.r(__webpack_exports__);
       this.form.file_id = fileId;
       this.form.avatar_filename = null;
     },
-    input: function input(v) {
-      this.createdReadable = moment(v).format("MMM D, Y").toString();
+    input: function input(v) {//this.createdReadable = moment(v).format('MMM D, Y').toString()
     },
     submit: function submit() {
       var _this2 = this;
@@ -961,11 +943,7 @@ var render = function() {
                             attrs: { max: "100" },
                             domProps: { value: _vm.item.progress }
                           },
-                          [
-                            _vm._v(
-                              "\n      " + _vm._s(_vm.item.progress) + "\n     "
-                            )
-                          ]
+                          [_vm._v(_vm._s(_vm.item.progress))]
                         )
                       ])
                     ],

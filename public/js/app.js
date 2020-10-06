@@ -2121,23 +2121,39 @@ __webpack_require__.r(__webpack_exports__);
         label: "Courses",
         icon: "book-multiple"
       }], "Transactions", [{
-        to: "/enroll-student",
+        to: "/students/registration",
         label: "Registration",
         icon: "account-circle"
       }, {
-        label: "Submenus",
-        subLabel: "Submenus Example",
-        icon: "view-list",
-        menu: [{
-          href: "#void",
-          icon: "view-list",
-          label: "Sub-item One"
-        }, {
-          href: "#void",
-          label: "Sub-item Two",
-          icon: "view-list"
-        }]
-      }]];
+        to: "/students/subjects",
+        label: "Students Subjects",
+        icon: "account-circle"
+      }, {
+        to: "/instructors/load-subjects",
+        label: "Instructor Load",
+        icon: "account-circle"
+      }, {
+        to: "/students/grades",
+        label: "Grade Entry",
+        icon: "account-circle"
+      } //  {
+      //  (label: "Submenus"),
+      //  (subLabel: "Submenus Example"),
+      //  (icon: "view-list"),
+      // menu: [
+      //  {
+      //   href: "#void",
+      //   icon: "view-list",
+      //   label: "Sub-item One",
+      //  },
+      //  {
+      //   href: "#void",
+      //   label: "Sub-item Two",
+      //   icon: "view-list",
+      //  },
+      // ],
+      //  },
+      ]];
     }
   },
   created: function created() {
@@ -100925,8 +100941,9 @@ axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(undefined
   }
 
   if (error.response && error.response.status === 419) {
-    window.router.push('/login');
-    return Promise.resolve(error.response); // return refreshAppTokens().then(() => Promise.reject(error));
+    return refreshAppTokens().then(function () {
+      return Promise.reject(error);
+    });
   }
 });
 

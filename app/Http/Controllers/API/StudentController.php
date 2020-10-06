@@ -59,7 +59,7 @@ class StudentController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'student_id' => 'required|min:8|max:10|regex:/^\d{2}-\d{5}$/|unique:students,student_id',
-                'last_name' => ['required', 'alpha_spaces', new Propercase],
+                'first_name' => ['required', 'alpha_spaces', new Propercase],
                 'middle_name' => ['required', 'alpha_spaces', new Propercase],
                 'guardian_name' => ['nullable', 'alpha_spaces', new Propercase],
                 'nationality' => 'nullable|alpha_spaces',
@@ -154,7 +154,7 @@ class StudentController extends Controller
 
         $validator = Validator::make($request->all(), [
             'student_id' => 'required|regex:/^\d{2}-\d{5}$/|unique:students,student_id,' . $id,
-            'last_name' => ['required', 'alpha_spaces', new Propercase],
+            'first_name' => ['required', 'alpha_spaces', new Propercase],
             'middle_name' => ['required', 'alpha_spaces', new Propercase],
             'guardian_name' => ['nullable', 'alpha_spaces', new Propercase],
             'nationality' => 'nullable|alpha_spaces',
