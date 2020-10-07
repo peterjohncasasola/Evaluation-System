@@ -1,49 +1,42 @@
 import axios from 'axios';
-import store from '../js/store'
-import router from '../js/router'
 
-const baseURL = 'http://localhost:8000/api'
+let token = document.head.querySelector('meta[name="csrf-token"]')
 
-const apiClient = axios.create({
+
+let baseURL = 'http://localhost:8000/api'
+
+let apiClient = axios.create({
   baseURL,
+  headers: {
+    'X-CSRF-TOKEN': token.content
+  }
+
 });
 
+// apiClient.interceptors.response.use(undefined,
+//   (error) => {
+//     if (error.response.status === 419) {
+//       refreshAppTokens()
+//       // return Promise.reject(error)
+//     }
+//   }
+// )
 
-// const token = localStorage.getItem('token');
-
-// if (token) {
-//   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+// function refreshAppTokens() {
+//   // Retrieve a new page with a fresh token
+//   apiClient.get('')
+//     .then(({
+//       data
+//     }) => {
+//       const wrapper = document.createElement('div');
+//       wrapper.innerHTML = data;
+//       return div.querySelector('meta[name=csrf-token]').getAttribute('content');
+//     })
+//     .then((token) => {
+//       apiClient.defaults.headers['X-CSRF-TOKEN'] = token;
+//       window.Laravel.csrfToken = token;
+//       document.querySelector('meta[name=csrf-token]').setAttribute('content', token);
+//     });
 // }
-
-axios.interceptors.response.use(undefined, (error) => {
-  if (error.response && error.response.status === 401) {
-    localStorage.removeItem('token', null);
-    // store.state.auth.isLoggedIn = false;
-    // store.state.auth.token = null;
-    window.router.push('/');
-    return Promise.resolve(error.response);
-  }
-  if (error.response && error.response.status === 419) {
-    return refreshAppTokens().then(() => Promise.reject(error));
-  }
-
-});
-
-function refreshAppTokens() {
-  // Retrieve a new page with a fresh token
-  axios.get('/')
-    .then(({
-      data
-    }) => {
-      const wrapper = document.createElement('div');
-      wrapper.innerHTML = data;
-      return div.querySelector('meta[name=csrf-token]').getAttribute('content');
-    })
-    .then((token) => {
-      axios.defaults.headers['X-CSRF-TOKEN'] = token;
-      window.Laravel.csrfToken = token;
-      document.querySelector('meta[name=csrf-token]').setAttribute('content', token);
-    });
-}
 
 export default apiClient

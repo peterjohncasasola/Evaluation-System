@@ -50,8 +50,8 @@ class CourseController extends Controller
                 new Uppercase,
                 Rule::unique('courses')->where(function ($query) use ($request) {
                     return $query->where([
-                        ['course_code', $request->course_code],
-                        ['description', $request->description],
+                        ['course_code', '=', $request->course_code],
+                        ['description', '=', $request->description],
                     ]);
                 })
             ],
@@ -115,8 +115,8 @@ class CourseController extends Controller
                 new Uppercase,
                 Rule::unique('courses')->where(function ($query) use ($request) {
                     return $query->where([
-                        ['course_code', $request->course_code],
-                        ['description', $request->description],
+                        ['course_code', '=', $request->course_code],
+                        ['description', '=', $request->description],
                         ['id', '!-', $request->id],
                     ]);
                 })

@@ -49,7 +49,7 @@ class StudentController extends Controller
     {
         try {
             $messages = [
-                'first_name.unique' => 'student name is already exists',
+                'last_name.unique' => 'student name already exist',
                 'sex.in' => 'gender must be either Male or Female',
                 'sex.required' => 'gender is required',
                 'contact_no.required' => 'contact number is required',
@@ -144,12 +144,11 @@ class StudentController extends Controller
     public function update(Request $request,  $id)
     {
         $messages = [
-            'first_name.unique' => 'student name is already exists',
+            'last_name.unique' => 'student name already exist',
             'sex.in' => 'gender must be either Male or Female',
             'sex.required' => 'gender is required',
             'contact_no.required' => 'contact number is required',
             'student_id.regex' => 'student id must be in correct format XX-XXXXX',
-
         ];
 
         $validator = Validator::make($request->all(), [

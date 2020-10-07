@@ -210,7 +210,7 @@ export default {
    if (trashObject || this.checkedRows.length) {
     this.$buefy.dialog.confirm({
      title: "Deleting",
-     message: `Are you sure you want to <b>delete ${trashObject.first_name} ${trashObject.last_name}</b> this? This action cannot be undone.`,
+     message: `Are you sure you want to <b>delete ${trashObject.first_name} ${trashObject.last_name}</b>? This action cannot be undone.`,
      confirmText: "Delete",
      type: "is-danger",
      hasIcon: true,
@@ -222,9 +222,8 @@ export default {
   },
 
   async save() {
-   let response = null;
    if (this.isNew) {
-    response = await this.createInstructor(this.formData);
+    let response = await this.createInstructor(this.formData);
     if (response == undefined || response == null) {
      this.isModalActive = false;
      this.showNotification("Successfully created", "success");
@@ -232,7 +231,7 @@ export default {
      this.showErrorMessage(response, "danger");
     }
    } else {
-    response = await this.updateInstructor(this.formData);
+    let response = await this.updateInstructor(this.formData);
     if (response == undefined || response == null) {
      this.isModalActive = false;
 

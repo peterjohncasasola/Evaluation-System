@@ -22,7 +22,6 @@ class SubjectController extends Controller
 
         return response()->json([
             'data' => $subjects,
-            'user' => auth('api')->user(),
         ]);
     }
 

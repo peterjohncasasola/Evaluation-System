@@ -26,9 +26,9 @@
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
+window.axios = require("axios");
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
@@ -39,45 +39,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 let token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-  console.log(token.content);
+  window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
 } else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+  console.error(
+    "CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token"
+  );
 }
 
 /**
  * We'll add interceptors to redirect user to login once we get 401 response
  * */
-
-window.axios.interceptors.response.use(function (response) {
-  return response;
-}, function (error) {
-  if (error.response.status === 401) {
-    window.location.href = '/login'
-  }
-  if (error.response && error.response.status === 419) {
-    return refreshAppTokens().then(() => Promise.reject(error));
-  }
-
-  return Promise.reject(error);
-});
-
-function refreshAppTokens() {
-  // Retrieve a new page with a fresh token
-  window.axios.get('/')
-    .then(({
-      data
-    }) => {
-      const wrapper = document.createElement('div');
-      wrapper.innerHTML = data;
-      return div.querySelector('meta[name=csrf-token]').getAttribute('content');
-    })
-    .then((token) => {
-      axios.defaults.headers['X-CSRF-TOKEN'] = token;
-      window.Laravel.csrfToken = token;
-      document.querySelector('meta[name=csrf-token]').setAttribute('content', token);
-    });
-}
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

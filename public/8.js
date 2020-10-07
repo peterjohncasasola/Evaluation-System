@@ -269,7 +269,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (trashObject || this.checkedRows.length) {
         this.$buefy.dialog.confirm({
           title: "Deleting",
-          message: "Are you sure you want to <b>delete ".concat(trashObject.first_name, " ").concat(trashObject.last_name, "</b> this? This action cannot be undone."),
+          message: "Are you sure you want to <b>delete ".concat(trashObject.first_name, " ").concat(trashObject.last_name, "</b>? This action cannot be undone."),
           confirmText: "Delete",
           type: "is-danger",
           hasIcon: true,
@@ -283,22 +283,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
+        var response, _response;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                response = null;
-
                 if (!_this2.isNew) {
-                  _context.next = 8;
+                  _context.next = 7;
                   break;
                 }
 
-                _context.next = 4;
+                _context.next = 3;
                 return _this2.createInstructor(_this2.formData);
 
-              case 4:
+              case 3:
                 response = _context.sent;
 
                 if (response == undefined || response == null) {
@@ -309,25 +308,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   _this2.showErrorMessage(response, "danger");
                 }
 
-                _context.next = 12;
+                _context.next = 11;
                 break;
 
-              case 8:
-                _context.next = 10;
+              case 7:
+                _context.next = 9;
                 return _this2.updateInstructor(_this2.formData);
 
-              case 10:
-                response = _context.sent;
+              case 9:
+                _response = _context.sent;
 
-                if (response == undefined || response == null) {
+                if (_response == undefined || _response == null) {
                   _this2.isModalActive = false;
 
                   _this2.showNotification("Successfully updated", "success");
                 } else {
-                  _this2.showErrorMessage(response, "danger");
+                  _this2.showErrorMessage(_response, "danger");
                 }
 
-              case 12:
+              case 11:
               case "end":
                 return _context.stop();
             }

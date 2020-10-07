@@ -100918,48 +100918,38 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _js_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../js/store */ "./resources/js/store.js");
-/* harmony import */ var _js_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../js/router */ "./resources/js/router.js");
 
-
-
+var token = document.head.querySelector('meta[name="csrf-token"]');
 var baseURL = 'http://localhost:8000/api';
 var apiClient = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: baseURL
-}); // const token = localStorage.getItem('token');
-// if (token) {
-//   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  baseURL: baseURL,
+  headers: {
+    'X-CSRF-TOKEN': token.content
+  }
+}); // apiClient.interceptors.response.use(undefined,
+//   (error) => {
+//     if (error.response.status === 419) {
+//       refreshAppTokens()
+//       // return Promise.reject(error)
+//     }
+//   }
+// )
+// function refreshAppTokens() {
+//   // Retrieve a new page with a fresh token
+//   apiClient.get('')
+//     .then(({
+//       data
+//     }) => {
+//       const wrapper = document.createElement('div');
+//       wrapper.innerHTML = data;
+//       return div.querySelector('meta[name=csrf-token]').getAttribute('content');
+//     })
+//     .then((token) => {
+//       apiClient.defaults.headers['X-CSRF-TOKEN'] = token;
+//       window.Laravel.csrfToken = token;
+//       document.querySelector('meta[name=csrf-token]').setAttribute('content', token);
+//     });
 // }
-
-axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(undefined, function (error) {
-  if (error.response && error.response.status === 401) {
-    localStorage.removeItem('token', null); // store.state.auth.isLoggedIn = false;
-    // store.state.auth.token = null;
-
-    window.router.push('/');
-    return Promise.resolve(error.response);
-  }
-
-  if (error.response && error.response.status === 419) {
-    return refreshAppTokens().then(function () {
-      return Promise.reject(error);
-    });
-  }
-});
-
-function refreshAppTokens() {
-  // Retrieve a new page with a fresh token
-  axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/').then(function (_ref) {
-    var data = _ref.data;
-    var wrapper = document.createElement('div');
-    wrapper.innerHTML = data;
-    return div.querySelector('meta[name=csrf-token]').getAttribute('content');
-  }).then(function (token) {
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers['X-CSRF-TOKEN'] = token;
-    window.Laravel.csrfToken = token;
-    document.querySelector('meta[name=csrf-token]').setAttribute('content', token);
-  });
-}
 
 /* harmony default export */ __webpack_exports__["default"] = (apiClient);
 
@@ -101076,7 +101066,7 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just
@@ -101086,45 +101076,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-  console.log(token.content);
+  window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
 } else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+  console.error("CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token");
 }
 /**
  * We'll add interceptors to redirect user to login once we get 401 response
  * */
 
-
-window.axios.interceptors.response.use(function (response) {
-  return response;
-}, function (error) {
-  if (error.response.status === 401) {
-    window.location.href = '/login';
-  }
-
-  if (error.response && error.response.status === 419) {
-    return refreshAppTokens().then(function () {
-      return Promise.reject(error);
-    });
-  }
-
-  return Promise.reject(error);
-});
-
-function refreshAppTokens() {
-  // Retrieve a new page with a fresh token
-  window.axios.get('/').then(function (_ref) {
-    var data = _ref.data;
-    var wrapper = document.createElement('div');
-    wrapper.innerHTML = data;
-    return div.querySelector('meta[name=csrf-token]').getAttribute('content');
-  }).then(function (token) {
-    axios.defaults.headers['X-CSRF-TOKEN'] = token;
-    window.Laravel.csrfToken = token;
-    document.querySelector('meta[name=csrf-token]').setAttribute('content', token);
-  });
-}
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
