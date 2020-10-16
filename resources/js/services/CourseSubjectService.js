@@ -1,9 +1,10 @@
 import apiClient from '../apiClient'
+import { setQueryParams } from '../services/helper'
 
 export default {
 
-  getCoursesSubjects() {
-    return apiClient.get('/courses-subjects')
+  getCoursesSubjects(query) {
+    return apiClient.get('/courses-subjects?' + setQueryParams(query))
   },
 
   getCourseSubject(id) {

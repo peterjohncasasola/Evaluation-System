@@ -46,7 +46,7 @@ class CourseController extends Controller
 
         $validator = Validator::make($request->all(), [
             'course_code' => [
-                'required', 'alpha', 'min:3', 'max:20',
+                'required', 'alpha', 'min:3', 'max:25',
                 new Uppercase,
                 Rule::unique('courses')->where(function ($query) use ($request) {
                     return $query->where([
@@ -150,7 +150,8 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        Course::findOFail($id)->delete();
+        $course = Course::findOrFail($id);
+        $course->delete();
 
         return response()->json([
             'status' => true
@@ -174,7 +175,9 @@ class CourseController extends Controller
     {
         $curriculums = DB::table('course_subjects')
             ->where('course_subjects.course_id', '=', $course_id)
-            ->join('academic_years', 'course_subjects.id', '=', 'academic_years.id')
+            ->join('academic_years', 'course_subjects.sy_id', '=', 'academic_years.id')
+            ->distinct('sy_id')
+            ->orderBy('description')
             ->get(['description as curriculum']);
 
         return response()->json([

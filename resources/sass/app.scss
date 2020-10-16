@@ -70,15 +70,16 @@ table tr:last-child {
   background: #fff;
 }
 
-.table tr:last-child td {
-  border-bottom: 1px solid #f3e8e8 !important;
+
+
+.table .is-bordered tr:first-child th:first-child,
+.table .is-bordered tr:first-child th:first-child {
+  border: 1px solid #f3e8e8 !important;
   border-width: 0 0 1px;
 }
 
-
-
-.table tr:first-child th {
-  border-top: 1px solid #f3e8e8 !important;
+.table .is-bordered tbody tr:last-child td {
+  border: 1px solid #f3e8e8 !important;
   border-width: 0 0 1px;
 }
 
@@ -128,6 +129,10 @@ section.hero.is-hero-bar .hero-body {
 
 .mdi .mdi-trash-can {
   font-size: 2rem;
+}
+
+.table .is-bordered tr:first-child {
+  border: 1px solid #f3e8e8 !important;
 }
 
 .modal-card-title {

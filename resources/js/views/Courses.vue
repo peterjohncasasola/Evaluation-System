@@ -44,7 +44,7 @@
           v-model="formData.course_code"
           required
           minlength="3"
-          maxlength="10"
+          maxlength="25"
          ></b-input>
         </b-field>
 
@@ -94,15 +94,6 @@
        sortable
        >{{ props.row.description }}</b-table-column
       >
-
-      <!-- <b-table-column label="Date Created" field="created_at" sortable>{{
-              formatDate(props.row.created_at)
-            }}</b-table-column>
-
-            <b-table-column label="Last Updated" field="updated_at" sortable>{{
-              props.row.updated_at | relativeTime
-      }}</b-table-column>-->
-
       <b-table-column custom-key="actions" class="is-actions-cell">
        <div class="buttons is-right">
         <b-tooltip label="Click to edit" position="is-left">
@@ -232,20 +223,20 @@ export default {
   async save() {
    let response = null;
    if (this.isNew) {
-    await this.createCourse(this.formData);
-    if (this.errors) {
-     this.showErrorMessage(this.errors);
-    } else {
-     this.showNotification("Successfully created", "success");
-     this.isModalActive = false;
+    response = await this.createCourse(this.formData);
+     if (response == undefined || response == null) {
+       this.showNotification("Successfully created", "success");
+       this.isModalActive = false;
+  } else {
+     this.showErrorMessage(response);
     }
    } else {
-    let response = await this.updateCourse(this.formData);
-    if (this.errors) {
-     this.showErrorMessage(this.errors);
+    response = await this.updateCourse(this.formData);
+    if (response == undefined || response == null) {
+      this.showNotification("Successfully created", "success");
+      this.isModalActive = false;
     } else {
-     this.showNotification("Successfully created", "success");
-     this.isModalActive = false;
+      this.showErrorMessage(response);
     }
    }
   },

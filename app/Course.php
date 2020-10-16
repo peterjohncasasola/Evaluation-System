@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Course extends Model
 {
-  use SoftDeletes;
+  use SoftDeletes, ActivityLogHelper;
   protected $dates = ['deleted_at'];
 
   protected $hidden = [
@@ -16,11 +16,9 @@ class Course extends Model
     'deleted_at'
   ];
 
-  protected $fillable = [
-    'name',
-    'course_code',
-    'description',
-  ];
+  protected $fillable = ['course_code', 'description'];
+
+  protected static $logName = 'course';
 
   public function student()
   {
@@ -35,5 +33,10 @@ class Course extends Model
   public function enrolledStudents()
   {
     return $this->hasMany(EnrolledStudent::class);
+  }
+
+  public function user()
+  {
+    return $this->belongsTo(User::class);
   }
 }

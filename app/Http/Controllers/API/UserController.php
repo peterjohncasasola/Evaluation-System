@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Spatie\Activitylog\Models\Activity;
 
 class UserController extends Controller
 {
@@ -85,6 +86,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+    }
+
+    public function userLogs($id)
+    {
     }
 }

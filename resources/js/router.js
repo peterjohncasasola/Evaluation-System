@@ -56,6 +56,11 @@ export default new Router({
       component: () => import('./views/AcademicYear.vue')
     },
     {
+      path: '/semesters',
+      name: 'semesters',
+      component: () => import('./views/Semester.vue')
+    },
+    {
       path: '/students',
       name: 'students-list',
       component: () => import('./views/Students/Index.vue')
@@ -70,10 +75,26 @@ export default new Router({
       name: 'curriculums-list',
       component: () => import('./views/CoursesSubjects/Index.vue')
     },
+     {
+      path: '/courses/:id/subjects',
+      name: 'course-subjects',
+      component: () => import('./views/CoursesSubjects/Index.vue')
+    },
+    {
+      path: '/transactions/students/registration',
+      name: 'student.registration',
+      component: () => import('./views/Registration.vue')
+    },
     {
       path: '/forms',
       name: 'forms',
       component: () => import('./views/Forms.vue')
+    },
+
+     {
+      path: '/transactions/grade/entry',
+      name: 'grade.entry',
+      component: () => import('./views/GradeEntry.vue')
     },
 
     {

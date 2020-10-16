@@ -36,7 +36,7 @@ class InstructorController extends Controller
     public function store(Request $request)
     {
         $messages = [
-            'first_name.unique' => "{$request->last_name} , {$request->first_name} {$request->middle_name} already exists",
+            'first_name.unique' => "{$request->last_name} , {$request->first_name} {$request->middle_name} already exist",
         ];
 
         $validator = Validator::make($request->all(), [
@@ -96,7 +96,7 @@ class InstructorController extends Controller
     public function update(Request $request, $id)
     {
         $messages = [
-            'first_name.unique' => "{$request->last_name} , {$request->first_name} {$request->middle_name} already exists",
+            'first_name.unique' => "{$request->last_name} , {$request->first_name} {$request->middle_name} already exist",
         ];
 
         $validator = Validator::make($request->all(), [

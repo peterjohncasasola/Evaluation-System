@@ -46,11 +46,10 @@ const actions = {
     dispatch
   }, payload) {
     try {
-      await CourseService.postCourse(payload);
-      commit('ADD_COURSE', payload);
-      commit('SET_ERRORS', null)
+      let response = await CourseService.postCourse(payload);
+      commit('ADD_COURSE', response.data.data);
     } catch (errors) {
-      commit('SET_ERRORS', errors.response.data)
+      return errors.response.data
     }
   },
 
@@ -60,7 +59,8 @@ const actions = {
 
     CourseService.getCourses().then(response => {
       commit('SET_COURSES', response.data.data)
-    }).catch(error => {
+    }).catch(errors => {
+      return errors.response.data
 
     })
   },
@@ -76,8 +76,8 @@ const actions = {
     } else {
       CourseService.getCourse(id).then(response => {
         commit('SET_COURSE', response.data)
-      }).catch(error => {
-        throw error;
+      }).catch(errors => {
+        return errors.response.data
       })
     }
   },
@@ -89,9 +89,8 @@ const actions = {
       CourseService.deleteCourse(payload.id);
       commit('DELETE_COURSE', payload)
 
-    } catch (error) {
-      throw error;
-
+    } catch (errors) {
+      return errors.response.data;
     }
   },
 

@@ -29,5 +29,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //         'academic-years' => 'API\AcademicYearController',
 //     ]);
 // });
-
-Route::get('courses/{course}/subjects', 'API\CourseSubjectController@subjectsByCourse');

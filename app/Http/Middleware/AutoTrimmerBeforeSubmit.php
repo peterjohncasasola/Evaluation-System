@@ -15,17 +15,15 @@ class AutoTrimmerBeforeSubmit
      */
     public function handle($request, Closure $next)
     {
-        $request->merge(array_map('trim', $request->all()));
-        return $next($request);
-        // $input = $request->all();
-        // if ($input) {
-        //     array_walk_recursive($input, function (&$item) {
-        //         $item = trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $item)));
-        //         $item = ($item == "") ? null : $item;
-        //     });
+        $input = $request->all();
+        if ($input) {
+            array_walk_recursive($input, function (&$item) {
+                $item = trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $item)));
+                $item = ($item == "") ? null : $item;
+            });
 
-        //     $request->merge($input);
-        // }
-        // return $next($request);
+            $request->merge($input);
+        }
+        return $next($request);
     }
 }

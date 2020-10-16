@@ -17,7 +17,7 @@ class CourseSubjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
         $course_subjects = DB::table('course_subjects')
@@ -37,6 +37,10 @@ class CourseSubjectController extends Controller
                 "course_subjects.*",
             )
             ->get();
+
+        if ($request->query('course_id')) {
+            $course_subjects = $course_subjects->where('course_id', '=', $request->query('course_id'));
+        }
 
         return response()->json([
             'data' => $course_subjects,
@@ -132,7 +136,7 @@ class CourseSubjectController extends Controller
             ->join('semesters', 'course_subjects.semester', '=', 'semesters.id')
             ->select(
                 'subjects.description as subject_description',
-                'academic_years.description as curriculum_year',
+                'academic_years.description as curriculum',
                 'courses.course_code',
                 'courses.description as course_description',
                 'semesters.semester as  semestral',

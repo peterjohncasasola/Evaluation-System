@@ -5,7 +5,9 @@ namespace App\Http\Controllers\API;
 use App\Subject;
 use App\Rules\Uppercase;
 use Illuminate\Http\Request;
+use App\Rules\AlphaSpaceDash;
 use Illuminate\Validation\Rule;
+use App\Rules\AlphaSpaceNumeric;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -37,13 +39,12 @@ class SubjectController extends Controller
         // 
         $messages = [
             'description.unique' => 'subject description already taken by subject code ' . $request->code,
-
         ];
 
         $validator = Validator::make($request->all(), [
-            'code' => ['required', 'min:3', 'max:10', new Uppercase, 'alpha_num', 'unique:subjects,code'],
+            'code' => ['required', 'min:3', 'max:10', new Uppercase, new AlphaSpaceNumeric, 'unique:subjects,code'],
             'description' => [
-                'required', 'alpha_spaces', 'string',
+                'required', 'string',
                 Rule::unique('subjects')->where(function ($query) use ($request) {
                     return $query->where([
                         ['code', $request->code],
@@ -105,10 +106,10 @@ class SubjectController extends Controller
             'description.unique' => 'subject description already taken by subject code ' . $request->code,
         ];
         $validator = Validator::make($request->all(), [
-            'code' => ['required', 'string', 'min:3', 'max:10', new Uppercase, 'alpha_num', 'unique:subjects,code,' . $id],
+            'code' => ['required', 'string', 'min:3', 'max:20', new Uppercase, new AlphaSpaceNumeric, 'unique:subjects,code,' . $id],
 
             'description' => [
-                'required', 'alpha_spaces', 'string',
+                'required', 'string',
                 Rule::unique('subjects')->where(function ($query) use ($request) {
                     return $query->where([
                         ['code', $request->code],

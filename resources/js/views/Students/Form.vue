@@ -347,11 +347,6 @@ export default {
       "fetchStudent"
     ]),
 
-    inputDate(val) {
-      this.form.birth_date = moment(val)
-        .format("L")
-        .toString();
-    },
     getCurriculumsByCourse(id) {
       this.form.course_id = id === null ? 0 : id;
       apiClient
@@ -362,9 +357,9 @@ export default {
           });
         });
     },
+    
     onInput(event) {
       this.form.student_id = event.target._vCleave.getFormattedValue();
-      console.log(this.form.student_id);
     },
     async submit() {
       this.errors = {};

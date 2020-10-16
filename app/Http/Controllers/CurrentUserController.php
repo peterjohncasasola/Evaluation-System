@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PasswordUpdateRequest;
-use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\Models\Activity;
+use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\PasswordUpdateRequest;
 
 class CurrentUserController extends Controller
 {
@@ -74,5 +76,10 @@ class CurrentUserController extends Controller
         return response()->json([
             'status' => true
         ]);
+    }
+
+    public function userLogsByCurrentUser()
+    {
+        return Activity::where('user_id', Auth::user()->id)->get();
     }
 }

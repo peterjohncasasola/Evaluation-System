@@ -5,10 +5,6 @@ import {
 } from 'vuex';
 
 import moment from 'moment';
-import {
-  map
-} from 'lodash';
-
 
 const cleave = {
   name: 'cleave',
@@ -34,7 +30,15 @@ Vue.mixin({
           delimiters: ['-'],
           blocks: [2, 5],
           numericOnly: true
-        }
+        },
+      },
+       query: {
+        sortBy: null,
+        orderBy: null,
+        active: null,
+        pageSize: 0,
+        page: 0,
+        search: null,
       },
       options: {
         course: {
@@ -49,6 +53,7 @@ Vue.mixin({
           selected: {},
           searchText: "",
         },
+       
       },
     }
   },
@@ -58,10 +63,12 @@ Vue.mixin({
     ...mapGetters('courses', ['courses']),
     ...mapGetters('academicYears', ['academicYears']),
     ...mapGetters('subjects', ['subjects']),
+    ...mapGetters("students", ['students']),
 
     currentRouteName() {
       return this.$route.name;
     },
+    
     getFilteredCourses() {
       return this.courses.filter((opt) => {
         return (
@@ -101,6 +108,8 @@ Vue.mixin({
         );
       });
     },
+
+     
   },
   created() {
 
@@ -149,7 +158,7 @@ Vue.mixin({
     },
 
     showErrorMessage(response) {
-      let message = "";
+      let message= "";
       for (let key in response.errors) {
         message += `${response.errors[key][0]}<br/>`;
       }
@@ -176,8 +185,13 @@ Vue.mixin({
         return value.length > length ? value.substr(0, length) + "..." : value;
       }
     },
+    isEmpty(value) {
+      return (value === "" || value === null) ? "N/A" : value;
+    },
+  
+    isNone(value) {
+      return (value === "" || value === null) ? "None" : value;
+    }
   },
-  isEmpty(value) {
-    return (value === "" || value === null) ? "N/A" : value;
-  }
+ 
 });

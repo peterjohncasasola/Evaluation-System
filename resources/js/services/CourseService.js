@@ -1,4 +1,5 @@
 import apiClient from '../apiClient'
+import { setQueryParams } from '../services/helper'
 
 export default {
   getCourses() {

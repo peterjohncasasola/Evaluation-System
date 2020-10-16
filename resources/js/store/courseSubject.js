@@ -54,9 +54,9 @@ const actions = {
 
   fetchCoursesSubjects({
     commit
-  }) {
+  }, query = null) {
 
-    CourseSubjectService.getCoursesSubjects().then(response => {
+    CourseSubjectService.getCoursesSubjects(query).then(response => {
       commit('SET_COURSES_SUBJECTS', response.data.data)
     }).catch(error => {
       commit('SET_ERRORS', error.response.data)

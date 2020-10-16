@@ -10,6 +10,8 @@ class Student extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at', 'deleted_at', 'updated_at'];
 
+    protected $appends = ['full_name'];
+
     // protected $guard = ['id'];
     protected $fillable = [
         'student_id', 'first_name', 'last_name', 'middle_name', 'contact_no', 'sex', 'birth_date', 'nationality', 'religion',
@@ -23,6 +25,6 @@ class Student extends Model
 
     public function getFullNameAttribute()
     {
-        return "{$this->first_name} {$this->last_name}";
+        return "{$this->last_name}, {$this->first_name} {$this->middle_name}";
     }
 }

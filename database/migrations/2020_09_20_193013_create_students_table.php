@@ -28,7 +28,7 @@ class CreateStudentsTable extends Migration
             $table->string('religion')->nullable();
             $table->string('contact_no')->nullable();
             $table->unsignedBigInteger('course_id');
-            $table->foreign('course_id')->references('id')->on('courses')->cascadeOnDelete();
+            $table->foreign('course_id')->references('id')->on('courses');
             $table->string('guardian')->nullable();;
             $table->string('guardian_contact')->nullable();
             $table->string('curriculum_year')->nullable();

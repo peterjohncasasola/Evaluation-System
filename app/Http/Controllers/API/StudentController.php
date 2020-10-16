@@ -115,7 +115,7 @@ class StudentController extends Controller
 
             return response()->json([
                 'failed' => false,
-                'data' => $student,
+                'data' => $request->all(),
                 'message' => 'Student Successfully created'
             ], 201);
         } catch (\Throwable $th) {
@@ -166,14 +166,17 @@ class StudentController extends Controller
                 'required',
                 Rule::in(['Male', 'Female'])
             ],
-            'last_name' => ['required', 'alpha_spaces', 'string', new Propercase, Rule::unique('students')->where(function ($query) use ($request) {
-                return $query->where([
-                    ['first_name', $request->first_name],
-                    ['middle_name', $request->middle_name],
-                    ['last_name', $request->last_name],
-                    ['id', '!=', $request->id]
-                ]);
-            })],
+            'last_name' => [
+                'required', 'alpha_spaces', 'string', new Propercase,
+                Rule::unique('students')->where(function ($query) use ($request) {
+                    return $query->where([
+                        ['first_name', $request->first_name],
+                        ['middle_name', $request->middle_name],
+                        ['last_name', $request->last_name],
+                        ['id', '!=', $request->id]
+                    ]);
+                })
+            ],
 
             'address' => 'required|string',
             'sex' => 'required|string', Rule::in(['Male', 'Female']),

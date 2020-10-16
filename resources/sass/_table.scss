@@ -32,11 +32,11 @@ table.table {
     border-radius: 0;
   }
 
-  .b-checkbox.checkbox input[type=checkbox] + .check {
+  .b-checkbox.checkbox input[type=checkbox]+.check {
     border-width: $table-checkbox-border-width;
   }
 
-  .b-checkbox.checkbox input[type=checkbox]:not(:checked):not(:indeterminate):not(:focus):not(:hover) + .check {
+  .b-checkbox.checkbox input[type=checkbox]:not(:checked):not(:indeterminate):not(:focus):not(:hover)+.check {
     border-color: $table-checkbox-border-color;
   }
 
@@ -45,7 +45,7 @@ table.table {
     margin-bottom: 0;
   }
 
-  .table-wrapper + .level {
+  .table-wrapper+.level {
     padding: $notification-padding;
     padding-left: $card-content-padding;
     padding-right: $card-content-padding;
@@ -63,7 +63,9 @@ table.table {
       }
     }
 
-    .pagination-previous, .pagination-next, .pagination-link {
+    .pagination-previous,
+    .pagination-next,
+    .pagination-link {
       border-color: $button-border-color;
       color: $base-color;
 
@@ -78,13 +80,14 @@ table.table {
   .card {
     &.has-table {
       .b-table {
-        .table-wrapper + .level {
-          .level-left + .level-right {
+        .table-wrapper+.level {
+          .level-left+.level-right {
             margin-top: 0;
           }
         }
       }
     }
+
     &.has-mobile-sort-spaced {
       .b-table {
         .field.table-mobile-sort {
@@ -93,6 +96,7 @@ table.table {
       }
     }
   }
+
   .b-table {
     .field.table-mobile-sort {
       padding: 0 $default-padding * .5;
@@ -101,11 +105,14 @@ table.table {
     .table-wrapper.has-mobile-cards {
       tr {
         box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1);
-        margin-bottom: 3px!important;
+        margin-bottom: 3px !important;
       }
+
       td {
         &.is-progress-col {
-          span, progress {
+
+          span,
+          progress {
             display: flex;
             width: 45%;
             align-items: center;
@@ -113,11 +120,13 @@ table.table {
           }
         }
 
-        &.checkbox-cell, &.is-image-cell {
-          border-bottom: 0!important;
+        &.checkbox-cell,
+        &.is-image-cell {
+          border-bottom: 0 !important;
         }
 
-        &.checkbox-cell, &.is-actions-cell {
+        &.checkbox-cell,
+        &.is-actions-cell {
           &:before {
             display: none;
           }
