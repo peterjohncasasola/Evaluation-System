@@ -17,13 +17,13 @@ class CreateCourseSubjectsTable extends Migration
             $table->increments('id');
             $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('subject_id');
-            $table->unsignedBigInteger('sy_id');
-            $table->foreign('course_id')->references('id')->on('courses');
-            $table->foreign('subject_id')->references('id')->on('subjects');
+            $table->unsignedBigInteger('sy_id')->nullable();
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('restrict')->cascadeOnUpdate();
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('restrict')->cascadeOnUpdate();
             $table->string('prerequisite')->nullable();
             $table->string('year_level', 20);
             $table->string('semester', 15);
-            $table->foreign('sy_id')->references('id')->on('academic_years');
+            $table->foreign('sy_id')->references('id')->on('academic_years')->onDelete('restrict')->cascadeOnUpdate();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -44,7 +44,7 @@ Route::prefix('/user')->group(function () {
 });
 
 
-Route::group(['prefix' => 'api', 'middleware' => ['autotrim']], function () {
+Route::group(['prefix' => 'api', 'middleware' => ['autotrim','auth']], function () {
     Route::apiResources([
         'courses' => 'API\CourseController',
         'users' => 'API\UserController',
@@ -55,8 +55,16 @@ Route::group(['prefix' => 'api', 'middleware' => ['autotrim']], function () {
         'academic-years' => 'API\AcademicYearController',
     ]);
     Route::get('courses/{course}/subjects', 'API\CourseSubjectController@subjectsByCourse');
+    Route::get('student/subjects/remaining', 'API\StudentSubjectController@remainingSubjects');
+    Route::post('student/subjects', 'API\StudentSubjectController@store');
+    Route::put('student/subjects/update', 'API\StudentSubjectController@updateGrades');
+    Route::delete('student/subjects/{id}', 'API\StudentSubjectController@destroy');
+    Route::get('students/{id}/subjects', 'API\StudentSubjectController@index');
     Route::get('settings/semesters/set/{id}', 'SettingController@setCurrentSem');
+    Route::get('sy/current', 'API\AcademicYearController@getCurrentSY');
+    Route::get('academic-years/{id}/set-current', 'API\AcademicYearController@setCurrentSY');
     Route::get('settings/semesters', 'SettingController@getSemesters');
+    Route::get('settings/grading-system', 'SettingController@getAcademicGradings');
     Route::get('settings/semesters/current', 'SettingController@getCurrentSem')->name('current-sem');
     Route::get('settings/academic-gradings', 'SettingController@getAcademicGradings');
     Route::get('courses/{course}/curriculums', 'API\CourseController@getCurriculumsByCourse');
@@ -72,7 +80,3 @@ Route::fallback(function () {
         'message' => 'Page Not Found. If error persists, contact the Administrator'
     ], 404);
 });
-
-// Route::get('/{vue_capture?}', function () {
-//     return view('layouts.master');
-// })->where('vue_capture', '[\/\w\.-]*');

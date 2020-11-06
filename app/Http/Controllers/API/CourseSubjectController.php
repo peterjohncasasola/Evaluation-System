@@ -20,30 +20,22 @@ class CourseSubjectController extends Controller
     public function index(Request $request)
     {
 
-        $course_subjects = DB::table('course_subjects')
-            ->whereNull('course_subjects.deleted_at')
-            ->join('courses', 'course_subjects.course_id', '=', 'courses.id')
-            ->join('academic_years', 'course_subjects.sy_id', '=', 'academic_years.id')
-            ->join('subjects', 'course_subjects.subject_id', '=', 'subjects.id')
-            ->select(
-                'subjects.code as subject_code',
-                'subjects.description as subject_description',
-                'subjects.unit as units',
-                'subjects.lab as lab',
-                'subjects.lec as lec',
-                'academic_years.description as curriculum_year',
-                'courses.course_code',
-                'courses.description as course_description',
-                "course_subjects.*",
-            )
-            ->get();
+        $course_subjects = DB::table('vw_courses_subjects');
 
         if ($request->query('course_id')) {
             $course_subjects = $course_subjects->where('course_id', '=', $request->query('course_id'));
         }
 
+        if ($request->query('curriculum')) {
+            $course_subjects = $course_subjects->where('curriculum_year', '=', $request->query('curriculum'));
+        }
+
+        if ($request->query('semester')) {
+            $course_subjects = $course_subjects->where('semester', '=', $request->query('semester'));
+        }
+
         return response()->json([
-            'data' => $course_subjects,
+            'data' => $course_subjects->get(),
         ]);
     }
 
@@ -105,22 +97,8 @@ class CourseSubjectController extends Controller
      */
     public function show($id)
     {
-        $course_subject = DB::table('course_subjects')
-            ->where('course_subjects.id', '=', $id)
-            ->join('courses', 'course_subjects.course_id', '=', 'courses.id')
-            ->join('academic_years', 'course_subjects.sy_id', '=', 'academic_years.id')
-            ->join('subjects', 'course_subjects.subject_id', '=', 'subjects.id')
-            ->select(
-                'subjects.code as subject_code',
-                'subjects.description as subject_description',
-                'subjects.unit as units',
-                'subjects.lab as lab',
-                'subjects.lec as lec',
-                'academic_years.description as curriculum_year',
-                'courses.course_code',
-                'courses.description as course_description',
-                "course_subjects.*",
-            )
+        $course_subject = DB::table('vw_courses_subjects')
+            ->where('id', '=', $id)
             ->get();
 
         return $course_subject;
@@ -141,7 +119,6 @@ class CourseSubjectController extends Controller
                 'courses.description as course_description',
                 'semesters.semester as  semestral',
                 "course_subjects.*",
-
             )
             ->get();
 

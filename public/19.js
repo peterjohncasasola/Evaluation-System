@@ -38,80 +38,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalBox.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModalBox.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "ModalBox",
-  props: {
-    isActive: {
-      type: Boolean,
-      "default": false
-    },
-    confirmLabel: {
-      type: String,
-      "default": "Confirm"
-    },
-    confirmType: {
-      type: String,
-      "default": "is-info"
-    }
-  },
-  data: function data() {
-    return {
-      isModalActive: false
-    };
-  },
-  computed: {
-    confirmButtonClass: function confirmButtonClass() {
-      return "button ".concat(this.confirmType);
-    }
-  },
-  methods: {
-    cancel: function cancel() {
-      this.$emit("cancel");
-    },
-    confirm: function confirm() {
-      this.$emit("confirm");
-    }
-  },
-  watch: {
-    isActive: function isActive(newValue) {
-      this.isModalActive = newValue;
-    },
-    isModalActive: function isModalActive(newValue) {
-      if (!newValue) {
-        this.cancel();
-      }
-    }
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/AcademicYear.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/AcademicYear.vue?vue&type=script&lang=js& ***!
@@ -131,6 +57,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_HeroBar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/HeroBar */ "./resources/js/components/HeroBar.vue");
 /* harmony import */ var _components_CardToolbar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/CardToolbar */ "./resources/js/components/CardToolbar.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _apiClient__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../apiClient */ "./resources/js/apiClient.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -274,6 +201,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -300,7 +260,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData: {
         id: "",
         school_year: "",
-        description: ""
+        description: "",
+        is_current: false
       }
     };
   },
@@ -413,6 +374,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee);
       }))();
     },
+    setCurrent: function setCurrent(data) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this4.isLoading = true;
+                _apiClient__WEBPACK_IMPORTED_MODULE_8__["default"].get("/academic-years/".concat(data.id, "/set-current"));
+
+                _this4.fetchAcademicYears();
+
+                setTimeout(function () {
+                  _this4.isLoading = false;
+                }, 500);
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
     remove: function remove(data) {
       this.deleteAY(data);
       this.showNotification("Successfully deleted", "info");
@@ -434,31 +420,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   })
 });
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseEach.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_baseEach.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseForOwn = __webpack_require__(/*! ./_baseForOwn */ "./node_modules/lodash/_baseForOwn.js"),
-    createBaseEach = __webpack_require__(/*! ./_createBaseEach */ "./node_modules/lodash/_createBaseEach.js");
-
-/**
- * The base implementation of `_.forEach` without support for iteratee shorthands.
- *
- * @private
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array|Object} Returns `collection`.
- */
-var baseEach = createBaseEach(baseForOwn);
-
-module.exports = baseEach;
-
 
 /***/ }),
 
@@ -491,49 +452,6 @@ function baseMap(collection, iteratee) {
 }
 
 module.exports = baseMap;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_createBaseEach.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash/_createBaseEach.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js");
-
-/**
- * Creates a `baseEach` or `baseEachRight` function.
- *
- * @private
- * @param {Function} eachFunc The function to iterate over a collection.
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {Function} Returns the new base function.
- */
-function createBaseEach(eachFunc, fromRight) {
-  return function(collection, iteratee) {
-    if (collection == null) {
-      return collection;
-    }
-    if (!isArrayLike(collection)) {
-      return eachFunc(collection, iteratee);
-    }
-    var length = collection.length,
-        index = fromRight ? length : -1,
-        iterable = Object(collection);
-
-    while ((fromRight ? index-- : ++index < length)) {
-      if (iteratee(iterable[index], index, iterable) === false) {
-        break;
-      }
-    }
-    return collection;
-  };
-}
-
-module.exports = createBaseEach;
 
 
 /***/ }),
@@ -636,74 +554,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalBox.vue?vue&type=template&id=75bd336e&":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModalBox.vue?vue&type=template&id=75bd336e& ***!
-  \***********************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "b-modal",
-    {
-      attrs: { active: _vm.isModalActive, "has-modal-card": "" },
-      on: {
-        "update:active": function($event) {
-          _vm.isModalActive = $event
-        }
-      }
-    },
-    [
-      _c("div", { staticClass: "modal-card" }, [
-        _c("header", { staticClass: "modal-card-head" }, [
-          _c("p", { staticClass: "modal-card-title" }, [
-            _vm._v("Confirm action")
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "section",
-          { staticClass: "modal-card-body" },
-          [_vm._t("default")],
-          2
-        ),
-        _vm._v(" "),
-        _c("footer", { staticClass: "modal-card-foot" }, [
-          _c(
-            "button",
-            {
-              staticClass: "button",
-              attrs: { type: "button" },
-              on: { click: _vm.cancel }
-            },
-            [_vm._v("Cancel")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            { class: _vm.confirmButtonClass, on: { click: _vm.confirm } },
-            [_vm._v(_vm._s(_vm.confirmLabel))]
-          )
-        ])
-      ])
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/AcademicYear.vue?vue&type=template&id=ba2796fa&":
 /*!**********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/AcademicYear.vue?vue&type=template&id=ba2796fa& ***!
@@ -727,7 +577,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("hero-bar", [
-        _vm._v("\n  Academic Years\n  "),
+        _vm._v("\n    Academic Years\n    "),
         _c(
           "button",
           {
@@ -870,11 +720,13 @@ var render = function() {
                         _c("header", { staticClass: "modal-card-head" }, [
                           _c("h3", { staticClass: "modal-card-title" }, [
                             _vm._v(
-                              _vm._s(
-                                _vm.isNew
-                                  ? "Creating Academic Year"
-                                  : "Editing Academic Year"
-                              )
+                              "\n                " +
+                                _vm._s(
+                                  _vm.isNew
+                                    ? "Creating Academic Year"
+                                    : "Editing Academic Year"
+                                ) +
+                                "\n              "
                             )
                           ]),
                           _vm._v(" "),
@@ -943,7 +795,13 @@ var render = function() {
                               staticClass: "button is-success",
                               attrs: { type: "submit" }
                             },
-                            [_vm._v(_vm._s(_vm.isNew ? "Save" : "Update"))]
+                            [
+                              _vm._v(
+                                "\n                " +
+                                  _vm._s(_vm.isNew ? "Save" : "Update") +
+                                  "\n              "
+                              )
+                            ]
                           ),
                           _vm._v(" "),
                           _c(
@@ -1014,6 +872,43 @@ var render = function() {
                               }
                             },
                             [_vm._v(_vm._s(props.row.description))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            {
+                              attrs: {
+                                label: "Status",
+                                field: "is_active",
+                                sortable: ""
+                              }
+                            },
+                            [
+                              _c(
+                                "b-switch",
+                                {
+                                  attrs: {
+                                    value: props.row.is_current,
+                                    type: "is-success"
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      return _vm.setCurrent(props.row)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n              " +
+                                      _vm._s(
+                                        props.row.is_current ? "Open" : "Closed"
+                                      ) +
+                                      "\n            "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
                           ),
                           _vm._v(" "),
                           _c(
@@ -1230,75 +1125,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/ModalBox.vue":
-/*!**********************************************!*\
-  !*** ./resources/js/components/ModalBox.vue ***!
-  \**********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ModalBox_vue_vue_type_template_id_75bd336e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModalBox.vue?vue&type=template&id=75bd336e& */ "./resources/js/components/ModalBox.vue?vue&type=template&id=75bd336e&");
-/* harmony import */ var _ModalBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ModalBox.vue?vue&type=script&lang=js& */ "./resources/js/components/ModalBox.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _ModalBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _ModalBox_vue_vue_type_template_id_75bd336e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _ModalBox_vue_vue_type_template_id_75bd336e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/ModalBox.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/ModalBox.vue?vue&type=script&lang=js&":
-/*!***********************************************************************!*\
-  !*** ./resources/js/components/ModalBox.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ModalBox.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalBox.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/ModalBox.vue?vue&type=template&id=75bd336e&":
-/*!*****************************************************************************!*\
-  !*** ./resources/js/components/ModalBox.vue?vue&type=template&id=75bd336e& ***!
-  \*****************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalBox_vue_vue_type_template_id_75bd336e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ModalBox.vue?vue&type=template&id=75bd336e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalBox.vue?vue&type=template&id=75bd336e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalBox_vue_vue_type_template_id_75bd336e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalBox_vue_vue_type_template_id_75bd336e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\AcademicYear;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -119,6 +120,27 @@ class AcademicYearController extends Controller
         return response()->json([
             'failed' => false,
             'message' => 'Successfully Deleted'
+        ]);
+    }
+
+    public function setCurrentSY($id)
+    {
+        DB::update('update academic_years set is_current = ?  where id = ?', [true, $id]);
+
+        DB::update('update academic_years set is_current = ?  where id != ?', [false, $id]);
+
+        return response()->json([
+            'data' => AcademicYear::findOrFail($id),
+            'message' => 'Successfully changed.'
+        ]);
+    }
+
+    public function getCurrentSY()
+    {
+        $sy = \App\AcademicYear::where('is_current', '=', 1)->get();
+
+        return response()->json([
+            'data' => $sy,
         ]);
     }
 }

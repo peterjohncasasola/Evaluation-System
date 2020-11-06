@@ -164,16 +164,16 @@ Vue.mixin({
       }
       this.showNotification(message, "danger");
     },
-
-    showNotification(message, type) {
+    
+    showNotification(message, type, position = "is-bottom-right") {
       this.$buefy.notification.open({
         duration: 5000,
-        message: message,
-        position: "is-bottom-right",
+        message,
+        position,
         type: `is-${type}`,
         hasIcon: true,
         closable: true,
-        qeue: false,
+        queue: false,
         autoClose: true,
       });
     },
@@ -181,7 +181,7 @@ Vue.mixin({
 
   filters: {
     truncate(value, length) {
-      if (value !== null) {
+      if (value !== null || value !== '') {
         return value.length > length ? value.substr(0, length) + "..." : value;
       }
     },

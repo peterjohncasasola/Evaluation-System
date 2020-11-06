@@ -333,7 +333,6 @@ export default {
       this.isNew = false;
       await this.fetchStudent(this.$route.params.id);
       Object.assign(this.form, this.student);
-      console.log(this.form);
       this.getCurriculumsByCourse(this.student.course_id);
       this.options.course.searchText = this.student.course.description;
     }
@@ -357,7 +356,7 @@ export default {
           });
         });
     },
-    
+
     onInput(event) {
       this.form.student_id = event.target._vCleave.getFormattedValue();
     },

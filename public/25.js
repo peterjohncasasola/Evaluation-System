@@ -1,59 +1,31 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[25],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardToolbar.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardToolbar.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Registration.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Registration.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "CardToolbar",
-  props: {
-    isMobile: {
-      type: Boolean,
-      "default": false
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Students/Index.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Students/Index.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash_map__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/map */ "./node_modules/lodash/map.js");
-/* harmony import */ var lodash_map__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_map__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _components_TitleBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/TitleBar */ "./resources/js/components/TitleBar.vue");
-/* harmony import */ var _components_HeroBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/HeroBar */ "./resources/js/components/HeroBar.vue");
-/* harmony import */ var _components_CardToolbar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/CardToolbar */ "./resources/js/components/CardToolbar.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
+/* harmony import */ var lodash_mapValues__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash/mapValues */ "./node_modules/lodash/mapValues.js");
+/* harmony import */ var lodash_mapValues__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_mapValues__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _apiClient__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../apiClient */ "./resources/js/apiClient.js");
+/* harmony import */ var _components_HeroBar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/HeroBar */ "./resources/js/components/HeroBar.vue");
+
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -283,6 +255,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -290,238 +275,346 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Registration",
   components: {
-    CardToolbar: _components_CardToolbar__WEBPACK_IMPORTED_MODULE_4__["default"],
-    HeroBar: _components_HeroBar__WEBPACK_IMPORTED_MODULE_3__["default"],
-    TitleBar: _components_TitleBar__WEBPACK_IMPORTED_MODULE_2__["default"],
-    CardComponent: _components_CardComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
+    HeroBar: _components_HeroBar__WEBPACK_IMPORTED_MODULE_6__["default"],
+    CardComponent: _components_CardComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
+    TitleBar: _components_TitleBar__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
+      curriculums: [],
+      errors: {},
+      isNew: true,
+      paramId: this.$route.params.id,
       isLoading: false,
-      paginated: false,
-      perPage: 10,
-      checkedRows: [],
-      isNew: true
+      form: {
+        student_id: "",
+        curriculum_year: "",
+        course: {}
+      },
+      currentTab: 0,
+      searchStudent: "",
+      settings: {
+        currentSem: {}
+      }
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])("students", ["students"])),
+  computed: _objectSpread(_objectSpread(_objectSpread({
+    titleStack: function titleStack() {
+      return ["Transactions", "Registration"];
+    }
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("courseSubject", ["coursesSubjects"])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("students", ["students"])), {}, {
+    filteredStudents: function filteredStudents() {
+      var _this = this;
+
+      return this.students.filter(function (opt) {
+        return opt.full_name.toString().toLowerCase().indexOf(_this.searchStudent.toLowerCase()) >= 0;
+      });
+    }
+  }),
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
-    this.isLoading = true;
-    this.fetchStudents();
-    setTimeout(function () {
-      _this.isLoading = false;
-    }, 300);
-  },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapActions"])("students", ["fetchStudents", "deleteStudent"])), {}, {
-    edit: function edit(data) {
-      this.clearForm();
-      this.options.course.searchText = data.course_description;
-      this.options.subject.searchText = data.subject_code;
-      this.options.academicYear.searchText = data.curriculum_year;
-      this.isNew = false;
-      Object.assign(this.formData, data);
-      this.isModalActive = true;
-    },
-    deleteConfirmation: function deleteConfirmation() {
-      var _this2 = this;
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this2.fetchStudents();
 
-      var trashObject = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-      this.trashObject = trashObject;
+            case 2:
+              _context.next = 4;
+              return _this2.fetchCoursesSubjects();
 
-      if (trashObject || this.checkedRows.length) {
-        this.$buefy.dialog.confirm({
-          title: "Deleting",
-          message: "Are you sure you want to <b>delete ".concat(trashObject.student_id, "</b>? This action cannot be undone."),
-          confirmText: "Delete",
-          type: "is-danger",
-          hasIcon: true,
-          onConfirm: function onConfirm() {
-            _this2.remove(_this2.trashObject);
+            case 4:
+              _this2.getCurrentSem();
+
+            case 5:
+            case "end":
+              return _context.stop();
           }
-        });
+        }
+      }, _callee);
+    }))();
+  },
+  methods: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("courses", ["fetchCourses"])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("courseSubject", ["fetchCoursesSubjects"])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("students", ["fetchStudents"])), {}, {
+    getCurrentSem: function getCurrentSem() {
+      var _this3 = this;
+
+      _apiClient__WEBPACK_IMPORTED_MODULE_5__["default"].get("/settings/semesters/current").then(function (_ref) {
+        var data = _ref.data;
+        _this3.settings.currentSem = data.data[0];
+      });
+    },
+    setSelectedStudent: function setSelectedStudent(option) {
+      console.log(option);
+
+      if (option) {
+        this.form.student_id = option.student_id;
+        this.form.curriculum_year = option.curriculum_year;
+        this.form.course = option.course;
       }
     },
-    remove: function remove(data) {
-      this.deleteStudent(data);
-      this.showNotification("Successfully deleted", "info");
+    submit: function submit() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this4.errors = {};
+                response = null;
+                _this4.form.birth_date = moment(_this4.bday).format("YYYY-MM-DD");
+
+                if (!_this4.isNew) {
+                  _context2.next = 10;
+                  break;
+                }
+
+                _context2.next = 6;
+                return _this4.createStudent(_this4.form);
+
+              case 6:
+                response = _context2.sent;
+
+                if (response == undefined || response == null) {
+                  _this4.showNotification("Successfully Saved.", "success");
+                } else {
+                  _this4.errors = response.errors;
+                }
+
+                _context2.next = 12;
+                break;
+
+              case 10:
+                _context2.next = 12;
+                return _this4.update();
+
+              case 12:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    update: function update() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                response = null;
+                _context3.next = 3;
+                return _this5.updateStudent(_this5.form);
+
+              case 3:
+                response = _context3.sent;
+
+                if (response == undefined || response == null) {
+                  _this5.showNotification("Successfully updated", "success");
+                } else {
+                  _this5.errors = response.errors;
+                }
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    reset: function reset() {
+      this.form = lodash_mapValues__WEBPACK_IMPORTED_MODULE_4___default()(this.form, function (item) {
+        if (item && _typeof(item) === "object") {
+          return [];
+        }
+
+        return null;
+      });
+      this.$buefy.snackbar.open({
+        message: "Reset successfully",
+        queue: false
+      });
     }
   })
 });
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_baseEach.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_baseEach.js ***!
-  \******************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Registration.vue?vue&type=style&index=0&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Registration.vue?vue&type=style&index=0&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseForOwn = __webpack_require__(/*! ./_baseForOwn */ "./node_modules/lodash/_baseForOwn.js"),
-    createBaseEach = __webpack_require__(/*! ./_createBaseEach */ "./node_modules/lodash/_createBaseEach.js");
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
 
-/**
- * The base implementation of `_.forEach` without support for iteratee shorthands.
- *
- * @private
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array|Object} Returns `collection`.
- */
-var baseEach = createBaseEach(baseForOwn);
 
-module.exports = baseEach;
+// module
+exports.push([module.i, "\n.input:-moz-read-only {\r\n  background: #f4f4f4 !important;\n}\n.input:read-only {\r\n  background: #f4f4f4 !important;\n}\r\n", ""]);
+
+// exports
 
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_baseMap.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_baseMap.js ***!
-  \*****************************************/
+/***/ "./node_modules/lodash/_baseAssignValue.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_baseAssignValue.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseEach = __webpack_require__(/*! ./_baseEach */ "./node_modules/lodash/_baseEach.js"),
-    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js");
+var defineProperty = __webpack_require__(/*! ./_defineProperty */ "./node_modules/lodash/_defineProperty.js");
 
 /**
- * The base implementation of `_.map` without support for iteratee shorthands.
+ * The base implementation of `assignValue` and `assignMergeValue` without
+ * value checks.
  *
  * @private
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
  */
-function baseMap(collection, iteratee) {
-  var index = -1,
-      result = isArrayLike(collection) ? Array(collection.length) : [];
-
-  baseEach(collection, function(value, key, collection) {
-    result[++index] = iteratee(value, key, collection);
-  });
-  return result;
+function baseAssignValue(object, key, value) {
+  if (key == '__proto__' && defineProperty) {
+    defineProperty(object, key, {
+      'configurable': true,
+      'enumerable': true,
+      'value': value,
+      'writable': true
+    });
+  } else {
+    object[key] = value;
+  }
 }
 
-module.exports = baseMap;
+module.exports = baseAssignValue;
 
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_createBaseEach.js":
+/***/ "./node_modules/lodash/_defineProperty.js":
 /*!************************************************!*\
-  !*** ./node_modules/lodash/_createBaseEach.js ***!
+  !*** ./node_modules/lodash/_defineProperty.js ***!
   \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js");
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js");
 
-/**
- * Creates a `baseEach` or `baseEachRight` function.
- *
- * @private
- * @param {Function} eachFunc The function to iterate over a collection.
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {Function} Returns the new base function.
- */
-function createBaseEach(eachFunc, fromRight) {
-  return function(collection, iteratee) {
-    if (collection == null) {
-      return collection;
-    }
-    if (!isArrayLike(collection)) {
-      return eachFunc(collection, iteratee);
-    }
-    var length = collection.length,
-        index = fromRight ? length : -1,
-        iterable = Object(collection);
+var defineProperty = (function() {
+  try {
+    var func = getNative(Object, 'defineProperty');
+    func({}, '', {});
+    return func;
+  } catch (e) {}
+}());
 
-    while ((fromRight ? index-- : ++index < length)) {
-      if (iteratee(iterable[index], index, iterable) === false) {
-        break;
-      }
-    }
-    return collection;
-  };
-}
-
-module.exports = createBaseEach;
+module.exports = defineProperty;
 
 
 /***/ }),
 
-/***/ "./node_modules/lodash/map.js":
-/*!************************************!*\
-  !*** ./node_modules/lodash/map.js ***!
-  \************************************/
+/***/ "./node_modules/lodash/mapValues.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/mapValues.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayMap = __webpack_require__(/*! ./_arrayMap */ "./node_modules/lodash/_arrayMap.js"),
-    baseIteratee = __webpack_require__(/*! ./_baseIteratee */ "./node_modules/lodash/_baseIteratee.js"),
-    baseMap = __webpack_require__(/*! ./_baseMap */ "./node_modules/lodash/_baseMap.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js");
+var baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js"),
+    baseForOwn = __webpack_require__(/*! ./_baseForOwn */ "./node_modules/lodash/_baseForOwn.js"),
+    baseIteratee = __webpack_require__(/*! ./_baseIteratee */ "./node_modules/lodash/_baseIteratee.js");
 
 /**
- * Creates an array of values by running each element in `collection` thru
+ * Creates an object with the same keys as `object` and values generated
+ * by running each own enumerable string keyed property of `object` thru
  * `iteratee`. The iteratee is invoked with three arguments:
- * (value, index|key, collection).
- *
- * Many lodash methods are guarded to work as iteratees for methods like
- * `_.every`, `_.filter`, `_.map`, `_.mapValues`, `_.reject`, and `_.some`.
- *
- * The guarded methods are:
- * `ary`, `chunk`, `curry`, `curryRight`, `drop`, `dropRight`, `every`,
- * `fill`, `invert`, `parseInt`, `random`, `range`, `rangeRight`, `repeat`,
- * `sampleSize`, `slice`, `some`, `sortBy`, `split`, `take`, `takeRight`,
- * `template`, `trim`, `trimEnd`, `trimStart`, and `words`
+ * (value, key, object).
  *
  * @static
  * @memberOf _
- * @since 0.1.0
- * @category Collection
- * @param {Array|Object} collection The collection to iterate over.
+ * @since 2.4.0
+ * @category Object
+ * @param {Object} object The object to iterate over.
  * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
+ * @returns {Object} Returns the new mapped object.
+ * @see _.mapKeys
  * @example
  *
- * function square(n) {
- *   return n * n;
- * }
+ * var users = {
+ *   'fred':    { 'user': 'fred',    'age': 40 },
+ *   'pebbles': { 'user': 'pebbles', 'age': 1 }
+ * };
  *
- * _.map([4, 8], square);
- * // => [16, 64]
- *
- * _.map({ 'a': 4, 'b': 8 }, square);
- * // => [16, 64] (iteration order is not guaranteed)
- *
- * var users = [
- *   { 'user': 'barney' },
- *   { 'user': 'fred' }
- * ];
+ * _.mapValues(users, function(o) { return o.age; });
+ * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
  *
  * // The `_.property` iteratee shorthand.
- * _.map(users, 'user');
- * // => ['barney', 'fred']
+ * _.mapValues(users, 'age');
+ * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
  */
-function map(collection, iteratee) {
-  var func = isArray(collection) ? arrayMap : baseMap;
-  return func(collection, baseIteratee(iteratee, 3));
+function mapValues(object, iteratee) {
+  var result = {};
+  iteratee = baseIteratee(iteratee, 3);
+
+  baseForOwn(object, function(value, key, object) {
+    baseAssignValue(result, key, iteratee(value, key, object));
+  });
+  return result;
 }
 
-module.exports = map;
+module.exports = mapValues;
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0&":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0& ***!
-  \**************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Registration.vue?vue&type=style&index=0&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Registration.vue?vue&type=style&index=0&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./Registration.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Registration.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Registration.vue?vue&type=template&id=111cccd8&":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Registration.vue?vue&type=template&id=111cccd8& ***!
+  \**********************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -533,599 +626,691 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "notification is-card-toolbar" }, [
-    _c("div", { staticClass: "level", class: { "is-mobile": _vm.isMobile } }, [
-      _c("div", { staticClass: "level-left" }, [
-        _c("div", { staticClass: "level-item" }, [_vm._t("left")], 2)
-      ]),
+  return _c(
+    "div",
+    [
+      _c("title-bar", { attrs: { "title-stack": _vm.titleStack } }),
       _vm._v(" "),
-      _c("div", { staticClass: "level-right" }, [
-        _c("div", { staticClass: "level-item" }, [_vm._t("right")], 2)
-      ])
-    ])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Students/Index.vue?vue&type=template&id=6b367eda&":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Students/Index.vue?vue&type=template&id=6b367eda& ***!
-  \************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      [
-        _c("title-bar", {
-          attrs: { "title-stack": ["Master Files", "Students", "List"] }
-        }),
-        _vm._v(" "),
-        _c(
-          "hero-bar",
-          [
-            _vm._v("\n   Students\n   "),
-            _c(
-              "router-link",
-              {
-                staticClass: "button is-default",
-                attrs: { slot: "right", to: { name: "students-new" } },
-                slot: "right"
-              },
-              [
-                _c("b-icon", {
-                  staticClass: "i",
-                  attrs: { icon: "file-plus", "custom-size": "default" }
-                }),
-                _vm._v(" "),
-                _c("span", [_vm._v("New")])
-              ],
-              1
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "section",
-          { staticClass: "section is-main-section" },
-          [
-            _c(
-              "card-component",
-              {
-                staticClass: "has-table has-mobile-sort-spaced",
-                attrs: { title: "Students" }
-              },
-              [
-                _c(
-                  "card-toolbar",
-                  [
+      _c(
+        "section",
+        { staticClass: "section is-main-section" },
+        [
+          _c("card-component", { attrs: { title: "Forms", icon: "ballot" } }, [
+            _c("div", { staticClass: "container-fluid" }, [
+              _c(
+                "form",
+                {
+                  attrs: { novalidate: "" },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.submit($event)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "columns" }, [
                     _c(
-                      "button",
-                      {
-                        staticClass: "button is-danger has-checked-rows-number",
-                        attrs: {
-                          slot: "right",
-                          type: "button",
-                          disabled: !_vm.checkedRows.length
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteConfirmation(null)
-                          }
-                        },
-                        slot: "right"
-                      },
+                      "div",
+                      { staticClass: "column is-one-half" },
                       [
-                        _c("b-icon", {
-                          staticClass: "i",
-                          attrs: { icon: "trash-can", "custom-size": "default" }
-                        }),
-                        _vm._v(" "),
-                        _c("span", [_vm._v("Delete")]),
-                        _vm._v(" "),
                         _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: !!_vm.checkedRows.length,
-                                expression: "!!checkedRows.length"
-                              }
-                            ]
-                          },
-                          [_vm._v("(" + _vm._s(_vm.checkedRows.length) + ")")]
+                          "b-field",
+                          { attrs: { label: "Academic Year", horizontal: "" } },
+                          [
+                            _c("b-input", {
+                              attrs: { readonly: "", value: "2020 - 2021" }
+                            })
+                          ],
+                          1
                         )
                       ],
                       1
                     ),
                     _vm._v(" "),
                     _c(
-                      "b-select",
-                      {
-                        attrs: { slot: "left" },
-                        slot: "left",
-                        model: {
-                          value: _vm.perPage,
-                          callback: function($$v) {
-                            _vm.perPage = $$v
-                          },
-                          expression: "perPage"
-                        }
-                      },
+                      "div",
+                      { staticClass: "column is-one-half" },
                       [
-                        _c("option", { attrs: { value: "5" } }, [
-                          _vm._v("5 per page")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "10" } }, [
-                          _vm._v("10 per page")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "15" } }, [
-                          _vm._v("15 per page")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "20" } }, [
-                          _vm._v("20 per page")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "25" } }, [
-                          _vm._v("25 per page")
-                        ])
-                      ]
+                        _c(
+                          "b-field",
+                          { attrs: { label: "Semester", horizontal: "" } },
+                          [
+                            _c("b-input", {
+                              attrs: {
+                                readonly: "",
+                                value: _vm.settings.currentSem.semester
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
                     )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-table",
-                  {
-                    ref: "table",
-                    attrs: {
-                      loading: _vm.isLoading,
-                      paginated: true,
-                      "per-page": _vm.perPage,
-                      hoverable: true,
-                      "default-sort": "student_id",
-                      data: _vm.students,
-                      detailed: "",
-                      "detail-key": "id",
-                      "show-detail-icon": true
-                    },
-                    scopedSlots: _vm._u([
-                      {
-                        key: "default",
-                        fn: function(props) {
-                          return [
-                            _c(
-                              "b-table-column",
-                              {
-                                attrs: {
-                                  searchable: "",
-                                  label: "Student ID",
-                                  field: "student_id"
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "columns" }, [
+                    _c(
+                      "div",
+                      { staticClass: "column is-one-half" },
+                      [
+                        _c(
+                          "b-field",
+                          {
+                            attrs: { label: "Search Student", horizontal: "" }
+                          },
+                          [
+                            _c("b-autocomplete", {
+                              attrs: {
+                                placeholder: "e.g Cruz, Juan Dela",
+                                "open-on-focus": true,
+                                data: _vm.filteredStudents,
+                                field: "full_name",
+                                clearable: true
+                              },
+                              on: {
+                                select: function(option) {
+                                  return _vm.setSelectedStudent(option)
                                 }
                               },
-                              [_vm._v(_vm._s(props.row.student_id))]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                attrs: {
-                                  searchable: "",
-                                  label: "First Name",
-                                  field: "first_name",
-                                  sortable: ""
-                                }
-                              },
-                              [_vm._v(_vm._s(props.row.first_name))]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                attrs: {
-                                  searchable: "",
-                                  label: "Last Name",
-                                  field: "last_name",
-                                  sortable: "",
-                                  title: props.row.last_name
-                                }
-                              },
-                              [_vm._v(_vm._s(props.row.last_name))]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                attrs: {
-                                  searchable: "",
-                                  label: "Middle Name",
-                                  field: "middle_name",
-                                  sortable: "",
-                                  title: props.row.middle_name
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  _vm._s(
-                                    _vm._f("isEmpty")(props.row.middle_name)
-                                  )
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                attrs: {
-                                  searchable: "",
-                                  label: "Gender",
-                                  field: "sex",
-                                  sortable: "",
-                                  title: props.row.sex
-                                }
-                              },
-                              [_vm._v(_vm._s(_vm._f("isEmpty")(props.row.sex)))]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                attrs: {
-                                  searchable: "",
-                                  label: "Course",
-                                  field: "course.course_code",
-                                  sortable: "",
-                                  title: props.row.course.course_code
-                                }
-                              },
-                              [_vm._v(_vm._s(props.row.course.course_code))]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                staticClass: "wrap-text",
-                                attrs: {
-                                  searchable: "",
-                                  label: "Contact No",
-                                  field: "contact_no",
-                                  sortable: "",
-                                  title: props.row.contact_no
-                                }
-                              },
-                              [_vm._v(_vm._s(props.row.contact_no))]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                staticClass: "is-actions-cell",
-                                attrs: { "custom-key": "actions", width: "10%" }
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "buttons is-right" },
-                                  [
-                                    _c(
-                                      "b-tooltip",
-                                      {
-                                        attrs: {
-                                          label: "Click to edit",
-                                          position: "is-top"
-                                        }
-                                      },
-                                      [
-                                        _c(
-                                          "router-link",
-                                          {
-                                            staticClass:
-                                              "button is-link is-small",
-                                            attrs: {
-                                              to: {
-                                                name: "students-edit",
-                                                params: { id: props.row.id }
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _c("b-icon", {
-                                              attrs: {
-                                                icon: "pencil",
-                                                size: "is-small"
-                                              }
-                                            })
-                                          ],
-                                          1
+                              scopedSlots: _vm._u([
+                                {
+                                  key: "default",
+                                  fn: function(props) {
+                                    return [
+                                      _c("strong", [
+                                        _vm._v(
+                                          _vm._s(props.option.student_id) +
+                                            " |\n                      " +
+                                            _vm._s(props.option.full_name)
                                         )
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "b-tooltip",
-                                      {
-                                        attrs: {
-                                          label: "Click to Delete",
-                                          position: "is-top"
-                                        }
-                                      },
-                                      [
-                                        _c(
-                                          "button",
-                                          {
-                                            staticClass:
-                                              "button is-danger is-small",
-                                            attrs: { type: "button" },
-                                            on: {
-                                              click: function($event) {
-                                                $event.preventDefault()
-                                                return _vm.deleteConfirmation(
-                                                  props.row
-                                                )
+                                      ])
+                                    ]
+                                  }
+                                }
+                              ]),
+                              model: {
+                                value: _vm.searchStudent,
+                                callback: function($$v) {
+                                  _vm.searchStudent = $$v
+                                },
+                                expression: "searchStudent"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "column is-one-half" },
+                      [
+                        _c(
+                          "b-field",
+                          { attrs: { label: "ID Number", horizontal: "" } },
+                          [
+                            _c("b-input", {
+                              staticClass: "bg-color",
+                              attrs: {
+                                readonly: "",
+                                value: _vm.form.student_id
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "columns" }, [
+                    _c(
+                      "div",
+                      { staticClass: "column is-one-half" },
+                      [
+                        _c(
+                          "b-field",
+                          { attrs: { label: "Course", horizontal: "" } },
+                          [
+                            _c("b-input", {
+                              attrs: {
+                                readonly: "",
+                                value: _vm.form.course.description
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "column is-one-half" },
+                      [
+                        _c(
+                          "b-field",
+                          { attrs: { label: "Curriculum", horizontal: "" } },
+                          [
+                            _c("b-input", {
+                              attrs: {
+                                readonly: "",
+                                value: _vm.form.curriculum_year
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("card-component", [
+            _c("div", { staticClass: "container-fluid" }, [
+              _c("hr"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "columns" },
+                [
+                  _c(
+                    "b-tabs",
+                    {
+                      model: {
+                        value: _vm.currentTab,
+                        callback: function($$v) {
+                          _vm.currentTab = $$v
+                        },
+                        expression: "currentTab"
+                      }
+                    },
+                    [
+                      _c(
+                        "b-tab-item",
+                        { attrs: { label: "Course Subjects" } },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "column is-one-half" },
+                            [
+                              _c(
+                                "b-table",
+                                {
+                                  attrs: {
+                                    loading: _vm.isLoading,
+                                    paginated: true,
+                                    bordered: true,
+                                    checkable: true,
+                                    hoverable: true,
+                                    data: _vm.coursesSubjects
+                                  },
+                                  scopedSlots: _vm._u([
+                                    {
+                                      key: "default",
+                                      fn: function(props) {
+                                        return [
+                                          _c(
+                                            "b-table-column",
+                                            {
+                                              attrs: {
+                                                searchable: "",
+                                                width: "20%",
+                                                label: "Subject Code",
+                                                field: "subject_code",
+                                                sortable: ""
                                               }
+                                            },
+                                            [
+                                              _vm._v(
+                                                _vm._s(props.row.subject_code)
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-table-column",
+                                            {
+                                              attrs: {
+                                                searchable: "",
+                                                label: "Descriptive Title",
+                                                field: "subject_description",
+                                                width: "50%",
+                                                sortable: ""
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                _vm._s(
+                                                  props.row.subject_description
+                                                )
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-table-column",
+                                            {
+                                              attrs: {
+                                                searchable: "",
+                                                width: "10%",
+                                                label: "Units",
+                                                field: "units",
+                                                sortable: ""
+                                              }
+                                            },
+                                            [_vm._v(_vm._s(props.row.units))]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-table-column",
+                                            {
+                                              attrs: {
+                                                width: "10%",
+                                                label: "Year Level",
+                                                field: "year_level",
+                                                sortable: ""
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                _vm._s(props.row.year_level)
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-table-column",
+                                            {
+                                              staticClass: "is-actions-cell",
+                                              attrs: { "custom-key": "actions" }
+                                            },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass:
+                                                    "buttons is-right"
+                                                },
+                                                [
+                                                  _c(
+                                                    "b-tooltip",
+                                                    {
+                                                      attrs: {
+                                                        label: "Click to edit",
+                                                        position: "is-left"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "button",
+                                                        {
+                                                          staticClass:
+                                                            "button is-link is-small",
+                                                          on: {
+                                                            click: function(
+                                                              $event
+                                                            ) {
+                                                              return _vm.edit(
+                                                                props.row
+                                                              )
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _c("b-icon", {
+                                                            attrs: {
+                                                              icon: "pencil",
+                                                              size: "is-small"
+                                                            }
+                                                          })
+                                                        ],
+                                                        1
+                                                      )
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "b-tooltip",
+                                                    {
+                                                      attrs: {
+                                                        label:
+                                                          "Click to Delete",
+                                                        position: "is-left"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "button",
+                                                        {
+                                                          staticClass:
+                                                            "button is-danger",
+                                                          attrs: {
+                                                            type: "button"
+                                                          },
+                                                          on: {
+                                                            click: function(
+                                                              $event
+                                                            ) {
+                                                              $event.preventDefault()
+                                                              return _vm.deleteConfirmation(
+                                                                props.row
+                                                              )
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _c("b-icon", {
+                                                            attrs: {
+                                                              icon: "trash-can",
+                                                              size: "is-small"
+                                                            }
+                                                          })
+                                                        ],
+                                                        1
+                                                      )
+                                                    ]
+                                                  )
+                                                ],
+                                                1
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      }
+                                    }
+                                  ])
+                                },
+                                [
+                                  _vm._v(" "),
+                                  _c(
+                                    "section",
+                                    {
+                                      staticClass: "section",
+                                      attrs: { slot: "empty" },
+                                      slot: "empty"
+                                    },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "content has-text-grey has-text-centered"
+                                        },
+                                        [
+                                          _vm.isLoading
+                                            ? [
+                                                _c(
+                                                  "p",
+                                                  [
+                                                    _c("b-icon", {
+                                                      attrs: {
+                                                        icon: "dots-horizontal",
+                                                        size: "is-large"
+                                                      }
+                                                    })
+                                                  ],
+                                                  1
+                                                ),
+                                                _vm._v(" "),
+                                                _c("p", [
+                                                  _vm._v("Fetching data...")
+                                                ])
+                                              ]
+                                            : [
+                                                _c("p", [
+                                                  _vm._v("Nothing's here…")
+                                                ])
+                                              ]
+                                        ],
+                                        2
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("b-tab-item", { attrs: { label: "Added Subjects" } }, [
+                        _c(
+                          "div",
+                          { staticClass: "column is-one-half" },
+                          [
+                            _c(
+                              "b-table",
+                              {
+                                attrs: {
+                                  loading: _vm.isLoading,
+                                  paginated: true,
+                                  bordered: true,
+                                  checkable: true,
+                                  narrowed: true,
+                                  hoverable: true,
+                                  data: _vm.coursesSubjects
+                                },
+                                scopedSlots: _vm._u([
+                                  {
+                                    key: "default",
+                                    fn: function(props) {
+                                      return [
+                                        _c(
+                                          "b-table-column",
+                                          {
+                                            attrs: {
+                                              searchable: "",
+                                              width: "20%",
+                                              label: "Subject Code",
+                                              field: "subject_code",
+                                              sortable: ""
                                             }
                                           },
                                           [
-                                            _c("b-icon", {
-                                              attrs: {
-                                                icon: "trash-can",
-                                                size: "is-small"
-                                              }
-                                            })
-                                          ],
-                                          1
+                                            _vm._v(
+                                              _vm._s(props.row.subject_code)
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-table-column",
+                                          {
+                                            attrs: {
+                                              searchable: "",
+                                              label: "Descriptive Title",
+                                              field: "subject_description",
+                                              width: "60%",
+                                              sortable: ""
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                props.row.subject_description
+                                              )
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-table-column",
+                                          {
+                                            staticClass: "is-actions-cell",
+                                            attrs: { "custom-key": "actions" }
+                                          },
+                                          [
+                                            _c(
+                                              "div",
+                                              {
+                                                staticClass: "buttons is-right"
+                                              },
+                                              [
+                                                _c(
+                                                  "b-tooltip",
+                                                  {
+                                                    attrs: {
+                                                      label: "Click to edit",
+                                                      position: "is-left"
+                                                    }
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "button",
+                                                      {
+                                                        staticClass:
+                                                          "button is-link is-small",
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            return _vm.edit(
+                                                              props.row
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("b-icon", {
+                                                          attrs: {
+                                                            icon: "pencil",
+                                                            size: "is-small"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    )
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "b-tooltip",
+                                                  {
+                                                    attrs: {
+                                                      label: "Click to Delete",
+                                                      position: "is-left"
+                                                    }
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "button",
+                                                      {
+                                                        staticClass:
+                                                          "button is-danger is-small",
+                                                        attrs: {
+                                                          type: "button"
+                                                        },
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            $event.preventDefault()
+                                                            return _vm.deleteConfirmation(
+                                                              props.row
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("b-icon", {
+                                                          attrs: {
+                                                            icon: "trash-can",
+                                                            size: "is-small"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    )
+                                                  ]
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          ]
                                         )
                                       ]
+                                    }
+                                  }
+                                ])
+                              },
+                              [
+                                _vm._v(" "),
+                                _c(
+                                  "section",
+                                  {
+                                    staticClass: "section",
+                                    attrs: { slot: "empty" },
+                                    slot: "empty"
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "content has-text-grey has-text-centered"
+                                      },
+                                      [
+                                        _vm.isLoading
+                                          ? [
+                                              _c(
+                                                "p",
+                                                [
+                                                  _c("b-icon", {
+                                                    attrs: {
+                                                      icon: "dots-horizontal",
+                                                      size: "is-large"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c("p", [
+                                                _vm._v("Fetching data...")
+                                              ])
+                                            ]
+                                          : [
+                                              _c("p", [
+                                                _vm._v("Nothing's here…")
+                                              ])
+                                            ]
+                                      ],
+                                      2
                                     )
-                                  ],
-                                  1
+                                  ]
                                 )
                               ]
                             )
-                          ]
-                        }
-                      },
-                      {
-                        key: "detail",
-                        fn: function(props) {
-                          return [
-                            _c("div", { staticClass: "content" }, [
-                              _c("div", { staticClass: "columns" }, [
-                                _c("div", { staticClass: "column" }, [
-                                  _c("span", [
-                                    _c("strong", [_vm._v("Date of Birth:")]),
-                                    _vm._v(
-                                      "\n          " +
-                                        _vm._s(
-                                          _vm.formatDate(props.row.birth_date)
-                                        ) +
-                                        "\n         "
-                                    )
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "column" }, [
-                                  _c("span", [
-                                    _c("strong", [_vm._v("Civil Status:")]),
-                                    _vm._v(
-                                      "\n          " +
-                                        _vm._s(
-                                          _vm._f("isEmpty")(
-                                            props.row.civil_status
-                                          )
-                                        ) +
-                                        "\n         "
-                                    )
-                                  ])
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "columns" }, [
-                                _c("div", { staticClass: "column" }, [
-                                  _c("p", [
-                                    _c("span", [
-                                      _c("strong", [_vm._v("Address:")]),
-                                      _vm._v(
-                                        "\n           " +
-                                          _vm._s(props.row.address) +
-                                          "\n          "
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c(
-                                      "span",
-                                      {
-                                        staticStyle: { "margin-left": "3rem" }
-                                      },
-                                      [
-                                        _c("strong", [_vm._v("Birth Place:")]),
-                                        _vm._v(
-                                          "\n           " +
-                                            _vm._s(
-                                              _vm._f("isEmpty")(
-                                                props.row.birth_place
-                                              )
-                                            ) +
-                                            "\n          "
-                                        )
-                                      ]
-                                    )
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "column" }, [
-                                  _c("p", [
-                                    _c("span", [
-                                      _c("strong", [
-                                        _vm._v("Course Description:")
-                                      ]),
-                                      _vm._v(
-                                        "\n           " +
-                                          _vm._s(props.row.course.description) +
-                                          "\n          "
-                                      )
-                                    ])
-                                  ])
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "columns" }, [
-                                _c("div", { staticClass: "column" }, [
-                                  _c("p", [
-                                    _c("span", [
-                                      _c("strong", [_vm._v("Guardian Name:")]),
-                                      _vm._v(
-                                        "\n           " +
-                                          _vm._s(
-                                            _vm._f("isEmpty")(
-                                              props.row.guardian
-                                            )
-                                          ) +
-                                          "\n          "
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c(
-                                      "span",
-                                      {
-                                        staticStyle: { "margin-left": "1rem" }
-                                      },
-                                      [
-                                        _c("strong", [
-                                          _vm._v("Guardian Contact:")
-                                        ]),
-                                        _vm._v(
-                                          "\n           " +
-                                            _vm._s(
-                                              _vm._f("isEmpty")(
-                                                props.row.guardian_contact
-                                              )
-                                            ) +
-                                            "\n          "
-                                        )
-                                      ]
-                                    )
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "column" }, [
-                                  _c("p", [
-                                    _c("span", [
-                                      _c("strong", [_vm._v("Nationality:")]),
-                                      _vm._v(
-                                        "\n           " +
-                                          _vm._s(
-                                            _vm._f("isEmpty")(
-                                              props.row.nationality
-                                            )
-                                          ) +
-                                          "\n          "
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c(
-                                      "span",
-                                      {
-                                        staticStyle: {
-                                          "margin-left": "3.5rem !important"
-                                        }
-                                      },
-                                      [
-                                        _c("strong", [_vm._v("Religion:")]),
-                                        _vm._v(
-                                          "\n           " +
-                                            _vm._s(
-                                              _vm._f("isEmpty")(
-                                                props.row.religion
-                                              )
-                                            ) +
-                                            "\n          "
-                                        )
-                                      ]
-                                    )
-                                  ])
-                                ])
-                              ])
-                            ])
-                          ]
-                        }
-                      }
-                    ])
-                  },
-                  [
-                    _vm._v(" "),
-                    _c(
-                      "section",
-                      {
-                        staticClass: "section",
-                        attrs: { slot: "empty" },
-                        slot: "empty"
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "content has-text-grey has-text-centered"
-                          },
-                          [
-                            _vm.isLoading
-                              ? [
-                                  _c(
-                                    "p",
-                                    [
-                                      _c("b-icon", {
-                                        attrs: {
-                                          icon: "dots-horizontal",
-                                          size: "is-large"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("p", [_vm._v("Fetching data...")])
-                                ]
-                              : [_c("p", [_vm._v("Nothing's here…")])]
                           ],
-                          2
+                          1
                         )
-                      ]
-                    )
-                  ]
-                )
-              ],
-              1
-            )
-          ],
-          1
-        )
-      ],
-      1
-    )
-  ])
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ])
+          ])
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -1134,18 +1319,20 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/CardToolbar.vue":
-/*!*************************************************!*\
-  !*** ./resources/js/components/CardToolbar.vue ***!
-  \*************************************************/
+/***/ "./resources/js/views/Registration.vue":
+/*!*********************************************!*\
+  !*** ./resources/js/views/Registration.vue ***!
+  \*********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardToolbar.vue?vue&type=template&id=46e0f3b0& */ "./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0&");
-/* harmony import */ var _CardToolbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardToolbar.vue?vue&type=script&lang=js& */ "./resources/js/components/CardToolbar.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _Registration_vue_vue_type_template_id_111cccd8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Registration.vue?vue&type=template&id=111cccd8& */ "./resources/js/views/Registration.vue?vue&type=template&id=111cccd8&");
+/* harmony import */ var _Registration_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Registration.vue?vue&type=script&lang=js& */ "./resources/js/views/Registration.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Registration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Registration.vue?vue&type=style&index=0&lang=css& */ "./resources/js/views/Registration.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -1153,10 +1340,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _CardToolbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Registration_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Registration_vue_vue_type_template_id_111cccd8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Registration_vue_vue_type_template_id_111cccd8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1166,107 +1353,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/CardToolbar.vue"
+component.options.__file = "resources/js/views/Registration.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/CardToolbar.vue?vue&type=script&lang=js&":
-/*!**************************************************************************!*\
-  !*** ./resources/js/components/CardToolbar.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************/
+/***/ "./resources/js/views/Registration.vue?vue&type=script&lang=js&":
+/*!**********************************************************************!*\
+  !*** ./resources/js/views/Registration.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CardToolbar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardToolbar.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Registration.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Registration.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0& ***!
-  \********************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CardToolbar.vue?vue&type=template&id=46e0f3b0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/views/Students/Index.vue":
-/*!***********************************************!*\
-  !*** ./resources/js/views/Students/Index.vue ***!
-  \***********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Index_vue_vue_type_template_id_6b367eda___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Index.vue?vue&type=template&id=6b367eda& */ "./resources/js/views/Students/Index.vue?vue&type=template&id=6b367eda&");
-/* harmony import */ var _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Index.vue?vue&type=script&lang=js& */ "./resources/js/views/Students/Index.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Index_vue_vue_type_template_id_6b367eda___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Index_vue_vue_type_template_id_6b367eda___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/views/Students/Index.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/views/Students/Index.vue?vue&type=script&lang=js&":
-/*!************************************************************************!*\
-  !*** ./resources/js/views/Students/Index.vue?vue&type=script&lang=js& ***!
-  \************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Students/Index.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/views/Students/Index.vue?vue&type=template&id=6b367eda&":
+/***/ "./resources/js/views/Registration.vue?vue&type=style&index=0&lang=css&":
 /*!******************************************************************************!*\
-  !*** ./resources/js/views/Students/Index.vue?vue&type=template&id=6b367eda& ***!
+  !*** ./resources/js/views/Registration.vue?vue&type=style&index=0&lang=css& ***!
   \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./Registration.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Registration.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/views/Registration.vue?vue&type=template&id=111cccd8&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/views/Registration.vue?vue&type=template&id=111cccd8& ***!
+  \****************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_6b367eda___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Index.vue?vue&type=template&id=6b367eda& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Students/Index.vue?vue&type=template&id=6b367eda&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_6b367eda___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_template_id_111cccd8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Registration.vue?vue&type=template&id=111cccd8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Registration.vue?vue&type=template&id=111cccd8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_template_id_111cccd8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_6b367eda___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_template_id_111cccd8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

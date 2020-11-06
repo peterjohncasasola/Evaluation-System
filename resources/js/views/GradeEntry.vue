@@ -1,23 +1,15 @@
 <template>
   <div>
     <title-bar :title-stack="titleStack" />
-
+    <b-loading
+      :is-full-page="false"
+      :active="isComponentLoading"
+      :can-cancel="false"
+    ></b-loading>
     <section class="section is-main-section">
-      <card-component title="Forms" icon="ballot">
+      <card-component title="Student Detail" icon="ballot">
         <div class="container-fluid">
-          <form @submit.prevent="submit" novalidate>
-            <div class="columns">
-              <div class="column is-one-half">
-                <b-field label="Academic Year" horizontal>
-                  <b-input readonly value="2020 - 2021" />
-                </b-field>
-              </div>
-              <div class="column is-one-half">
-                <b-field label="Semester" horizontal>
-                  <b-input readonly :value="settings.currentSem.semester" />
-                </b-field>
-              </div>
-            </div>
+          <form>
             <div class="columns">
               <div class="column is-one-half">
                 <b-field label="Search Student" horizontal>
@@ -31,17 +23,21 @@
                     :clearable="true"
                   >
                     <template slot-scope="props">
-                      <strong
-                        >{{ props.option.student_id }} |
-                        {{ props.option.full_name }}</strong
-                      >
+                      <div>
+                        {{ props.option.student_id }} |
+                        {{ props.option.full_name }}
+                      </div>
                     </template>
                   </b-autocomplete>
                 </b-field>
               </div>
               <div class="column is-one-half">
                 <b-field label="ID Number" horizontal>
-                  <b-input class="bg-color" readonly :value="form.student_id" />
+                  <b-input
+                    class="bg-color"
+                    readonly
+                    :value="student.student_id"
+                  />
                 </b-field>
               </div>
             </div>
@@ -49,184 +45,142 @@
             <div class="columns">
               <div class="column is-one-half">
                 <b-field label="Course" horizontal>
-                  <b-input readonly :value="form.course.description" />
+                  <b-input readonly :value="student.course.description" />
                 </b-field>
               </div>
               <div class="column is-one-half">
                 <b-field label="Curriculum" horizontal>
-                  <b-input readonly :value="form.curriculum_year" />
+                  <b-input readonly :value="student.curriculum_year" />
                 </b-field>
               </div>
             </div>
           </form>
         </div>
       </card-component>
-      <card-component>
+      <card-component title="Student Grades">
+        <card-toolbar>
+          <button v-if="studentSubjects.length > 0"
+            slot="right"
+            type="button"
+            :class="isEdit ? 'button is-success' : 'button is-link'"
+            @click="saveGrades"
+          >
+            <b-icon
+              v-if="!isEdit"
+              icon="pencil"
+              custom-size="default"
+              class="i"
+            />
+            <b-icon
+              v-if="isEdit"
+              icon="content-save-edit"
+              custom-size="default"
+              class="i"
+            />
+            <span>{{ isEdit ? "Submit Grades" : "Edit Grades" }}</span>
+          </button>
+        </card-toolbar>
         <div class="container-fluid">
-          <hr />
           <div class="columns">
-            <b-tabs v-model="currentTab">
-              <b-tab-item label="Course Subjects">
-                <div class="column is-one-half">
-                  <b-table
-                    :loading="isLoading"
-                    :paginated="true"
-                    :bordered="true"
-                    :checkable="true"
-                    :hoverable="true"
-                    :data="coursesSubjects"
+            <b-table :data="studentSubjects">
+              <template slot-scope="props">
+                <b-table-column
+                  searchable
+                  width="12%"
+                  label="Subject Code"
+                  field="subject_code"
+                  sortable
+                  >{{ props.row.subject_code }}</b-table-column
+                >
+
+                <b-table-column
+                  searchable
+                  label="Descriptive Title"
+                  field="subject_description"
+                  width="40%"
+                  sortable
+                  >{{
+                    props.row.subject_description | truncate(60)
+                  }}</b-table-column
+                >
+
+                <b-table-column
+                  searchable
+                  width="10%"
+                  label="Units"
+                  field="units"
+                  sortable
+                  >{{ props.row.units }}</b-table-column
+                >
+
+                <b-table-column
+                  searchable
+                  width="12%"
+                  label="Year Level"
+                  field="year_level"
+                  sortable
+                >
+                  <template slot="searchable" slot-scope="props">
+                    <b-select
+                      v-model="props.filters['year_level']"
+                      slot="left"
+                      style="width: 150px !important"
+                      :expanded="true"
+                    >
+                      <option value="">All</option>
+                      <option value="First Year">First Year</option>
+                      <option value="Second Year">Second Year</option>
+                      <option value="Third Year">Third Year</option>
+                      <option value="Fourth">Fourth</option>
+                      <option value="Fifth Year">Fifth Year</option>
+                    </b-select>
+                  </template>
+                  {{ props.row.year_level }}
+                </b-table-column>
+
+                <b-table-column
+                  width="15%"
+                  label="Grade"
+                  field="grade"
+                  sortable
+                >
+                  <div v-if="!isEdit">
+                    {{ props.row.grade }}
+                  </div>
+                  <b-select
+                    name="grade"
+                    v-model="props.row.grade"
+                    v-on:blur="props.row.edit = ''"
+                    @keyup.enter="props.row.edit = ''"
+                    v-if="isEdit"
+                    placeholder="Enter Grade"
+                    style="width: 150px !important"
+                    :expanded="true"
                   >
-                    <template slot-scope="props">
-                      <b-table-column
-                        searchable
-                        width="20%"
-                        label="Subject Code"
-                        field="subject_code"
-                        sortable
-                        >{{ props.row.subject_code }}</b-table-column
-                      >
+                    <option
+                      v-for="(grading, index) in gradings"
+                      :value="grading"
+                      :key="index"
+                      >{{ grading }}</option
+                    >
+                  </b-select>
+                </b-table-column>
+              </template>
 
-                      <b-table-column
-                        searchable
-                        label="Descriptive Title"
-                        field="subject_description"
-                        width="50%"
-                        sortable
-                        >{{ props.row.subject_description }}</b-table-column
-                      >
-
-                      <b-table-column
-                        searchable
-                        width="10%"
-                        label="Units"
-                        field="units"
-                        sortable
-                        >{{ props.row.units }}</b-table-column
-                      >
-
-                      <b-table-column
-                        width="10%"
-                        label="Year Level"
-                        field="year_level"
-                        sortable
-                        >{{ props.row.year_level }}</b-table-column
-                      >
-
-                      <b-table-column
-                        custom-key="actions"
-                        class="is-actions-cell"
-                      >
-                        <div class="buttons is-right">
-                          <b-tooltip label="Click to edit" position="is-left">
-                            <button
-                              class="button is-link is-small"
-                              @click="edit(props.row)"
-                            >
-                              <b-icon icon="pencil" size="is-small" />
-                            </button>
-                          </b-tooltip>
-                          <b-tooltip label="Click to Delete" position="is-left">
-                            <button
-                              class="button is-danger"
-                              type="button"
-                              @click.prevent="deleteConfirmation(props.row)"
-                            >
-                              <b-icon icon="trash-can" size="is-small" />
-                            </button>
-                          </b-tooltip>
-                        </div>
-                      </b-table-column>
-                    </template>
-
-                    <section class="section" slot="empty">
-                      <div class="content has-text-grey has-text-centered">
-                        <template v-if="isLoading">
-                          <p>
-                            <b-icon icon="dots-horizontal" size="is-large" />
-                          </p>
-                          <p>Fetching data...</p>
-                        </template>
-                        <template v-else>
-                          <p>Nothing's here&hellip;</p>
-                        </template>
-                      </div>
-                    </section>
-                  </b-table>
+              <section class="section" slot="empty">
+                <div class="content has-text-grey has-text-centered">
+                  <template v-if="isLoading">
+                    <p>
+                      <b-icon icon="dots-horizontal" size="is-large" />
+                    </p>
+                    <p>Fetching data...</p>
+                  </template>
+                  <template v-else>
+                    <p>No record found...</p>
+                  </template>
                 </div>
-              </b-tab-item>
-
-              <b-tab-item label="Added Subjects">
-                <div class="column is-one-half">
-                  <b-table
-                    :loading="isLoading"
-                    :paginated="true"
-                    :bordered="true"
-                    :checkable="true"
-                    :narrowed="true"
-                    :hoverable="true"
-                    :data="coursesSubjects"
-                  >
-                    <template slot-scope="props">
-                      <b-table-column
-                        searchable
-                        width="20%"
-                        label="Subject Code"
-                        field="subject_code"
-                        sortable
-                        >{{ props.row.subject_code }}</b-table-column
-                      >
-
-                      <b-table-column
-                        searchable
-                        label="Descriptive Title"
-                        field="subject_description"
-                        width="60%"
-                        sortable
-                        >{{ props.row.subject_description }}</b-table-column
-                      >
-                      <b-table-column
-                        custom-key="actions"
-                        class="is-actions-cell"
-                      >
-                        <div class="buttons is-right">
-                          <b-tooltip label="Click to edit" position="is-left">
-                            <button
-                              class="button is-link is-small"
-                              @click="edit(props.row)"
-                            >
-                              <b-icon icon="pencil" size="is-small" />
-                            </button>
-                          </b-tooltip>
-                          <b-tooltip label="Click to Delete" position="is-left">
-                            <button
-                              class="button is-danger is-small"
-                              type="button"
-                              @click.prevent="deleteConfirmation(props.row)"
-                            >
-                              <b-icon icon="trash-can" size="is-small" />
-                            </button>
-                          </b-tooltip>
-                        </div>
-                      </b-table-column>
-                    </template>
-
-                    <section class="section" slot="empty">
-                      <div class="content has-text-grey has-text-centered">
-                        <template v-if="isLoading">
-                          <p>
-                            <b-icon icon="dots-horizontal" size="is-large" />
-                          </p>
-                          <p>Fetching data...</p>
-                        </template>
-                        <template v-else>
-                          <p>Nothing's here&hellip;</p>
-                        </template>
-                      </div>
-                    </section>
-                  </b-table>
-                </div>
-              </b-tab-item>
-            </b-tabs>
+              </section>
+            </b-table>
           </div>
         </div>
       </card-component>
@@ -235,44 +189,72 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import TitleBar from "@/components/TitleBar";
 import CardComponent from "@/components/CardComponent";
+import CardToolbar from "@/components/CardToolbar";
 import mapValues from "lodash/mapValues";
 import apiClient from "../apiClient";
 import HeroBar from "@/components/HeroBar";
+import Axios from "axios";
 export default {
   name: "Registration",
   components: {
     HeroBar,
     CardComponent,
-    TitleBar
+    TitleBar,
+    CardToolbar
   },
   data() {
     return {
       curriculums: [],
+      grades: [],
+      isAdding: false,
+      isLoading: false,
       errors: {},
+      sy: this.$store.state.currentSY.description,
       isNew: true,
       paramId: this.$route.params.id,
       isLoading: false,
-      form: {
+      isEdit: false,
+      currentTab: 0,
+      searchStudent: "",
+      isComponentLoading: true,
+      student: {
         student_id: "",
+        course_id: "",
         curriculum_year: "",
         course: {}
       },
-      currentTab: 0,
-      searchStudent: "",
-      settings: {
-        currentSem: {}
-      }
+
+      isEdit: false,
+      gradings: [
+        "1.00",
+        "1.25",
+        "1.50",
+        "1.75",
+        "2.00",
+        "2.25",
+        "2.50",
+        "2.75",
+        "3.00",
+        "INC",
+        "5.00",
+        "DRP",
+        "N/A"
+      ]
     };
   },
+
   computed: {
     titleStack() {
-      return ["Transactions", "Registration"];
+      return ["Transactions", "Subjects", "Grade Entry"];
     },
+
     ...mapGetters("courseSubject", ["coursesSubjects"]),
+    ...mapGetters("studentSubject", ["remainingSubjects", "studentSubjects"]),
     ...mapGetters("students", ["students"]),
+
     filteredStudents() {
       return this.students.filter(opt => {
         return (
@@ -284,57 +266,61 @@ export default {
       });
     }
   },
-  async created() {
-    await this.fetchStudents();
-    await this.fetchCoursesSubjects();
-    this.getCurrentSem();
-  },
 
+  async created() {
+    this.isComponentLoading = true;
+    await this.fetchStudents();
+    this.showEnrolledSubjects();
+    setTimeout(() => {
+      this.isComponentLoading = false;
+    }, 500);
+  },
   methods: {
-    ...mapActions("courses", ["fetchCourses"]),
-    ...mapActions("courseSubject", ["fetchCoursesSubjects"]),
+    ...mapActions("studentSubject", [
+      "getStudentSubjects",
+      "updateStudentSubject"
+    ]),
+
     ...mapActions("students", ["fetchStudents"]),
 
-    getCurrentSem() {
-      apiClient.get("/settings/semesters/current").then(({ data }) => {
-        this.settings.currentSem = data.data[0];
+    saveGrades() {
+      if (this.isEdit) {
+        this.updateStudentSubject(this.studentSubjects).then(() => {
+           this.showNotification("Successfully updated", "success", "is-top-right");
+          });
+      }
+      this.isEdit = !this.isEdit;
+    },
+
+    async showEnrolledSubjects() {
+      await this.getStudentSubjects({
+        id: this.student.id,
+        curriculum: this.student.curriculum_year,
+        sy: this.sy
       });
     },
 
-    setSelectedStudent(option) {
-      console.log(option);
-      if (option) {
-        this.form.student_id = option.student_id;
-        this.form.curriculum_year = option.curriculum_year;
-        this.form.course = option.course;
+    setSelectedStudent(data) {
+      this.isLoading = true;
+      if (data !== null) {
+        this.student = data;
+      } else {
+        this.reset();
+        this.clearText();
       }
+      this.showEnrolledSubjects();
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 500);
     },
 
-    async submit() {
-      this.errors = {};
-      let response = null;
-      this.form.birth_date = moment(this.bday).format("YYYY-MM-DD");
-      if (this.isNew) {
-        response = await this.createStudent(this.form);
-
-        if (response == undefined || response == null) {
-          this.showNotification("Successfully Saved.", "success");
-        } else {
-          this.errors = response.errors;
-        }
-      } else {
-        await this.update();
-      }
-    },
-
-    async update() {
-      let response = null;
-      response = await this.updateStudent(this.form);
-      if (response == undefined || response == null) {
-        this.showNotification("Successfully updated", "success");
-      } else {
-        this.errors = response.errors;
-      }
+    clearText() {
+      this.student = {
+        student_id: "",
+        course_id: "",
+        curriculum_year: "",
+        course: {}
+      };
     },
 
     reset() {
@@ -343,11 +329,6 @@ export default {
           return [];
         }
         return null;
-      });
-
-      this.$buefy.snackbar.open({
-        message: "Reset successfully",
-        queue: false
       });
     }
   }

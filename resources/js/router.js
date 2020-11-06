@@ -81,9 +81,9 @@ export default new Router({
       component: () => import('./views/CoursesSubjects/Index.vue')
     },
     {
-      path: '/transactions/students/registration',
-      name: 'student.registration',
-      component: () => import('./views/Registration.vue')
+      path: '/transactions/student/subjects/evaluation',
+      name: 'subject.evaluation',
+      component: () => import('./views/SubjectEvaluation.vue')
     },
     {
       path: '/forms',

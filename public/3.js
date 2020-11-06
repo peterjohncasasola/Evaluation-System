@@ -369,7 +369,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               _this.fetchCourses();
 
               if (!(_this.$route.params.id !== undefined)) {
-                _context.next = 9;
+                _context.next = 8;
                 break;
               }
 
@@ -379,13 +379,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             case 5:
               Object.assign(_this.form, _this.student);
-              console.log(_this.form);
 
               _this.getCurriculumsByCourse(_this.student.course_id);
 
               _this.options.course.searchText = _this.student.course.description;
 
-            case 9:
+            case 8:
             case "end":
               return _context.stop();
           }

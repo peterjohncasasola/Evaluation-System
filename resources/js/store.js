@@ -10,6 +10,7 @@ import instructors from './store/instructors'
 import users from './store/users'
 import academicYears from './store/academicYears'
 import courseSubject from './store/courseSubject'
+import studentSubject from './store//studentSubject'
 
 Vue.use(Vuex)
 
@@ -23,12 +24,17 @@ export default new Vuex.Store({
     users,
     academicYears,
     courseSubject,
+    studentSubject,
   },
   state: {
     /* User */
     userName: null,
     userEmail: null,
     userAvatar: null,
+
+    /* settings */
+    currentSY: null,
+    currentSem: null,
 
     /* NavBar */
     isNavBarVisible: true,
@@ -38,7 +44,7 @@ export default new Vuex.Store({
 
     /* Aside */
     isAsideVisible: true,
-    isAsideMobileExpanded: false
+    isAsideMobileExpanded: true
   },
   mutations: {
     /* A fit-them-all commit */
@@ -59,9 +65,17 @@ export default new Vuex.Store({
       }
     },
 
+    currentSY(state, payload) {
+      state.currentSY = payload;
+    },
+
+    currentSem(state, payload) {
+      state.currentSem = payload;
+    },
+
     /* Aside Mobile */
     asideMobileStateToggle(state, payload = null) {
-      const htmlClassName = 'has-aside-mobile-expanded'
+      let htmlClassName = 'has-aside-mobile-expanded'
 
       let isShow
 

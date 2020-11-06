@@ -385,6 +385,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -753,7 +772,7 @@ var render = function() {
         }),
         _vm._v(" "),
         _c("hero-bar", [
-          _vm._v("\n   Courses Subjects\n   "),
+          _vm._v("\n      Courses Subjects\n      "),
           _c(
             "button",
             {
@@ -900,9 +919,9 @@ var render = function() {
                           _c("header", { staticClass: "modal-card-head" }, [
                             _c("h3", { staticClass: "modal-card-title" }, [
                               _vm._v(
-                                "\n         " +
+                                "\n                  " +
                                   _vm._s(_vm.isNew ? "Creating" : "Editing") +
-                                  "\n        "
+                                  "\n                "
                               )
                             ]),
                             _vm._v(" "),
@@ -921,7 +940,9 @@ var render = function() {
                                 "b-field",
                                 [
                                   _c("template", { slot: "label" }, [
-                                    _vm._v("\n          Course\n          "),
+                                    _vm._v(
+                                      "\n                    Course\n                    "
+                                    ),
                                     _c(
                                       "span",
                                       { staticClass: "has-text-danger" },
@@ -968,12 +989,12 @@ var render = function() {
                                                       )
                                                     ]),
                                                     _vm._v(
-                                                      "\n             | " +
+                                                      "\n                          | " +
                                                         _vm._s(
                                                           props.option
                                                             .description
                                                         ) +
-                                                        "\n            "
+                                                        "\n                        "
                                                     )
                                                   ]
                                                 )
@@ -1004,7 +1025,9 @@ var render = function() {
                                 { attrs: { label: "Subject" } },
                                 [
                                   _c("template", { slot: "label" }, [
-                                    _vm._v("\n          Subject\n          "),
+                                    _vm._v(
+                                      "\n                    Subject\n                    "
+                                    ),
                                     _c(
                                       "span",
                                       { staticClass: "has-text-danger" },
@@ -1035,11 +1058,11 @@ var render = function() {
                                               _vm._v(_vm._s(props.option.code))
                                             ]),
                                             _vm._v(
-                                              "\n           | " +
+                                              "\n                      | " +
                                                 _vm._s(
                                                   props.option.description
                                                 ) +
-                                                "\n          "
+                                                "\n                    "
                                             )
                                           ]
                                         }
@@ -1086,11 +1109,11 @@ var render = function() {
                                               _vm._v(_vm._s(props.option.code))
                                             ]),
                                             _vm._v(
-                                              "\n           | " +
+                                              "\n                      | " +
                                                 _vm._s(
                                                   props.option.description
                                                 ) +
-                                                "\n          "
+                                                "\n                    "
                                             )
                                           ]
                                         }
@@ -1114,7 +1137,7 @@ var render = function() {
                                 [
                                   _c("template", { slot: "label" }, [
                                     _vm._v(
-                                      "\n          Curriculum Year\n          "
+                                      "\n                    Curriculum Year\n                    "
                                     ),
                                     _c(
                                       "span",
@@ -1162,7 +1185,7 @@ var render = function() {
                                 [
                                   _c("template", { slot: "label" }, [
                                     _vm._v(
-                                      "\n          Year Level\n          "
+                                      "\n                    Year Level\n                    "
                                     ),
                                     _c(
                                       "span",
@@ -1231,7 +1254,9 @@ var render = function() {
                                 { attrs: { label: "Semester" } },
                                 [
                                   _c("template", { slot: "label" }, [
-                                    _vm._v("\n          Semester\n          "),
+                                    _vm._v(
+                                      "\n                    Semester\n                    "
+                                    ),
                                     _c(
                                       "span",
                                       { staticClass: "has-text-danger" },
@@ -1294,9 +1319,9 @@ var render = function() {
                               },
                               [
                                 _vm._v(
-                                  "\n         " +
+                                  "\n                  " +
                                     _vm._s(_vm.isNew ? "Save" : "Update") +
-                                    "\n        "
+                                    "\n                "
                                 )
                               ]
                             ),
@@ -1431,7 +1456,8 @@ var render = function() {
                                   label: "Curriculum Year",
                                   field: "curriculum_year",
                                   width: "12%",
-                                  sortable: ""
+                                  sortable: "",
+                                  searchable: ""
                                 }
                               },
                               [_vm._v(_vm._s(props.row.curriculum_year))]
@@ -1544,36 +1570,36 @@ var render = function() {
                               _c("p", [
                                 _c("strong", [_vm._v("Descriptive Title:")]),
                                 _vm._v(
-                                  "\n        " +
+                                  "\n                " +
                                     _vm._s(props.row.subject_description) +
-                                    "\n       "
+                                    "\n              "
                                 )
                               ]),
                               _vm._v(" "),
                               _c("p", [
                                 _c("strong", [_vm._v("Number of Units:")]),
                                 _vm._v(
-                                  "\n        " +
+                                  "\n                " +
                                     _vm._s(props.row.units) +
-                                    "\n       "
+                                    "\n              "
                                 )
                               ]),
                               _vm._v(" "),
                               _c("p", [
                                 _c("strong", [_vm._v("Lecture Hours:")]),
                                 _vm._v(
-                                  "\n        " +
+                                  "\n                " +
                                     _vm._s(props.row.lec) +
-                                    "\n       "
+                                    "\n              "
                                 )
                               ]),
                               _vm._v(" "),
                               _c("p", [
                                 _c("strong", [_vm._v("Laboratory Hours:")]),
                                 _vm._v(
-                                  "\n        " +
+                                  "\n                " +
                                     _vm._s(props.row.lab) +
-                                    "\n       "
+                                    "\n              "
                                 )
                               ])
                             ])

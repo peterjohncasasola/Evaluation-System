@@ -20,6 +20,17 @@
       class="navbar-menu fadeIn animated faster"
       :class="{ 'is-active': isMenuNavBarActive }"
     >
+      <div class="navbar-start">
+        <div class="navbar-item is-mobile">
+          <span>
+            <label class="label" style="display: inline-block"
+              >Academic Year :</label
+            >
+            {{ currentSY != null ? currentSY.description : "" }} -
+            {{ currentSem != null ? currentSem.semester : "" }} Semester
+          </span>
+        </div>
+      </div>
       <div class="navbar-end">
         <nav-bar-menu class="has-divider has-user-avatar">
           <div class="is-user-name">
@@ -80,7 +91,13 @@ export default {
     menuToggleMobileIcon() {
       return this.isAsideMobileExpanded ? "backburger" : "forwardburger";
     },
-    ...mapState(["isNavBarVisible", "isAsideMobileExpanded", "userName"])
+    ...mapState([
+      "isNavBarVisible",
+      "isAsideMobileExpanded",
+      "userName",
+      "currentSY",
+      "currentSem"
+    ])
   },
   methods: {
     menuToggleMobile() {

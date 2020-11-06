@@ -7,11 +7,13 @@ let baseURL = 'http://localhost:8000/api'
 
 let apiClient = axios.create({
   baseURL,
+  Accept: 'application/json',
   headers: {
     'X-CSRF-TOKEN': token.content
-  }
+  },
 
 });
+
 
 // apiClient.interceptors.response.use(undefined,
 //   (error) => {

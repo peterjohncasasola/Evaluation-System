@@ -12,7 +12,6 @@ class CourseSubjectTableSeeder extends Seeder
      */
     public function run()
     {
-        // factory(App\CourseSubject::class, 20)->create();
         DB::insert("INSERT INTO `course_subjects` (`id`, `course_id`, `subject_id`, `sy_id`, `prerequisite`, `year_level`, `semester`, `created_at`, `updated_at`, `deleted_at`) VALUES
         (1, 4, 82, 11, NULL, 'First Year', 'First', '2020-10-07 13:16:40', '2020-10-07 13:16:40', NULL),
         (2, 1, 52, 9, NULL, 'First Year', 'First', '2020-10-07 13:16:40', '2020-10-07 13:16:40', NULL),
@@ -49,5 +48,6 @@ class CourseSubjectTableSeeder extends Seeder
         (33, 1, 45, 12, 'IT30', 'First Year', 'Second', '2020-10-10 11:59:58', '2020-10-10 11:59:58', NULL),
         (34, 1, 23, 12, 'IT30', 'First Year', 'Second', '2020-10-10 12:00:44', '2020-10-10 12:00:44', NULL),
         (35, 1, 63, 12, 'IT30', 'First Year', 'Second', '2020-10-10 12:01:19', '2020-10-10 12:01:19', NULL);");
+        factory(App\CourseSubject::class, 20)->create();
     }
 }

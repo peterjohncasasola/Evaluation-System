@@ -17,7 +17,7 @@ class CreateAcademicYearsTable extends Migration
             $table->bigIncrements('id');
             $table->string('school_year');
             $table->string('description')->nullable();
-            $table->boolean('is_active')->nullable()->default(true);
+            $table->boolean('is_current');
             $table->softDeletes();
             $table->timestamps();
         });

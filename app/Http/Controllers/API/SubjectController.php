@@ -42,7 +42,7 @@ class SubjectController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'code' => ['required', 'min:3', 'max:10', new Uppercase, new AlphaSpaceNumeric, 'unique:subjects,code'],
+            'code' => ['required', 'min:3', 'max:10', 'alpha_num', new Uppercase, 'unique:subjects,code'],
             'description' => [
                 'required', 'string',
                 Rule::unique('subjects')->where(function ($query) use ($request) {

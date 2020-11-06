@@ -11,13 +11,13 @@ class AcademicYearsTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($year = 2009; $year <= 2020; $year += 1) {
+        for ($year = 2008; $year <= 2020; $year += 1) {
             # code...
             $currentYear = $year;
             \App\AcademicYear::create([
                 'school_year' => $currentYear,
                 'description' => 'S.Y ' . $currentYear . ' - ' . $currentYear += 1,
-                'is_active' => true
+                'is_current' => false
             ]);
         }
     }
