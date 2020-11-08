@@ -51,6 +51,7 @@ class AcademicYearController extends Controller
             'school_year' => $request['school_year'],
             'description' => $request['description'],
             'is_active  ' => true,
+            'is_current' => false,
 
         ]);
 
