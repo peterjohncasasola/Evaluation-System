@@ -203,7 +203,8 @@ class StudentController extends Controller
         $student->birth_place = $request->birth_place;
         $student->address = $request->address;
         $student->contact_no = $request->contact_no;
-        $student->guardian = $request->guardian;
+        $student->guardian = $request->guardian_name;
+        $student->guardian_contact = $request->guardian_contact;
         $student->sex = $request->sex;
         $student->nationality = $request->nationality;
         $student->religion = $request->religion;
