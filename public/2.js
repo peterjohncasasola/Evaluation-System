@@ -404,6 +404,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -1354,8 +1355,9 @@ var render = function() {
                       paginated: true,
                       "per-page": _vm.perPage,
                       hoverable: true,
-                      "default-sort": "subject_code",
+                      "default-sort": "curriculum_year",
                       data: _vm.coursesSubjects,
+                      "sort-multiple": true,
                       detailed: "",
                       "detail-key": "id",
                       "show-detail-icon": true
