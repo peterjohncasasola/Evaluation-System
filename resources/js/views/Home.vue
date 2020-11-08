@@ -8,7 +8,7 @@
           class="tile is-child"
           type="is-primary"
           icon="account-group"
-          :number="512"
+          :number="count.students"
           label="Students"
           text="Total students
         registered in the database"
@@ -17,17 +17,17 @@
         <card-widget
           class="tile is-child"
           type="is-info"
-          icon="clipboard-list"
-          :number="7770"
-          label="Curriculums"
-          route="curriculums"
+          icon="account-tie"
+          :number="count.instructors"
+          label="Instructors"
+          route="instructors"
           text="Total curriculums registered in the database"
         />
         <card-widget
           class="tile is-child"
           type="is-success"
           icon="book-open-outline"
-          :number="256"
+          :number="count.courses"
           label="Courses"
           route="courses"
           text="Total courses registered in the database"
@@ -36,13 +36,13 @@
           class="tile is-child"
           type="is-warning"
           icon="clipboard-file"
-          :number="256"
+          :number="count.subjects"
           label="Subjects"
           route="subjects"
           text="Total subjects registered in the database"
         />
       </tiles>
-
+      <!--
       <card-component
         title="Performance"
         @header-icon-click="fillChartData"
@@ -59,6 +59,7 @@
           ></line-chart>
         </div>
       </card-component>
+      -->
     </section>
   </div>
 </template>
@@ -73,6 +74,7 @@ import CardWidget from "@/components/CardWidget";
 import CardComponent from "@/components/CardComponent";
 import LineChart from "@/components/Charts/LineChart";
 import ClientsTableSample from "@/components/ClientsTableSample";
+import apiClient from '../apiClient';
 export default {
   name: "home",
   components: {
@@ -86,6 +88,7 @@ export default {
   },
   data() {
     return {
+      count: {},
       defaultChart: {
         chartData: null,
         extraOptions: chartConfig.chartOptionsMain
@@ -105,7 +108,15 @@ export default {
       queue: false
     });
   },
+  created() {
+    this.getRecordCounts();
+  },
   methods: {
+    getRecordCounts() {
+      apiClient.get('/records/count').then(({data}) => {
+        this.count = data.count
+      })
+    },
     randomChartData(n) {
       let data = [];
 

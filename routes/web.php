@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
+
+
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
@@ -54,6 +57,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['autotrim','auth']], function 
         'courses-subjects' => 'API\CourseSubjectController',
         'academic-years' => 'API\AcademicYearController',
     ]);
+    Route::get('records/count', 'HomeController@dashboard');
     Route::get('courses/{course}/subjects', 'API\CourseSubjectController@subjectsByCourse');
     Route::get('student/subjects/remaining', 'API\StudentSubjectController@remainingSubjects');
     Route::post('student/subjects', 'API\StudentSubjectController@store');

@@ -20,6 +20,11 @@ export default new Router({
       component: Home
     },
     {
+      path: '',
+      name: 'home',
+      component: Home
+    },
+    {
       path: '/users',
       name: 'users-list',
       component: () => import('./views/Users.vue')

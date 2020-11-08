@@ -38,10 +38,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Courses.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Courses.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Instructors.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Instructors.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -206,6 +206,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -214,7 +226,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "CourseIndex",
   components: {
     CardToolbar: _components_CardToolbar__WEBPACK_IMPORTED_MODULE_6__["default"],
     HeroBar: _components_HeroBar__WEBPACK_IMPORTED_MODULE_5__["default"],
@@ -232,21 +243,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       isNew: true,
       formData: {
         id: "",
-        course_code: "",
-        description: ""
+        first_name: "",
+        middle_name: "",
+        last_name: "",
+        is_active: true
       }
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("courses", ["courses", "course", "errors"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("instructors", ["instructors", "instructor"])),
   created: function created() {
-    this.fetchCourses();
+    this.fetchInstructors();
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("courses", ["fetchCourses", "fetchCourse", "createCourse", "updateCourse", "deleteCourse"])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("instructors", ["fetchInstructors", "s", "createInstructor", "updateInstructor", "deleteInstructor"])), {}, {
     edit: function edit(data) {
       this.isModalActive = true;
       this.isNew = false;
       Object.assign(this.formData, data);
-      console.log(this.formData);
     },
     deleteConfirmation: function deleteConfirmation() {
       var _this = this;
@@ -257,76 +269,64 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (trashObject || this.checkedRows.length) {
         this.$buefy.dialog.confirm({
           title: "Deleting",
-          message: "Are you sure you want to <b>delete</b> this? This action cannot be undone.",
+          message: "Are you sure you want to <b>delete ".concat(trashObject.first_name, " ").concat(trashObject.last_name, "</b>? This action cannot be undone."),
           confirmText: "Delete",
           type: "is-danger",
           hasIcon: true,
           onConfirm: function onConfirm() {
-            _this.removeCourse(_this.trashObject);
+            _this.remove(_this.trashObject);
           }
         });
       }
-    },
-    showNotification: function showNotification(message, type) {
-      this.$buefy.notification.open({
-        duration: 4000,
-        message: message,
-        position: "is-bottom-right",
-        type: "is-".concat(type),
-        hasIcon: true,
-        closable: true,
-        queue: false
-      });
     },
     save: function save() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
+        var response, _response;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                response = null;
-
                 if (!_this2.isNew) {
-                  _context.next = 8;
+                  _context.next = 7;
                   break;
                 }
 
-                _context.next = 4;
-                return _this2.createCourse(_this2.formData);
+                _context.next = 3;
+                return _this2.createInstructor(_this2.formData);
 
-              case 4:
+              case 3:
                 response = _context.sent;
 
                 if (response == undefined || response == null) {
-                  _this2.showNotification("Successfully created", "success");
-
                   _this2.isModalActive = false;
+
+                  _this2.showNotification("Successfully created", "success");
                 } else {
-                  _this2.showErrorMessage(response);
+                  _this2.showErrorMessage(response, "danger");
                 }
 
-                _context.next = 12;
+                _context.next = 11;
                 break;
 
-              case 8:
-                _context.next = 10;
-                return _this2.updateCourse(_this2.formData);
+              case 7:
+                _context.next = 9;
+                return _this2.updateInstructor(_this2.formData);
 
-              case 10:
-                response = _context.sent;
+              case 9:
+                _response = _context.sent;
 
-                if (response == undefined || response == null) {
-                  _this2.showNotification("Successfully created", "success");
-
+                if (_response == undefined || _response == null) {
                   _this2.isModalActive = false;
+
+                  _this2.showNotification("Successfully updated", "success");
                 } else {
-                  _this2.showErrorMessage(response);
+                  _this2.showErrorMessage(_response, "danger");
                 }
 
-              case 12:
+              case 11:
               case "end":
                 return _context.stop();
             }
@@ -334,8 +334,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee);
       }))();
     },
-    removeCourse: function removeCourse(data) {
-      this.deleteCourse(data);
+    remove: function remove(data) {
+      this.deleteInstructor(data);
       this.showNotification("Successfully deleted", "info");
     },
     cancel: function cancel() {
@@ -349,8 +349,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     clearForm: function clearForm() {
       this.formData = {
         id: "",
-        course_code: "",
-        description: ""
+        first_name: "",
+        middle_name: "",
+        last_name: "",
+        is_active: true
       };
     }
   })
@@ -489,10 +491,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Courses.vue?vue&type=template&id=173a1be9&":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Courses.vue?vue&type=template&id=173a1be9& ***!
-  \*****************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Instructors.vue?vue&type=template&id=3b9b7827&":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Instructors.vue?vue&type=template&id=3b9b7827& ***!
+  \*********************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -508,11 +510,11 @@ var render = function() {
     "div",
     [
       _c("title-bar", {
-        attrs: { "title-stack": ["Master Files", "Courses", "List"] }
+        attrs: { "title-stack": ["Master Files", "Instructors", "List"] }
       }),
       _vm._v(" "),
       _c("hero-bar", [
-        _vm._v("\n    Courses\n    "),
+        _vm._v("\n  Instructors\n  "),
         _c(
           "button",
           {
@@ -525,7 +527,15 @@ var render = function() {
             },
             slot: "right"
           },
-          [_vm._v("\n      New Course\n    ")]
+          [
+            _c("b-icon", {
+              staticClass: "i",
+              attrs: { icon: "file-plus", "custom-size": "default" }
+            }),
+            _vm._v(" "),
+            _c("span", [_vm._v("New Instructor")])
+          ],
+          1
         )
       ]),
       _vm._v(" "),
@@ -537,7 +547,7 @@ var render = function() {
             "card-component",
             {
               staticClass: "has-table has-mobile-sort-spaced",
-              attrs: { title: "Courses" }
+              attrs: { title: "Instructors" }
             },
             [
               _c(
@@ -623,7 +633,11 @@ var render = function() {
               _c(
                 "b-modal",
                 {
-                  attrs: { active: _vm.isModalActive, "has-modal-card": "" },
+                  attrs: {
+                    active: _vm.isModalActive,
+                    "has-modal-card": "",
+                    "can-cancel": []
+                  },
                   on: {
                     "update:active": function($event) {
                       _vm.isModalActive = $event
@@ -645,8 +659,16 @@ var render = function() {
                     [
                       _c("div", { staticClass: "modal-card" }, [
                         _c("header", { staticClass: "modal-card-head" }, [
-                          _c("p", { staticClass: "modal-card-title" }, [
-                            _vm._v("Course Entry")
+                          _c("h3", { staticClass: "modal-card-title" }, [
+                            _vm._v(
+                              "\n        " +
+                                _vm._s(
+                                  _vm.isNew
+                                    ? "Creating Instructor"
+                                    : "Editing Instructor"
+                                ) +
+                                "\n       "
+                            )
                           ]),
                           _vm._v(" "),
                           _c("button", {
@@ -662,22 +684,20 @@ var render = function() {
                           [
                             _c(
                               "b-field",
-                              { attrs: { label: "Course Code" } },
+                              { attrs: { label: "First Name" } },
                               [
                                 _c("b-input", {
                                   attrs: {
-                                    placeholder: "Course Code",
+                                    placeholder: "Enter First Name",
                                     type: "text",
-                                    required: "",
-                                    minlength: "3",
-                                    maxlength: "25"
+                                    required: ""
                                   },
                                   model: {
-                                    value: _vm.formData.course_code,
+                                    value: _vm.formData.first_name,
                                     callback: function($$v) {
-                                      _vm.$set(_vm.formData, "course_code", $$v)
+                                      _vm.$set(_vm.formData, "first_name", $$v)
                                     },
-                                    expression: "formData.course_code"
+                                    expression: "formData.first_name"
                                   }
                                 })
                               ],
@@ -686,21 +706,42 @@ var render = function() {
                             _vm._v(" "),
                             _c(
                               "b-field",
-                              { attrs: { label: "Course Description" } },
+                              { attrs: { label: "Middle Name" } },
                               [
                                 _c("b-input", {
                                   attrs: {
-                                    placeholder: "Course Description",
+                                    placeholder: "Enter Middle Name",
                                     type: "text",
-                                    required: "",
-                                    maxlength: "100"
+                                    required: ""
                                   },
                                   model: {
-                                    value: _vm.formData.description,
+                                    value: _vm.formData.middle_name,
                                     callback: function($$v) {
-                                      _vm.$set(_vm.formData, "description", $$v)
+                                      _vm.$set(_vm.formData, "middle_name", $$v)
                                     },
-                                    expression: "formData.description"
+                                    expression: "formData.middle_name"
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-field",
+                              { attrs: { label: "Last Name" } },
+                              [
+                                _c("b-input", {
+                                  attrs: {
+                                    placeholder: "Enter Last Name",
+                                    type: "text",
+                                    required: ""
+                                  },
+                                  model: {
+                                    value: _vm.formData.last_name,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.formData, "last_name", $$v)
+                                    },
+                                    expression: "formData.last_name"
                                   }
                                 })
                               ],
@@ -719,11 +760,9 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                " +
-                                  _vm._s(
-                                    _vm.isNew ? "Save Course" : "Update Course"
-                                  ) +
-                                  "\n              "
+                                "\n        " +
+                                  _vm._s(_vm.isNew ? "Save" : "Update") +
+                                  "\n       "
                               )
                             ]
                           ),
@@ -755,10 +794,10 @@ var render = function() {
                     loading: _vm.isLoading,
                     paginated: true,
                     "per-page": _vm.perPage,
-                    narrowed: true,
+                    checkable: true,
                     hoverable: true,
-                    "default-sort": "course_codes",
-                    data: _vm.courses
+                    "default-sort": "last_name",
+                    data: _vm.instructors
                   },
                   on: {
                     "update:checkedRows": function($event) {
@@ -778,12 +817,12 @@ var render = function() {
                             {
                               attrs: {
                                 searchable: "",
-                                label: "Course Code",
-                                field: "course_code",
+                                label: "First Name",
+                                field: "first_name",
                                 sortable: ""
                               }
                             },
-                            [_vm._v(_vm._s(props.row.course_code))]
+                            [_vm._v(_vm._s(props.row.first_name))]
                           ),
                           _vm._v(" "),
                           _c(
@@ -791,12 +830,25 @@ var render = function() {
                             {
                               attrs: {
                                 searchable: "",
-                                label: "Course Description",
-                                field: "description",
+                                label: "Middle Name",
+                                field: "middle_name",
                                 sortable: ""
                               }
                             },
-                            [_vm._v(_vm._s(props.row.description))]
+                            [_vm._v(_vm._s(props.row.middle_name))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            {
+                              attrs: {
+                                searchable: "",
+                                label: "Last Name",
+                                field: "last_name",
+                                sortable: ""
+                              }
+                            },
+                            [_vm._v(_vm._s(props.row.last_name))]
                           ),
                           _vm._v(" "),
                           _c(
@@ -822,7 +874,8 @@ var render = function() {
                                       _c(
                                         "button",
                                         {
-                                          staticClass: "button is-link",
+                                          staticClass:
+                                            "button is-link btn-rounded",
                                           on: {
                                             click: function($event) {
                                               return _vm.edit(props.row)
@@ -854,7 +907,8 @@ var render = function() {
                                       _c(
                                         "button",
                                         {
-                                          staticClass: "button is-danger",
+                                          staticClass:
+                                            "button is-danger btn-rounded",
                                           attrs: { type: "button" },
                                           on: {
                                             click: function($event) {
@@ -1014,17 +1068,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/Courses.vue":
-/*!****************************************!*\
-  !*** ./resources/js/views/Courses.vue ***!
-  \****************************************/
+/***/ "./resources/js/views/Instructors.vue":
+/*!********************************************!*\
+  !*** ./resources/js/views/Instructors.vue ***!
+  \********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Courses_vue_vue_type_template_id_173a1be9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Courses.vue?vue&type=template&id=173a1be9& */ "./resources/js/views/Courses.vue?vue&type=template&id=173a1be9&");
-/* harmony import */ var _Courses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Courses.vue?vue&type=script&lang=js& */ "./resources/js/views/Courses.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Instructors_vue_vue_type_template_id_3b9b7827___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Instructors.vue?vue&type=template&id=3b9b7827& */ "./resources/js/views/Instructors.vue?vue&type=template&id=3b9b7827&");
+/* harmony import */ var _Instructors_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Instructors.vue?vue&type=script&lang=js& */ "./resources/js/views/Instructors.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1034,9 +1088,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Courses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Courses_vue_vue_type_template_id_173a1be9___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Courses_vue_vue_type_template_id_173a1be9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Instructors_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Instructors_vue_vue_type_template_id_3b9b7827___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Instructors_vue_vue_type_template_id_3b9b7827___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1046,38 +1100,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/Courses.vue"
+component.options.__file = "resources/js/views/Instructors.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/Courses.vue?vue&type=script&lang=js&":
-/*!*****************************************************************!*\
-  !*** ./resources/js/views/Courses.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************/
+/***/ "./resources/js/views/Instructors.vue?vue&type=script&lang=js&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/views/Instructors.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Courses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Courses.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Courses.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Courses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Instructors_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Instructors.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Instructors.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Instructors_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/Courses.vue?vue&type=template&id=173a1be9&":
-/*!***********************************************************************!*\
-  !*** ./resources/js/views/Courses.vue?vue&type=template&id=173a1be9& ***!
-  \***********************************************************************/
+/***/ "./resources/js/views/Instructors.vue?vue&type=template&id=3b9b7827&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/views/Instructors.vue?vue&type=template&id=3b9b7827& ***!
+  \***************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Courses_vue_vue_type_template_id_173a1be9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Courses.vue?vue&type=template&id=173a1be9& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Courses.vue?vue&type=template&id=173a1be9&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Courses_vue_vue_type_template_id_173a1be9___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Instructors_vue_vue_type_template_id_3b9b7827___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Instructors.vue?vue&type=template&id=3b9b7827& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Instructors.vue?vue&type=template&id=3b9b7827&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Instructors_vue_vue_type_template_id_3b9b7827___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Courses_vue_vue_type_template_id_173a1be9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Instructors_vue_vue_type_template_id_3b9b7827___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

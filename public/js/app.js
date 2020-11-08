@@ -3425,6 +3425,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
 /* harmony import */ var _components_Charts_LineChart__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/Charts/LineChart */ "./resources/js/components/Charts/LineChart.js");
 /* harmony import */ var _components_ClientsTableSample__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/ClientsTableSample */ "./resources/js/components/ClientsTableSample.vue");
+/* harmony import */ var _apiClient__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../apiClient */ "./resources/js/apiClient.js");
+//
 //
 //
 //
@@ -3499,6 +3501,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "home",
   components: {
@@ -3512,6 +3515,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      count: {},
       defaultChart: {
         chartData: null,
         extraOptions: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_0__["chartOptionsMain"]
@@ -3530,7 +3534,18 @@ __webpack_require__.r(__webpack_exports__);
       queue: false
     });
   },
+  created: function created() {
+    this.getRecordCounts();
+  },
   methods: {
+    getRecordCounts: function getRecordCounts() {
+      var _this = this;
+
+      _apiClient__WEBPACK_IMPORTED_MODULE_8__["default"].get('/records/count').then(function (_ref) {
+        var data = _ref.data;
+        _this.count = data.count;
+      });
+    },
     randomChartData: function randomChartData(n) {
       var data = [];
 
@@ -67290,7 +67305,7 @@ var render = function() {
                 attrs: {
                   type: "is-primary",
                   icon: "account-group",
-                  number: 512,
+                  number: _vm.count.students,
                   label: "Students",
                   text: "Total students\n      registered in the database",
                   route: "students"
@@ -67301,10 +67316,10 @@ var render = function() {
                 staticClass: "tile is-child",
                 attrs: {
                   type: "is-info",
-                  icon: "clipboard-list",
-                  number: 7770,
-                  label: "Curriculums",
-                  route: "curriculums",
+                  icon: "account-tie",
+                  number: _vm.count.instructors,
+                  label: "Instructors",
+                  route: "instructors",
                   text: "Total curriculums registered in the database"
                 }
               }),
@@ -67314,7 +67329,7 @@ var render = function() {
                 attrs: {
                   type: "is-success",
                   icon: "book-open-outline",
-                  number: 256,
+                  number: _vm.count.courses,
                   label: "Courses",
                   route: "courses",
                   text: "Total courses registered in the database"
@@ -67326,7 +67341,7 @@ var render = function() {
                 attrs: {
                   type: "is-warning",
                   icon: "clipboard-file",
-                  number: 256,
+                  number: _vm.count.subjects,
                   label: "Subjects",
                   route: "subjects",
                   text: "Total subjects registered in the database"
@@ -67334,38 +67349,6 @@ var render = function() {
               })
             ],
             1
-          ),
-          _vm._v(" "),
-          _c(
-            "card-component",
-            {
-              attrs: {
-                title: "Performance",
-                icon: "finance",
-                "header-icon": "reload"
-              },
-              on: { "header-icon-click": _vm.fillChartData }
-            },
-            [
-              _vm.defaultChart.chartData
-                ? _c(
-                    "div",
-                    { staticClass: "chart-area" },
-                    [
-                      _c("line-chart", {
-                        ref: "bigChart",
-                        staticStyle: { height: "100%" },
-                        attrs: {
-                          "chart-id": "big-line-chart",
-                          "chart-data": _vm.defaultChart.chartData,
-                          "extra-options": _vm.defaultChart.extraOptions
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e()
-            ]
           )
         ],
         1
@@ -85658,28 +85641,32 @@ vue_router__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.open = function (ro
     name: 'home',
     component: _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }, {
+    path: '',
+    name: 'home',
+    component: _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }, {
     path: '/users',
     name: 'users-list',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./views/Users.vue */ "./resources/js/views/Users.vue"));
+      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./views/Users.vue */ "./resources/js/views/Users.vue"));
     }
   }, {
     path: '/students/new',
     name: 'students-new',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./views/Students/Form.vue */ "./resources/js/views/Students/Form.vue"));
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/Students/Form.vue */ "./resources/js/views/Students/Form.vue"));
     }
   }, {
     path: '/students/:id/edit',
     name: 'students-edit',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./views/Students/Form.vue */ "./resources/js/views/Students/Form.vue"));
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/Students/Form.vue */ "./resources/js/views/Students/Form.vue"));
     }
   }, {
     path: '/subjects',
     name: 'subjects-list',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./views/Subjects.vue */ "./resources/js/views/Subjects.vue"));
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./views/Subjects.vue */ "./resources/js/views/Subjects.vue"));
     },
     children: [{
       path: '/subjects/new',
@@ -85692,7 +85679,7 @@ vue_router__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.open = function (ro
     path: '/academic-years',
     name: 'academic-years-list',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./views/AcademicYear.vue */ "./resources/js/views/AcademicYear.vue"));
+      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./views/AcademicYear.vue */ "./resources/js/views/AcademicYear.vue"));
     }
   }, {
     path: '/semesters',
@@ -85704,49 +85691,49 @@ vue_router__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.open = function (ro
     path: '/students',
     name: 'students-list',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./views/Students/Index.vue */ "./resources/js/views/Students/Index.vue"));
+      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ./views/Students/Index.vue */ "./resources/js/views/Students/Index.vue"));
     }
   }, {
     path: '/instructors',
     name: 'instructors-list',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ./views/Instructors.vue */ "./resources/js/views/Instructors.vue"));
+      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ./views/Instructors.vue */ "./resources/js/views/Instructors.vue"));
     }
   }, {
     path: '/curriculums',
     name: 'curriculums-list',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/CoursesSubjects/Index.vue */ "./resources/js/views/CoursesSubjects/Index.vue"));
+      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./views/CoursesSubjects/Index.vue */ "./resources/js/views/CoursesSubjects/Index.vue"));
     }
   }, {
     path: '/courses/:id/subjects',
     name: 'course-subjects',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/CoursesSubjects/Index.vue */ "./resources/js/views/CoursesSubjects/Index.vue"));
+      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./views/CoursesSubjects/Index.vue */ "./resources/js/views/CoursesSubjects/Index.vue"));
     }
   }, {
     path: '/transactions/student/subjects/evaluation',
     name: 'subject.evaluation',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./views/SubjectEvaluation.vue */ "./resources/js/views/SubjectEvaluation.vue"));
+      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./views/SubjectEvaluation.vue */ "./resources/js/views/SubjectEvaluation.vue"));
     }
   }, {
     path: '/forms',
     name: 'forms',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./views/Forms.vue */ "./resources/js/views/Forms.vue"));
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./views/Forms.vue */ "./resources/js/views/Forms.vue"));
     }
   }, {
     path: '/transactions/grade/entry',
     name: 'grade.entry',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./views/GradeEntry.vue */ "./resources/js/views/GradeEntry.vue"));
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./views/GradeEntry.vue */ "./resources/js/views/GradeEntry.vue"));
     }
   }, {
     path: '/courses',
     name: 'courses-list',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ./views/Courses.vue */ "./resources/js/views/Courses.vue"));
+      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./views/Courses.vue */ "./resources/js/views/Courses.vue"));
     }
   }, {
     path: '/tables',
@@ -85758,19 +85745,19 @@ vue_router__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.open = function (ro
     path: '/clients/index',
     name: 'clients.index',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./views/Clients/ClientsIndex.vue */ "./resources/js/views/Clients/ClientsIndex.vue"));
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./views/Clients/ClientsIndex.vue */ "./resources/js/views/Clients/ClientsIndex.vue"));
     }
   }, {
     path: '/clients/new',
     name: 'clients.new',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./views/Clients/ClientsForm.vue */ "./resources/js/views/Clients/ClientsForm.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(13), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./views/Clients/ClientsForm.vue */ "./resources/js/views/Clients/ClientsForm.vue"));
     }
   }, {
     path: '/clients/:id',
     name: 'clients.edit',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./views/Clients/ClientsForm.vue */ "./resources/js/views/Clients/ClientsForm.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(13), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./views/Clients/ClientsForm.vue */ "./resources/js/views/Clients/ClientsForm.vue"));
     },
     props: true
   }, {
