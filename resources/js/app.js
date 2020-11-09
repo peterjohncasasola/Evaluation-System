@@ -21,7 +21,7 @@ import AsideMenuList from "@/components/AsideMenuList";
 
 /* Collapse mobile aside menu on route change */
 router.afterEach(() => {
-  store.commit("asideMobileStateToggle", true);
+  store.commit("asideMobileStateToggle", false);
 });
 
 Vue.config.productionTip = false;
@@ -54,10 +54,16 @@ Vue.filter('isEmpty', function (value) {
 
 new Vue({
   store,
+  created() {
+    const user = JSON.parse(localStorage.getItem('user')) || null;
+    console.log(user)
+    if (user) {
+      this.$store.commit('auth/SET_USER', user)
+    }
+  },
   router,
   render: h => h(App),
   mounted() {
     document.documentElement.classList.remove("has-spinner-active");
   },
-
 }).$mount("#app");

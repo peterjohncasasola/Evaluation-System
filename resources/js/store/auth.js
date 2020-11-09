@@ -1,3 +1,4 @@
+import apiClient from '../apiClient';
 const state = {
   user: {},
   token: localStorage.getItem('token') || null,
@@ -6,10 +7,17 @@ const state = {
 };
 
 const mutations = {
-  SET_USER: (state, data) => (state.user = data),
+  SET_USER: (state, data) => {
+    localStorage.setItem('user', JSON.stringify(data))
+    state.user = data;
+  },
+  CLEAR_USER_DATA: () => {
+    localStorage.removeItem('user')
+    localStorage.removeItem('token')
+  },
   SET_TOKEN: (state, data) => {
     localStorage.setItem('token', data);
-    api.defaults.headers.common['Authorization'] = `Bearer ${data}`;
+    apiClient.defaults.headers.common['Authorization'] = `Bearer ${data}`;
     state.token = data;
   },
 
@@ -21,27 +29,20 @@ const actions = {
     dispatch
   }, payload) {
     try {
-      // const response = await api.post('api/login', payload);
-
-      // const user = {
-      //   userId: response.data.userId,
-      //   username: response.data.username,
-      //   fullName: response.data.fullName,
-      //   usingDefaultPassword: response.data.usingDefaultPassword,
-      //   departmentCode: response.data.departmentCode,
-      //   department: response.data.department,
-      // };
-
-      // const token = response.data.token;  
-
-      // commit('SET_USER', user);
-      // commit('SET_TOKEN', token);
-
+      let response = await apiClient.post('/auth/login', payload);
+      const token = response.data.access_token;
+      commit('SET_USER', response.data.user);
+      commit('SET_TOKEN', token);
 
     } catch (error) {
       throw error;
     }
   },
+
+  logout({ commit }) {
+    commit('CLEAR_USER_DATA'); 
+    location.reload();
+  }
 };
 
 const getters = {
@@ -50,7 +51,7 @@ const getters = {
   isLoggedIn: state => !!state.token,
 };
 
-export const auth = {
+export default  {
   namespaced: true,
   state,
   mutations,

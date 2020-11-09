@@ -1,3 +1,4 @@
+'strict'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -8,6 +9,7 @@ import subjects from './store/subjects'
 import notification from './store/notification'
 import instructors from './store/instructors'
 import users from './store/users'
+import auth from "./store/auth"
 import academicYears from './store/academicYears'
 import courseSubject from './store/courseSubject'
 import studentSubject from './store//studentSubject'
@@ -25,6 +27,7 @@ export default new Vuex.Store({
     academicYears,
     courseSubject,
     studentSubject,
+    auth,
   },
   state: {
     /* User */

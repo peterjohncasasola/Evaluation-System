@@ -1,44 +1,36 @@
 import axios from 'axios';
-
-let token = document.head.querySelector('meta[name="csrf-token"]')
-
+import store from '../js/store';
+import router from '../js/router';
 
 let baseURL = 'http://localhost:8000/api'
 
 let apiClient = axios.create({
   baseURL,
   Accept: 'application/json',
-  headers: {
-    'X-CSRF-TOKEN': token.content
-  },
 
 });
 
+const token = localStorage.getItem('token');
 
-// apiClient.interceptors.response.use(undefined,
-//   (error) => {
-//     if (error.response.status === 419) {
-//       refreshAppTokens()
-//       // return Promise.reject(error)
-//     }
-//   }
-// )
+if (token) {
+  apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
 
-// function refreshAppTokens() {
-//   // Retrieve a new page with a fresh token
-//   apiClient.get('')
-//     .then(({
-//       data
-//     }) => {
-//       const wrapper = document.createElement('div');
-//       wrapper.innerHTML = data;
-//       return div.querySelector('meta[name=csrf-token]').getAttribute('content');
-//     })
-//     .then((token) => {
-//       apiClient.defaults.headers['X-CSRF-TOKEN'] = token;
-//       window.Laravel.csrfToken = token;
-//       document.querySelector('meta[name=csrf-token]').setAttribute('content', token);
-//     });
-// }
+apiClient.interceptors.response.use((response) => {
+  return response
+}, (error) => {
+  if (error.response && error.response.status === 401) {
+    localStorage.removeItem('token', null);
+
+    store.state.auth.isLoggedIn = false;
+    store.state.auth.token = null;
+
+    
+    router.push('/login');
+    return Promise.reject(error)
+  } else {
+    return Promise.reject(error);
+  }
+});
 
 export default apiClient
