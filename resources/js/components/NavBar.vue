@@ -34,7 +34,7 @@
       <div class="navbar-end">
         <nav-bar-menu class="has-divider has-user-avatar">
           <div class="is-user-name">
-            <span>{{ userName }}</span>
+            <span>{{ currentUser.name }}</span>
           </div>
 
           <div slot="dropdown" class="navbar-dropdown">
@@ -81,10 +81,13 @@ export default {
   },
   data() {
     return {
-      isMenuNavBarActive: false
+      isMenuNavBarActive: false,
     };
   },
   computed: {
+    currentUser() {
+      return this.$store.getters['auth/user']
+    },
     menuNavBarToggleIcon() {
       return this.isMenuNavBarActive ? "close" : "dots-vertical";
     },
@@ -107,7 +110,7 @@ export default {
       this.isMenuNavBarActive = !this.isMenuNavBarActive;
     },
     logout() {
-      document.getElementById("logout-form").submit();
+      this.$store.dispatch('auth/logout');
     }
   }
 };
