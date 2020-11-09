@@ -212,7 +212,6 @@ export default {
       isAdding: false,
       isLoading: false,
       errors: {},
-      sy: this.$store.state.currentSY.description,
       isNew: true,
       paramId: this.$route.params.id,
       isLoading: false,
@@ -249,6 +248,10 @@ export default {
   computed: {
     titleStack() {
       return ["Transactions", "Subjects", "Grade Entry"];
+    },
+
+    sy() {
+      return this.$store.state.currentSY.description;
     },
 
     ...mapGetters("courseSubject", ["coursesSubjects"]),

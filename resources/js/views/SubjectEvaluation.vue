@@ -332,7 +332,6 @@ export default {
       isAdding: false,
       isLoading: false,
       errors: {},
-      sy: this.$store.state.currentSY.description,
       isNew: true,
       paramId: this.$route.params.id,
       isLoading: false,
@@ -353,7 +352,9 @@ export default {
     titleStack() {
       return ["Transactions", "Subject Evaluation"];
     },
-
+    sy() {
+      return this.$store.state.currentSY.description;
+    },
     ...mapGetters("courseSubject", ["coursesSubjects"]),
     ...mapGetters("studentSubject", ["remainingSubjects", "studentSubjects"]),
     ...mapGetters("students", ["students"]),
@@ -444,8 +445,8 @@ export default {
       let studentSbj = data;
       studentSbj.school_year = this.sy;
       studentSbj.student_id = this.student.id;
-      axios
-        .post("/api/student/subjects", studentSbj)
+      apiClient
+        .post("/student/subjects", studentSbj)
         .then(response => {
           this.$store.commit(
             "studentSubject/REMOVE_ADDED_SUBJECT",
