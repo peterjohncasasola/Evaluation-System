@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('api');
     }
 
     /**
@@ -30,13 +30,14 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function dashboard() {
+    public function dashboard()
+    {
         return response()->json([
             'count' => [
                 'students' => Student::count(),
                 'courses' => Course::count(),
                 'instructors' => Instructor::count(),
-                'subjects' => Subject::count(), 
+                'subjects' => Subject::count(),
             ]
         ]);
     }
