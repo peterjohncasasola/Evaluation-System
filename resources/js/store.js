@@ -12,7 +12,8 @@ import users from './store/users'
 import auth from "./store/auth"
 import academicYears from './store/academicYears'
 import courseSubject from './store/courseSubject'
-import studentSubject from './store//studentSubject'
+import studentSubject from './store/studentSubject'
+import sections from './store/sections'
 
 Vue.use(Vuex)
 
@@ -28,6 +29,7 @@ export default new Vuex.Store({
     courseSubject,
     studentSubject,
     auth,
+    sections,
   },
   state: {
     /* User */

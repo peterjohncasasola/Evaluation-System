@@ -422,7 +422,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return ["Transactions", "Subject Evaluation"];
     },
     sy: function sy() {
-      return this.$store.state.currentSY.description;
+      var _this$$store$state$cu;
+
+      return (_this$$store$state$cu = this.$store.state.currentSY) === null || _this$$store$state$cu === void 0 ? void 0 : _this$$store$state$cu.description;
     }
   }, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("courseSubject", ["coursesSubjects"])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("studentSubject", ["remainingSubjects", "studentSubjects"])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("students", ["students"])), {}, {
     filteredStudents: function filteredStudents() {

@@ -309,6 +309,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -406,6 +412,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     onInput: function onInput(event) {
       this.form.student_id = event.target._vCleave.getFormattedValue();
     },
+    onInputContactNumber: function onInputContactNumber(event) {
+      this.form.contact_no = event.target._vCleave.getFormattedValue();
+    },
+    onInputGuardianContact: function onInputGuardianContact(event) {
+      this.form.guardian_contact = event.target._vCleave.getFormattedValue();
+    },
     submit: function submit() {
       var _this3 = this;
 
@@ -488,10 +500,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
 
         return null;
-      });
-      this.$buefy.snackbar.open({
-        message: "Reset successfully",
-        queue: false
       });
     }
   })
@@ -1017,11 +1025,25 @@ var render = function() {
                         "b-field",
                         [
                           _c("b-input", {
+                            directives: [
+                              {
+                                name: "cleave",
+                                rawName: "v-cleave",
+                                value: _vm.masks.cp_number,
+                                expression: "masks.cp_number"
+                              }
+                            ],
                             attrs: {
                               icon: "contact-phone",
                               type: "text",
+                              value: _vm.form.contact_no,
                               name: "phone",
                               expanded: ""
+                            },
+                            nativeOn: {
+                              input: function($event) {
+                                return _vm.onInputContactNumber($event)
+                              }
                             },
                             model: {
                               value: _vm.form.contact_no,
@@ -1245,10 +1267,24 @@ var render = function() {
                         },
                         [
                           _c("b-input", {
+                            directives: [
+                              {
+                                name: "cleave",
+                                rawName: "v-cleave",
+                                value: _vm.masks.cp_number,
+                                expression: "masks.cp_number"
+                              }
+                            ],
                             attrs: {
+                              value: _vm.form.guardian_contact,
                               icon: "contact-phone",
                               placeholder:
                                 "Enter Guardian Contact No. (Optional)"
+                            },
+                            nativeOn: {
+                              input: function($event) {
+                                return _vm.onInputGuardianContact($event)
+                              }
                             },
                             model: {
                               value: _vm.form.guardian_contact,

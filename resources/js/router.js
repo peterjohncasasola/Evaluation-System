@@ -87,6 +87,16 @@ const router = new Router({
           component: () => import("./views/CoursesSubjects/Index.vue")
         },
         {
+          path: "/sections",
+          name: "sections-list",
+          component: () => import("./views/Sections.vue")
+        },
+        {
+          path: "/transactions/class/subjects",
+          name: "course-subjects",
+          component: () => import("./views/CoursesSubjects/Index.vue")
+        },
+        {
           path: "/courses/:id/subjects",
           name: "course-subjects",
           component: () => import("./views/CoursesSubjects/Index.vue")

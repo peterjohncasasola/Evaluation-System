@@ -31,6 +31,11 @@ Vue.mixin({
           blocks: [2, 5],
           numericOnly: true
         },
+        cp_number: {
+          delimiters: ['-'],
+          blocks: [4, 3, 4],
+          numericOnly: true
+        },
       },
        query: {
         sortBy: null,

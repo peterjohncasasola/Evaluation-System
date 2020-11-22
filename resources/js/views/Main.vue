@@ -80,6 +80,11 @@ export default {
             icon: "book-multiple"
           },
           {
+            to: { name: "sections-list" },
+            label: "Sections",
+            icon: "cogs"
+          },
+          {
             to: { name: "semesters" },
             label: "Settings",
             icon: "cogs"

@@ -246,7 +246,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.isModalActive = true;
       this.isNew = false;
       Object.assign(this.formData, data);
-      console.log(this.formData);
     },
     deleteConfirmation: function deleteConfirmation() {
       var _this = this;

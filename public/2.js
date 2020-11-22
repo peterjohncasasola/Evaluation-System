@@ -1,14 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[2],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardToolbar.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardToolbar.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FilePicker.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FilePicker.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/each */ "./node_modules/lodash/each.js");
+/* harmony import */ var lodash_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_each__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -26,384 +28,278 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "CardToolbar",
+  name: 'FilePicker',
   props: {
-    isMobile: {
-      type: Boolean,
-      "default": false
+    label: {
+      type: String,
+      "default": null
+    },
+    message: {
+      type: String,
+      "default": null
+    },
+    currentFile: {
+      "default": null
+    }
+  },
+  data: function data() {
+    return {
+      errors: {},
+      file: null,
+      uploadPercent: 0,
+      isUploadSuccess: false
+    };
+  },
+  computed: {
+    fieldFileMessage: function fieldFileMessage() {
+      if (this.errors.file) {
+        return this.errors.file[0];
+      }
+
+      if (this.isUploadSuccess) {
+        return 'File uploaded. Submit to store';
+      }
+
+      if (this.uploadPercent) {
+        return "Uploading ".concat(this.uploadPercent, "%");
+      }
+
+      return this.message;
+    },
+    uploadButtonText: function uploadButtonText() {
+      return this.fileName ? null : 'Pick a file';
+    },
+    uploadButtonIcon: function uploadButtonIcon() {
+      return this.fileName ? 'cloud-sync' : 'cloud-upload';
+    },
+    fieldFileType: function fieldFileType() {
+      return this.errors.file ? 'is-danger' : null;
+    },
+    fileName: function fileName() {
+      if (this.file) {
+        return this.file.name;
+      }
+
+      if (this.currentFile) {
+        return this.currentFile;
+      }
+
+      return null;
+    }
+  },
+  methods: {
+    upload: function upload(file) {
+      var _this = this;
+
+      this.errors = {};
+      var formData = new FormData();
+      formData.append('file', this.file);
+      this.isUploadSuccess = false;
+      axios.post('/files/store', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: this.progressEvent
+      }).then(function (r) {
+        _this.isUploadSuccess = true; // Display success data & then drop it after a little while
+        // setTimeout(() => {
+        //   this.file = null
+        //   this.isUploadSuccess = false
+        //   this.uploadPercent = 0
+        // }, 1500)
+
+        _this.$emit('file-updated', r.data.data);
+
+        _this.$emit('file-id-updated', r.data.data.id);
+      })["catch"](function (err) {
+        _this.file = null;
+        _this.uploadPercent = 0;
+
+        if (err.response.data.errors) {
+          _this.errors = err.response.data.errors;
+        } else {
+          _this.errors = {
+            _all: ['Upload error']
+          };
+        }
+
+        lodash_each__WEBPACK_IMPORTED_MODULE_0___default()(_this.errors, function (err) {
+          _this.$buefy.toast.open({
+            message: err[0],
+            type: 'is-danger',
+            queue: false
+          });
+        });
+      });
+    },
+    dropFile: function dropFile() {
+      this.file = null;
+      this.isUploadSuccess = false;
+      this.uploadPercent = 0;
+      this.$emit('file-updated', null);
+      this.$emit('file-id-updated', null);
+    },
+    progressEvent: function progressEvent(_progressEvent) {
+      this.uploadPercent = Math.round(_progressEvent.loaded * 100 / _progressEvent.total);
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/CoursesSubjects/Index.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/CoursesSubjects/Index.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Notification.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Notification.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var lodash_map__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/map */ "./node_modules/lodash/map.js");
-/* harmony import */ var lodash_map__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_map__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
-/* harmony import */ var _components_ModalBox__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/ModalBox */ "./resources/js/components/ModalBox.vue");
-/* harmony import */ var _components_TitleBar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/TitleBar */ "./resources/js/components/TitleBar.vue");
-/* harmony import */ var _components_HeroBar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/HeroBar */ "./resources/js/components/HeroBar.vue");
-/* harmony import */ var _components_CardToolbar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/CardToolbar */ "./resources/js/components/CardToolbar.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'Notification',
+  data: function data() {
+    return {
+      isDismissed: false
+    };
+  },
+  methods: {
+    dismiss: function dismiss() {
+      this.isDismissed = true;
+      this.$buefy.snackbar.open({
+        message: 'Dismissed',
+        queue: false
+      });
+    }
+  }
+});
 
+/***/ }),
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Clients/ClientsForm.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Clients/ClientsForm.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash_clone__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/clone */ "./node_modules/lodash/clone.js");
+/* harmony import */ var lodash_clone__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_clone__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_TitleBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/TitleBar */ "./resources/js/components/TitleBar.vue");
+/* harmony import */ var _components_HeroBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/HeroBar */ "./resources/js/components/HeroBar.vue");
+/* harmony import */ var _components_Tiles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/Tiles */ "./resources/js/components/Tiles.vue");
+/* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
+/* harmony import */ var _components_FilePicker__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/FilePicker */ "./resources/js/components/FilePicker.vue");
+/* harmony import */ var _components_UserAvatar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/UserAvatar */ "./resources/js/components/UserAvatar.vue");
+/* harmony import */ var _components_Notification__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/Notification */ "./resources/js/components/Notification.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -412,311 +308,170 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ClientForm",
   components: {
-    CardToolbar: _components_CardToolbar__WEBPACK_IMPORTED_MODULE_6__["default"],
-    HeroBar: _components_HeroBar__WEBPACK_IMPORTED_MODULE_5__["default"],
-    TitleBar: _components_TitleBar__WEBPACK_IMPORTED_MODULE_4__["default"],
-    ModalBox: _components_ModalBox__WEBPACK_IMPORTED_MODULE_3__["default"],
-    CardComponent: _components_CardComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
+    UserAvatar: _components_UserAvatar__WEBPACK_IMPORTED_MODULE_6__["default"],
+    FilePicker: _components_FilePicker__WEBPACK_IMPORTED_MODULE_5__["default"],
+    CardComponent: _components_CardComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
+    Tiles: _components_Tiles__WEBPACK_IMPORTED_MODULE_3__["default"],
+    HeroBar: _components_HeroBar__WEBPACK_IMPORTED_MODULE_2__["default"],
+    TitleBar: _components_TitleBar__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Notification: _components_Notification__WEBPACK_IMPORTED_MODULE_7__["default"]
+  },
+  props: {
+    id: {
+      "default": null
+    }
   },
   data: function data() {
     return {
-      isModalActive: false,
       isLoading: false,
-      paginated: false,
-      perPage: 10,
-      openedDetails: [],
-      checkedRows: [],
-      isNew: true,
-      filteredSubjectsTags: [],
-      tags: {
-        prerequisite: []
-      },
-      formData: {
-        id: "",
-        course_id: "",
-        sy_id: "",
-        units: "",
-        prerequisite: [],
-        subject_code: "",
-        lec: "",
-        lab: "",
-        year_level: "",
-        semester: ""
-      }
+      item: null,
+      form: this.getClearFormObject(),
+      createdReadable: null
     };
   },
-  computed: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("courseSubject", ["coursesSubjects", "courseSubject"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("courses", ["courses"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("subjects", ["subjects"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("academicYears", ["academicYears"])),
-  created: function created() {
-    this.fetchCoursesSubjects();
-    this.fetchCourses();
-    this.fetchSubjects();
-    this.fetchAcademicYears();
-    this.filteredSubjectsTags = this.subjects;
-  },
-  methods: _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("courseSubject", ["fetchCourseSubject", "fetchCoursesSubjects", "createCourseSubject", "updateCourseSubject", "deleteCourseSubject"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("courses", ["fetchCourses"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("subjects", ["fetchSubjects"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("academicYears", ["fetchAcademicYears"])), {}, {
-    getFilteredSubjectTags: function getFilteredSubjectTags(text) {
-      this.filteredSubjectsTags = this.subjects.filter(function (opt) {
-        return opt.code.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0 || opt.description.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0;
-      });
+  computed: {
+    titleStack: function titleStack() {
+      var lastCrumb;
+
+      if (this.isProfileExists) {
+        lastCrumb = this.form.name;
+      } else {
+        lastCrumb = "New client";
+      }
+
+      return ["Admin", "Clients", lastCrumb];
     },
-    getTaggedPrerequisite: function getTaggedPrerequisite(tags) {
+    heroTitle: function heroTitle() {
+      if (this.isProfileExists) {
+        return this.form.name;
+      } else {
+        return "Create Client";
+      }
+    },
+    formCardTitle: function formCardTitle() {
+      if (this.isProfileExists) {
+        return "Edit Client";
+      } else {
+        return "New Client";
+      }
+    },
+    isProfileExists: function isProfileExists() {
+      return !!this.item;
+    }
+  },
+  created: function created() {
+    this.getData();
+  },
+  methods: {
+    getClearFormObject: function getClearFormObject() {
+      return {
+        id: null,
+        name: null,
+        company: null,
+        city: null,
+        created_date: new Date(),
+        created_mm_dd_yyyy: null,
+        progress: 0,
+        avatar: null,
+        avatar_filename: null,
+        file_id: null
+      };
+    },
+    getData: function getData() {
       var _this = this;
 
-      if (tags !== null) {
-        tags = tags.includes(",") ? tags.split(",") : [].concat(tags);
-        var sbjTag = null;
-        tags.forEach(function (value) {
-          sbjTag = _this.subjects.forEach(function (sbj) {
-            if (sbj.code == value) {
-              _this.tags.prerequisite.push(sbj);
+      if (this.id) {
+        axios.get("/clients/".concat(this.id)).then(function (r) {
+          _this.form = r.data.data;
+          _this.item = lodash_clone__WEBPACK_IMPORTED_MODULE_0___default()(r.data.data);
+          _this.form.created_date = new Date(r.data.data.created_mm_dd_yyyy);
+        })["catch"](function (e) {
+          _this.item = null;
 
-              return sbj;
-            }
+          _this.$buefy.toast.open({
+            message: "Error: ".concat(e.message),
+            type: "is-danger",
+            queue: false
           });
         });
       }
     },
-    setSubjectDetails: function setSubjectDetails(option) {
-      if (option !== null) {
-        this.formData.subject_id = option.id;
-        this.formData.units = option.unit;
-        this.formData.lab = option.lab;
-        this.formData.lec = option.lec;
-      }
+    fileIdUpdated: function fileIdUpdated(fileId) {
+      this.form.file_id = fileId;
+      this.form.avatar_filename = null;
     },
-    edit: function edit(data) {
-      this.clearForm();
-      this.options.course.searchText = data.course_description;
-      this.options.subject.searchText = data.subject_code;
-      this.options.academicYear.searchText = data.curriculum_year;
-      this.isNew = false;
-      Object.assign(this.formData, data);
-      this.getTaggedPrerequisite(data.prerequisite);
-      this.isModalActive = true;
+    input: function input(v) {//this.createdReadable = moment(v).format('MMM D, Y').toString()
     },
-    deleteConfirmation: function deleteConfirmation() {
+    submit: function submit() {
       var _this2 = this;
 
-      var trashObject = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-      this.trashObject = trashObject;
+      this.isLoading = true;
+      var method = "post";
+      var url = "/clients/store";
 
-      if (trashObject || this.checkedRows.length) {
-        this.$buefy.dialog.confirm({
-          title: "Deleting",
-          message: "Are you sure you want to <b>delete ".concat(trashObject.subject_code, "</b>? This action cannot be undone."),
-          confirmText: "Delete",
-          type: "is-danger",
-          hasIcon: true,
-          onConfirm: function onConfirm() {
-            _this2.remove(_this2.trashObject);
-          }
-        });
+      if (this.id) {
+        method = "patch";
+        url = "/clients/".concat(this.id);
       }
-    },
-    mapSubjectCode: function mapSubjectCode() {
-      this.formData.prerequisite = this.tags.prerequisite.map(function (item) {
-        return item.code;
-      });
-      this.formData.prerequisite = this.formData.prerequisite.toString();
-    },
-    save: function save() {
-      var _this3 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                response = null;
+      axios({
+        method: method,
+        url: url,
+        data: this.form
+      }).then(function (r) {
+        _this2.isLoading = false;
 
-                _this3.mapSubjectCode();
-
-                if (!_this3.isNew) {
-                  _context.next = 9;
-                  break;
-                }
-
-                _context.next = 5;
-                return _this3.createCourseSubject(_this3.formData);
-
-              case 5:
-                response = _context.sent;
-
-                if (response == undefined || response == null) {
-                  _this3.isModalActive = false;
-
-                  _this3.showNotification("Successfully created", "success");
-                } else {
-                  _this3.showErrorMessage(response);
-                }
-
-                _context.next = 13;
-                break;
-
-              case 9:
-                _context.next = 11;
-                return _this3.updateCourseSubject(_this3.formData);
-
-              case 11:
-                response = _context.sent;
-
-                if (response == undefined || response == null) {
-                  _this3.isModalActive = false;
-
-                  _this3.showNotification("Successfully updated", "success");
-                } else {
-                  _this3.showErrorMessage(response);
-                }
-
-              case 13:
-              case "end":
-                return _context.stop();
+        if (!_this2.id && r.data.data.id) {
+          _this2.$router.push({
+            name: "clients.edit",
+            params: {
+              id: r.data.data.id
             }
-          }
-        }, _callee);
-      }))();
-    },
-    toggle: function toggle(row) {
-      this.$refs.table.toggleDetails(row);
-    },
-    remove: function remove(data) {
-      this.deleteCourseSubject(data);
-      this.showNotification("Successfully deleted", "info");
-    },
-    cancel: function cancel() {
-      this.isModalActive = false;
-    },
-    showModal: function showModal() {
-      this.clearForm();
-      this.isModalActive = true;
-      this.isNew = true;
-    },
-    clearForm: function clearForm() {
-      this.formData = {
-        id: "",
-        course_id: "",
-        sy_id: "",
-        units: "",
-        prerequisite: [],
-        subject_code: "",
-        lec: "",
-        lab: "",
-        year_level: "",
-        semester: ""
-      };
-      this.options.course.searchText = "";
-      this.options.subject.searchText = "";
-      this.options.academicYear.searchText = "";
-      this.tags.prerequisite = [];
+          });
+
+          _this2.$buefy.snackbar.open({
+            message: "Created",
+            queue: false
+          });
+        } else {
+          _this2.item = r.data.data;
+
+          _this2.$buefy.snackbar.open({
+            message: "Updated",
+            queue: false
+          });
+        }
+      })["catch"](function (e) {
+        _this2.isLoading = false;
+
+        _this2.$buefy.toast.open({
+          message: "Error: ".concat(e.message),
+          type: "is-danger",
+          queue: false
+        });
+      });
     }
-  })
+  },
+  watch: {
+    id: function id(newValue) {
+      this.form = this.getClearFormObject();
+      this.item = null;
+
+      if (newValue) {
+        this.getData();
+      }
+    }
+  }
 });
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_baseMap.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_baseMap.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseEach = __webpack_require__(/*! ./_baseEach */ "./node_modules/lodash/_baseEach.js"),
-    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js");
-
-/**
- * The base implementation of `_.map` without support for iteratee shorthands.
- *
- * @private
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
- */
-function baseMap(collection, iteratee) {
-  var index = -1,
-      result = isArrayLike(collection) ? Array(collection.length) : [];
-
-  baseEach(collection, function(value, key, collection) {
-    result[++index] = iteratee(value, key, collection);
-  });
-  return result;
-}
-
-module.exports = baseMap;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/map.js":
-/*!************************************!*\
-  !*** ./node_modules/lodash/map.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayMap = __webpack_require__(/*! ./_arrayMap */ "./node_modules/lodash/_arrayMap.js"),
-    baseIteratee = __webpack_require__(/*! ./_baseIteratee */ "./node_modules/lodash/_baseIteratee.js"),
-    baseMap = __webpack_require__(/*! ./_baseMap */ "./node_modules/lodash/_baseMap.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js");
-
-/**
- * Creates an array of values by running each element in `collection` thru
- * `iteratee`. The iteratee is invoked with three arguments:
- * (value, index|key, collection).
- *
- * Many lodash methods are guarded to work as iteratees for methods like
- * `_.every`, `_.filter`, `_.map`, `_.mapValues`, `_.reject`, and `_.some`.
- *
- * The guarded methods are:
- * `ary`, `chunk`, `curry`, `curryRight`, `drop`, `dropRight`, `every`,
- * `fill`, `invert`, `parseInt`, `random`, `range`, `rangeRight`, `repeat`,
- * `sampleSize`, `slice`, `some`, `sortBy`, `split`, `take`, `takeRight`,
- * `template`, `trim`, `trimEnd`, `trimStart`, and `words`
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Collection
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
- * @example
- *
- * function square(n) {
- *   return n * n;
- * }
- *
- * _.map([4, 8], square);
- * // => [16, 64]
- *
- * _.map({ 'a': 4, 'b': 8 }, square);
- * // => [16, 64] (iteration order is not guaranteed)
- *
- * var users = [
- *   { 'user': 'barney' },
- *   { 'user': 'fred' }
- * ];
- *
- * // The `_.property` iteratee shorthand.
- * _.map(users, 'user');
- * // => ['barney', 'fred']
- */
-function map(collection, iteratee) {
-  var func = isArray(collection) ? arrayMap : baseMap;
-  return func(collection, baseIteratee(iteratee, 3));
-}
-
-module.exports = map;
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0&":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0& ***!
-  \**************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FilePicker.vue?vue&type=template&id=7d05e4d5&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FilePicker.vue?vue&type=template&id=7d05e4d5& ***!
+  \*************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -728,17 +483,81 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "notification is-card-toolbar" }, [
-    _c("div", { staticClass: "level", class: { "is-mobile": _vm.isMobile } }, [
-      _c("div", { staticClass: "level-left" }, [
-        _c("div", { staticClass: "level-item" }, [_vm._t("left")], 2)
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "level-right" }, [
-        _c("div", { staticClass: "level-item" }, [_vm._t("right")], 2)
-      ])
-    ])
-  ])
+  return _c(
+    "b-field",
+    {
+      attrs: {
+        label: _vm.label,
+        message: _vm.fieldFileMessage,
+        type: _vm.fieldFileType
+      }
+    },
+    [
+      _c(
+        "b-field",
+        [
+          _c(
+            "b-upload",
+            {
+              on: { input: _vm.upload },
+              model: {
+                value: _vm.file,
+                callback: function($$v) {
+                  _vm.file = $$v
+                },
+                expression: "file"
+              }
+            },
+            [
+              _c(
+                "a",
+                { staticClass: "button is-primary" },
+                [
+                  _c("b-icon", {
+                    attrs: {
+                      icon: _vm.uploadButtonIcon,
+                      "custom-size": "default"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.uploadButtonText
+                    ? _c("span", [_vm._v(_vm._s(_vm.uploadButtonText))])
+                    : _vm._e()
+                ],
+                1
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _vm.fileName
+            ? _c("div", { staticClass: "control" }, [
+                _c(
+                  "a",
+                  { staticClass: "button is-static is-file-upload-label" },
+                  [
+                    _c("span", { attrs: { title: _vm.fileName } }, [
+                      _vm._v(_vm._s(_vm.fileName))
+                    ]),
+                    _vm._v(" "),
+                    _c("span", {
+                      staticClass: "delete",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.dropFile($event)
+                        }
+                      }
+                    })
+                  ]
+                )
+              ])
+            : _vm._e()
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -747,10 +566,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/CoursesSubjects/Index.vue?vue&type=template&id=68b3629a&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/CoursesSubjects/Index.vue?vue&type=template&id=68b3629a& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Notification.vue?vue&type=template&id=6a4ce154&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Notification.vue?vue&type=template&id=6a4ce154& ***!
+  \***************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -759,907 +578,387 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 var render = function() {
-  var this$1 = this
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      [
-        _c("title-bar", {
-          attrs: { "title-stack": ["Master Files", "Courses Subjects", "List"] }
-        }),
-        _vm._v(" "),
-        _c("hero-bar", [
-          _vm._v("\n      Courses Subjects\n      "),
-          _c(
-            "button",
-            {
-              staticClass: "button is-default",
-              attrs: { slot: "right" },
-              on: {
-                click: function($event) {
-                  return _vm.showModal()
-                }
+  return !_vm.isDismissed
+    ? _c("div", { staticClass: "notification" }, [
+        _c("div", { staticClass: "level" }, [
+          _c("div", { staticClass: "level-left" }, [
+            _c("div", { staticClass: "level-item" }, [_vm._t("default")], 2)
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "level-right" }, [
+            _c(
+              "button",
+              {
+                staticClass: "button is-small is-white",
+                attrs: { type: "button" },
+                on: { click: _vm.dismiss }
               },
+              [_vm._v("Dismiss")]
+            )
+          ])
+        ])
+      ])
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Clients/ClientsForm.vue?vue&type=template&id=86216514&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Clients/ClientsForm.vue?vue&type=template&id=86216514& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("title-bar", { attrs: { "title-stack": _vm.titleStack } }),
+      _vm._v(" "),
+      _c(
+        "hero-bar",
+        [
+          _vm._v("\n  " + _vm._s(_vm.heroTitle) + "\n  "),
+          _c(
+            "router-link",
+            {
+              staticClass: "button",
+              attrs: { slot: "right", to: "/clients/index" },
               slot: "right"
             },
+            [_vm._v("Clients")]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "section",
+        { staticClass: "section is-main-section" },
+        [
+          _c(
+            "tiles",
             [
-              _c("b-icon", {
-                staticClass: "i",
-                attrs: { icon: "file-plus", "custom-size": "default" }
-              }),
+              _c(
+                "card-component",
+                {
+                  staticClass: "tile is-child",
+                  attrs: { title: _vm.formCardTitle, icon: "account-edit" }
+                },
+                [
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.submit($event)
+                        }
+                      }
+                    },
+                    [
+                      _vm.id
+                        ? [
+                            _c(
+                              "b-field",
+                              { attrs: { label: "ID", horizontal: "" } },
+                              [
+                                _c("b-input", {
+                                  attrs: {
+                                    value: _vm.id,
+                                    "custom-class": "is-static",
+                                    readonly: ""
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("hr")
+                          ]
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        { attrs: { label: "Avatar", horizontal: "" } },
+                        [
+                          _c("file-picker", {
+                            attrs: { "current-file": _vm.form.avatar_filename },
+                            on: { "file-id-updated": _vm.fileIdUpdated }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        {
+                          attrs: {
+                            label: "Name",
+                            message: "Client name",
+                            horizontal: ""
+                          }
+                        },
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              placeholder: "e.g. John Doe",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.form.name,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "name", $$v)
+                              },
+                              expression: "form.name"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        {
+                          attrs: {
+                            label: "Company",
+                            message: "Client's company name",
+                            horizontal: ""
+                          }
+                        },
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              placeholder: "e.g. Berton & Steinway",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.form.company,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "company", $$v)
+                              },
+                              expression: "form.company"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        {
+                          attrs: {
+                            label: "City",
+                            message: "Client's city",
+                            horizontal: ""
+                          }
+                        },
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              placeholder: "e.g. Geoffreyton",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.form.city,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "city", $$v)
+                              },
+                              expression: "form.city"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        { attrs: { label: "Created", horizontal: "" } },
+                        [
+                          _c("b-datepicker", {
+                            attrs: {
+                              placeholder: "Click to select...",
+                              icon: "calendar-today"
+                            },
+                            on: { input: _vm.input },
+                            model: {
+                              value: _vm.form.created_date,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "created_date", $$v)
+                              },
+                              expression: "form.created_date"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        { attrs: { label: "Progress", horizontal: "" } },
+                        [
+                          _c("b-slider", {
+                            model: {
+                              value: _vm.form.progress,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "progress", $$v)
+                              },
+                              expression: "form.progress"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        { attrs: { horizontal: "" } },
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              attrs: {
+                                type: "is-primary",
+                                loading: _vm.isLoading,
+                                "native-type": "submit"
+                              }
+                            },
+                            [_vm._v("Submit")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    2
+                  )
+                ]
+              ),
               _vm._v(" "),
-              _c("span", [_vm._v("New")])
+              _vm.isProfileExists
+                ? _c(
+                    "card-component",
+                    {
+                      staticClass: "tile is-child",
+                      attrs: { title: "Client Profile", icon: "account" }
+                    },
+                    [
+                      _c("user-avatar", {
+                        staticClass: "image has-max-width is-aligned-center",
+                        attrs: {
+                          avatar: _vm.item.avatar,
+                          "is-current-user": false
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        { attrs: { label: "Name" } },
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              value: _vm.item.name,
+                              "custom-class": "is-static",
+                              readonly: ""
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        { attrs: { label: "Company" } },
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              value: _vm.item.company,
+                              "custom-class": "is-static",
+                              readonly: ""
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        { attrs: { label: "City" } },
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              value: _vm.item.city,
+                              "custom-class": "is-static",
+                              readonly: ""
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        { attrs: { label: "Created" } },
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              value: _vm.item.created,
+                              "custom-class": "is-static",
+                              readonly: ""
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("b-field", { attrs: { label: "Progress" } }, [
+                        _c(
+                          "progress",
+                          {
+                            staticClass: "progress is-small is-primary",
+                            attrs: { max: "100" },
+                            domProps: { value: _vm.item.progress }
+                          },
+                          [_vm._v(_vm._s(_vm.item.progress))]
+                        )
+                      ])
+                    ],
+                    1
+                  )
+                : _vm._e()
             ],
             1
           )
-        ]),
-        _vm._v(" "),
-        _c(
-          "section",
-          { staticClass: "section is-main-section" },
-          [
-            _c(
-              "card-component",
-              {
-                staticClass: "has-table has-mobile-sort-spaced",
-                attrs: { title: "Courses" }
-              },
-              [
-                _c(
-                  "card-toolbar",
-                  [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "button is-danger has-checked-rows-number",
-                        attrs: {
-                          slot: "right",
-                          type: "button",
-                          disabled: !_vm.checkedRows.length
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteConfirmation(null)
-                          }
-                        },
-                        slot: "right"
-                      },
-                      [
-                        _c("b-icon", {
-                          staticClass: "i",
-                          attrs: { icon: "trash-can", "custom-size": "default" }
-                        }),
-                        _vm._v(" "),
-                        _c("span", [_vm._v("Delete")]),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: !!_vm.checkedRows.length,
-                                expression: "!!checkedRows.length"
-                              }
-                            ]
-                          },
-                          [_vm._v("(" + _vm._s(_vm.checkedRows.length) + ")")]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "b-select",
-                      {
-                        attrs: { slot: "left" },
-                        slot: "left",
-                        model: {
-                          value: _vm.perPage,
-                          callback: function($$v) {
-                            _vm.perPage = $$v
-                          },
-                          expression: "perPage"
-                        }
-                      },
-                      [
-                        _c("option", { attrs: { value: "5" } }, [
-                          _vm._v("5 per page")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "10" } }, [
-                          _vm._v("10 per page")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "15" } }, [
-                          _vm._v("15 per page")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "20" } }, [
-                          _vm._v("20 per page")
-                        ])
-                      ]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-modal",
-                  {
-                    attrs: {
-                      active: _vm.isModalActive,
-                      "has-modal-card": "",
-                      "can-cancel": []
-                    },
-                    on: {
-                      "update:active": function($event) {
-                        _vm.isModalActive = $event
-                      }
-                    }
-                  },
-                  [
-                    _c(
-                      "form",
-                      {
-                        attrs: { novalidate: "" },
-                        on: {
-                          submit: function($event) {
-                            $event.preventDefault()
-                            return _vm.save()
-                          }
-                        }
-                      },
-                      [
-                        _c("div", { staticClass: "modal-card" }, [
-                          _c("header", { staticClass: "modal-card-head" }, [
-                            _c("h3", { staticClass: "modal-card-title" }, [
-                              _vm._v(
-                                "\n                  " +
-                                  _vm._s(_vm.isNew ? "Creating" : "Editing") +
-                                  "\n                "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("button", {
-                              staticClass: "delete",
-                              attrs: { type: "button" },
-                              on: { click: _vm.cancel }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "section",
-                            { staticClass: "modal-card-body" },
-                            [
-                              _c(
-                                "b-field",
-                                [
-                                  _c("template", { slot: "label" }, [
-                                    _vm._v(
-                                      "\n                    Course\n                    "
-                                    ),
-                                    _c(
-                                      "span",
-                                      { staticClass: "has-text-danger" },
-                                      [_vm._v("*")]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("b-autocomplete", {
-                                    attrs: {
-                                      placeholder:
-                                        "e.g. Bachelor of Science in Information Technology",
-                                      data: _vm.getFilteredCourses,
-                                      field: "description",
-                                      "open-on-focus": true,
-                                      clearable: true
-                                    },
-                                    on: {
-                                      select: function(option) {
-                                        return (this$1.formData.course_id =
-                                          option === null ? "" : option.id)
-                                      }
-                                    },
-                                    scopedSlots: _vm._u([
-                                      {
-                                        key: "default",
-                                        fn: function(props) {
-                                          return [
-                                            _c(
-                                              "div",
-                                              { staticClass: "media" },
-                                              [
-                                                _c(
-                                                  "div",
-                                                  {
-                                                    staticClass: "media-content"
-                                                  },
-                                                  [
-                                                    _c("strong", [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          props.option
-                                                            .course_code
-                                                        )
-                                                      )
-                                                    ]),
-                                                    _vm._v(
-                                                      "\n                          | " +
-                                                        _vm._s(
-                                                          props.option
-                                                            .description
-                                                        ) +
-                                                        "\n                        "
-                                                    )
-                                                  ]
-                                                )
-                                              ]
-                                            )
-                                          ]
-                                        }
-                                      }
-                                    ]),
-                                    model: {
-                                      value: _vm.options.course.searchText,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.options.course,
-                                          "searchText",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "options.course.searchText"
-                                    }
-                                  })
-                                ],
-                                2
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-field",
-                                { attrs: { label: "Subject" } },
-                                [
-                                  _c("template", { slot: "label" }, [
-                                    _vm._v(
-                                      "\n                    Subject\n                    "
-                                    ),
-                                    _c(
-                                      "span",
-                                      { staticClass: "has-text-danger" },
-                                      [_vm._v("*")]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("b-autocomplete", {
-                                    attrs: {
-                                      placeholder:
-                                        "Search Code or Description e.g IT 30/IT Fundamentals",
-                                      "open-on-focus": true,
-                                      data: _vm.filteredSubjects,
-                                      field: "code",
-                                      clearable: true
-                                    },
-                                    on: {
-                                      select: function(option) {
-                                        return _vm.setSubjectDetails(option)
-                                      }
-                                    },
-                                    scopedSlots: _vm._u([
-                                      {
-                                        key: "default",
-                                        fn: function(props) {
-                                          return [
-                                            _c("strong", [
-                                              _vm._v(_vm._s(props.option.code))
-                                            ]),
-                                            _vm._v(
-                                              "\n                      | " +
-                                                _vm._s(
-                                                  props.option.description
-                                                ) +
-                                                "\n                    "
-                                            )
-                                          ]
-                                        }
-                                      }
-                                    ]),
-                                    model: {
-                                      value: _vm.options.subject.searchText,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.options.subject,
-                                          "searchText",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "options.subject.searchText"
-                                    }
-                                  })
-                                ],
-                                2
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-field",
-                                { attrs: { label: "Prerequsite" } },
-                                [
-                                  _c("b-taginput", {
-                                    attrs: {
-                                      "close-type": "is-success",
-                                      "open-on-focus": true,
-                                      data: _vm.filteredSubjectsTags,
-                                      autocomplete: "",
-                                      field: "code",
-                                      type: "is-info",
-                                      maxtags: "5",
-                                      placeholder: "Enter Subject Code"
-                                    },
-                                    on: { typing: _vm.getFilteredSubjectTags },
-                                    scopedSlots: _vm._u([
-                                      {
-                                        key: "default",
-                                        fn: function(props) {
-                                          return [
-                                            _c("strong", [
-                                              _vm._v(_vm._s(props.option.code))
-                                            ]),
-                                            _vm._v(
-                                              "\n                      | " +
-                                                _vm._s(
-                                                  props.option.description
-                                                ) +
-                                                "\n                    "
-                                            )
-                                          ]
-                                        }
-                                      }
-                                    ]),
-                                    model: {
-                                      value: _vm.tags.prerequisite,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.tags, "prerequisite", $$v)
-                                      },
-                                      expression: "tags.prerequisite"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-field",
-                                { attrs: { label: "Academic Year" } },
-                                [
-                                  _c("template", { slot: "label" }, [
-                                    _vm._v(
-                                      "\n                    Curriculum Year\n                    "
-                                    ),
-                                    _c(
-                                      "span",
-                                      { staticClass: "has-text-danger" },
-                                      [_vm._v("*")]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("b-autocomplete", {
-                                    attrs: {
-                                      placeholder: "e.g. S.Y 2013 - 2014",
-                                      "open-on-focus": true,
-                                      data: _vm.filteredYear,
-                                      expanded: "",
-                                      field: "description",
-                                      clearable: true
-                                    },
-                                    on: {
-                                      select: function(option) {
-                                        return (this$1.formData.sy_id =
-                                          option === null ? "" : option.id)
-                                      }
-                                    },
-                                    model: {
-                                      value:
-                                        _vm.options.academicYear.searchText,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.options.academicYear,
-                                          "searchText",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "options.academicYear.searchText"
-                                    }
-                                  })
-                                ],
-                                2
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-field",
-                                { attrs: { label: "Year Level" } },
-                                [
-                                  _c("template", { slot: "label" }, [
-                                    _vm._v(
-                                      "\n                    Year Level\n                    "
-                                    ),
-                                    _c(
-                                      "span",
-                                      { staticClass: "has-text-danger" },
-                                      [_vm._v("*")]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-select",
-                                    {
-                                      attrs: {
-                                        placeholder: "Year Level",
-                                        expanded: ""
-                                      },
-                                      model: {
-                                        value: _vm.formData.year_level,
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.formData,
-                                            "year_level",
-                                            $$v
-                                          )
-                                        },
-                                        expression: "formData.year_level"
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "First Year" } },
-                                        [_vm._v("First Year")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "Second Year" } },
-                                        [_vm._v("Second Year")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "Third Year" } },
-                                        [_vm._v("Third Year")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "Fourth Year" } },
-                                        [_vm._v("Fourth Year")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "Fifth Year" } },
-                                        [_vm._v("Fifth Year")]
-                                      )
-                                    ]
-                                  )
-                                ],
-                                2
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-field",
-                                { attrs: { label: "Semester" } },
-                                [
-                                  _c("template", { slot: "label" }, [
-                                    _vm._v(
-                                      "\n                    Semester\n                    "
-                                    ),
-                                    _c(
-                                      "span",
-                                      { staticClass: "has-text-danger" },
-                                      [_vm._v("*")]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-select",
-                                    {
-                                      attrs: {
-                                        placeholder: "Select Semester",
-                                        expanded: ""
-                                      },
-                                      model: {
-                                        value: _vm.formData.semester,
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.formData,
-                                            "semester",
-                                            $$v
-                                          )
-                                        },
-                                        expression: "formData.semester"
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "First" } },
-                                        [_vm._v("First")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "Second" } },
-                                        [_vm._v("Second")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "option",
-                                        { attrs: { value: "Summer" } },
-                                        [_vm._v("Summer")]
-                                      )
-                                    ]
-                                  )
-                                ],
-                                2
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("footer", { staticClass: "modal-card-foot" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "button is-success",
-                                attrs: { type: "submit" }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                  " +
-                                    _vm._s(_vm.isNew ? "Save" : "Update") +
-                                    "\n                "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              {
-                                staticClass: "button",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.cancel()
-                                  }
-                                }
-                              },
-                              [_vm._v("Cancel")]
-                            )
-                          ])
-                        ])
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-table",
-                  {
-                    ref: "table",
-                    attrs: {
-                      loading: _vm.isLoading,
-                      paginated: true,
-                      "per-page": _vm.perPage,
-                      hoverable: true,
-                      "default-sort": "subject_code",
-                      data: _vm.coursesSubjects,
-                      detailed: "",
-                      "detail-key": "id",
-                      "show-detail-icon": true
-                    },
-                    scopedSlots: _vm._u([
-                      {
-                        key: "default",
-                        fn: function(props) {
-                          return [
-                            _c(
-                              "b-table-column",
-                              {
-                                staticClass: "wrap-text",
-                                attrs: {
-                                  searchable: "",
-                                  label: "Course",
-                                  field: "course_code",
-                                  sortable: "",
-                                  width: "8%"
-                                }
-                              },
-                              [_vm._v(_vm._s(props.row.course_code))]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                staticClass: "wrap-text",
-                                attrs: {
-                                  searchable: "",
-                                  label: "Subject Code",
-                                  field: "subject_code",
-                                  sortable: "",
-                                  width: "12%"
-                                }
-                              },
-                              [_vm._v(_vm._s(props.row.subject_code))]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                staticClass: "wrap-text",
-                                attrs: {
-                                  searchable: "",
-                                  label: "Descriptive Title",
-                                  field: "subject_description",
-                                  sortable: "",
-                                  width: "30%",
-                                  title: props.row.subject_description
-                                }
-                              },
-                              [_vm._v(_vm._s(props.row.subject_description))]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                staticClass: "wrap-text",
-                                attrs: {
-                                  searchable: "",
-                                  label: "Prerequisite",
-                                  field: "prerequisite",
-                                  sortable: "",
-                                  width: "15%",
-                                  title: props.row.prerequisite
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  _vm._s(
-                                    props.row.prerequisite == null
-                                      ? "None"
-                                      : props.row.prerequisite
-                                  )
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                staticClass: "wrap-text",
-                                attrs: {
-                                  label: "Year Level",
-                                  field: "year_level",
-                                  sortable: "",
-                                  width: "10%"
-                                }
-                              },
-                              [_vm._v(_vm._s(props.row.year_level))]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                attrs: {
-                                  label: "Curriculum Year",
-                                  field: "curriculum_year",
-                                  width: "12%",
-                                  sortable: "",
-                                  searchable: ""
-                                }
-                              },
-                              [_vm._v(_vm._s(props.row.curriculum_year))]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                attrs: {
-                                  label: "Semester",
-                                  field: "semester",
-                                  width: "10%",
-                                  sortable: ""
-                                }
-                              },
-                              [_vm._v(_vm._s(props.row.semester))]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                staticClass: "is-actions-cell",
-                                attrs: { "custom-key": "actions", width: "10%" }
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "buttons is-right" },
-                                  [
-                                    _c(
-                                      "b-tooltip",
-                                      {
-                                        attrs: {
-                                          label: "Click to edit",
-                                          position: "is-top"
-                                        }
-                                      },
-                                      [
-                                        _c(
-                                          "button",
-                                          {
-                                            staticClass: "button is-link",
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.edit(props.row)
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _c("b-icon", {
-                                              attrs: {
-                                                icon: "pencil",
-                                                size: "is-small"
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "b-tooltip",
-                                      {
-                                        attrs: {
-                                          label: "Click to Delete",
-                                          position: "is-top"
-                                        }
-                                      },
-                                      [
-                                        _c(
-                                          "button",
-                                          {
-                                            staticClass: "button is-danger",
-                                            attrs: { type: "button" },
-                                            on: {
-                                              click: function($event) {
-                                                $event.preventDefault()
-                                                return _vm.deleteConfirmation(
-                                                  props.row
-                                                )
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _c("b-icon", {
-                                              attrs: {
-                                                icon: "trash-can",
-                                                size: "is-small"
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        )
-                                      ]
-                                    )
-                                  ],
-                                  1
-                                )
-                              ]
-                            )
-                          ]
-                        }
-                      },
-                      {
-                        key: "detail",
-                        fn: function(props) {
-                          return [
-                            _c("div", { staticClass: "content" }, [
-                              _c("p", [
-                                _c("strong", [_vm._v("Descriptive Title:")]),
-                                _vm._v(
-                                  "\n                " +
-                                    _vm._s(props.row.subject_description) +
-                                    "\n              "
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("p", [
-                                _c("strong", [_vm._v("Number of Units:")]),
-                                _vm._v(
-                                  "\n                " +
-                                    _vm._s(props.row.units) +
-                                    "\n              "
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("p", [
-                                _c("strong", [_vm._v("Lecture Hours:")]),
-                                _vm._v(
-                                  "\n                " +
-                                    _vm._s(props.row.lec) +
-                                    "\n              "
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("p", [
-                                _c("strong", [_vm._v("Laboratory Hours:")]),
-                                _vm._v(
-                                  "\n                " +
-                                    _vm._s(props.row.lab) +
-                                    "\n              "
-                                )
-                              ])
-                            ])
-                          ]
-                        }
-                      }
-                    ])
-                  },
-                  [
-                    _vm._v(" "),
-                    _c(
-                      "section",
-                      {
-                        staticClass: "section",
-                        attrs: { slot: "empty" },
-                        slot: "empty"
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "content has-text-grey has-text-centered"
-                          },
-                          [
-                            _vm.isLoading
-                              ? [
-                                  _c(
-                                    "p",
-                                    [
-                                      _c("b-icon", {
-                                        attrs: {
-                                          icon: "dots-horizontal",
-                                          size: "is-large"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("p", [_vm._v("Fetching data...")])
-                                ]
-                              : [_c("p", [_vm._v("Nothing's here…")])]
-                          ],
-                          2
-                        )
-                      ]
-                    )
-                  ]
-                )
-              ],
-              1
-            )
-          ],
-          1
-        )
-      ],
-      1
-    )
-  ])
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -1668,17 +967,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/CardToolbar.vue":
-/*!*************************************************!*\
-  !*** ./resources/js/components/CardToolbar.vue ***!
-  \*************************************************/
+/***/ "./resources/js/components/FilePicker.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/FilePicker.vue ***!
+  \************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardToolbar.vue?vue&type=template&id=46e0f3b0& */ "./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0&");
-/* harmony import */ var _CardToolbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardToolbar.vue?vue&type=script&lang=js& */ "./resources/js/components/CardToolbar.vue?vue&type=script&lang=js&");
+/* harmony import */ var _FilePicker_vue_vue_type_template_id_7d05e4d5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FilePicker.vue?vue&type=template&id=7d05e4d5& */ "./resources/js/components/FilePicker.vue?vue&type=template&id=7d05e4d5&");
+/* harmony import */ var _FilePicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FilePicker.vue?vue&type=script&lang=js& */ "./resources/js/components/FilePicker.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1688,9 +987,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _CardToolbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _FilePicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FilePicker_vue_vue_type_template_id_7d05e4d5___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FilePicker_vue_vue_type_template_id_7d05e4d5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1700,54 +999,123 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/CardToolbar.vue"
+component.options.__file = "resources/js/components/FilePicker.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/CardToolbar.vue?vue&type=script&lang=js&":
-/*!**************************************************************************!*\
-  !*** ./resources/js/components/CardToolbar.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************/
+/***/ "./resources/js/components/FilePicker.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/FilePicker.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CardToolbar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardToolbar.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FilePicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./FilePicker.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FilePicker.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FilePicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0& ***!
-  \********************************************************************************/
+/***/ "./resources/js/components/FilePicker.vue?vue&type=template&id=7d05e4d5&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/FilePicker.vue?vue&type=template&id=7d05e4d5& ***!
+  \*******************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CardToolbar.vue?vue&type=template&id=46e0f3b0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FilePicker_vue_vue_type_template_id_7d05e4d5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./FilePicker.vue?vue&type=template&id=7d05e4d5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FilePicker.vue?vue&type=template&id=7d05e4d5&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FilePicker_vue_vue_type_template_id_7d05e4d5___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FilePicker_vue_vue_type_template_id_7d05e4d5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/views/CoursesSubjects/Index.vue":
-/*!******************************************************!*\
-  !*** ./resources/js/views/CoursesSubjects/Index.vue ***!
-  \******************************************************/
+/***/ "./resources/js/components/Notification.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/Notification.vue ***!
+  \**************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Index_vue_vue_type_template_id_68b3629a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Index.vue?vue&type=template&id=68b3629a& */ "./resources/js/views/CoursesSubjects/Index.vue?vue&type=template&id=68b3629a&");
-/* harmony import */ var _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Index.vue?vue&type=script&lang=js& */ "./resources/js/views/CoursesSubjects/Index.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Notification_vue_vue_type_template_id_6a4ce154___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Notification.vue?vue&type=template&id=6a4ce154& */ "./resources/js/components/Notification.vue?vue&type=template&id=6a4ce154&");
+/* harmony import */ var _Notification_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Notification.vue?vue&type=script&lang=js& */ "./resources/js/components/Notification.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Notification_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Notification_vue_vue_type_template_id_6a4ce154___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Notification_vue_vue_type_template_id_6a4ce154___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Notification.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Notification.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/Notification.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Notification_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Notification.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Notification.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Notification_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Notification.vue?vue&type=template&id=6a4ce154&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/Notification.vue?vue&type=template&id=6a4ce154& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Notification_vue_vue_type_template_id_6a4ce154___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Notification.vue?vue&type=template&id=6a4ce154& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Notification.vue?vue&type=template&id=6a4ce154&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Notification_vue_vue_type_template_id_6a4ce154___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Notification_vue_vue_type_template_id_6a4ce154___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/Clients/ClientsForm.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/views/Clients/ClientsForm.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ClientsForm_vue_vue_type_template_id_86216514___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ClientsForm.vue?vue&type=template&id=86216514& */ "./resources/js/views/Clients/ClientsForm.vue?vue&type=template&id=86216514&");
+/* harmony import */ var _ClientsForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ClientsForm.vue?vue&type=script&lang=js& */ "./resources/js/views/Clients/ClientsForm.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1757,9 +1125,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Index_vue_vue_type_template_id_68b3629a___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Index_vue_vue_type_template_id_68b3629a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _ClientsForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ClientsForm_vue_vue_type_template_id_86216514___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ClientsForm_vue_vue_type_template_id_86216514___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1769,38 +1137,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/CoursesSubjects/Index.vue"
+component.options.__file = "resources/js/views/Clients/ClientsForm.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/CoursesSubjects/Index.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/views/CoursesSubjects/Index.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
+/***/ "./resources/js/views/Clients/ClientsForm.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/views/Clients/ClientsForm.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/CoursesSubjects/Index.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ClientsForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ClientsForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Clients/ClientsForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ClientsForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/CoursesSubjects/Index.vue?vue&type=template&id=68b3629a&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/views/CoursesSubjects/Index.vue?vue&type=template&id=68b3629a& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/views/Clients/ClientsForm.vue?vue&type=template&id=86216514&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/views/Clients/ClientsForm.vue?vue&type=template&id=86216514& ***!
+  \***********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_68b3629a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Index.vue?vue&type=template&id=68b3629a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/CoursesSubjects/Index.vue?vue&type=template&id=68b3629a&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_68b3629a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ClientsForm_vue_vue_type_template_id_86216514___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ClientsForm.vue?vue&type=template&id=86216514& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Clients/ClientsForm.vue?vue&type=template&id=86216514&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ClientsForm_vue_vue_type_template_id_86216514___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_68b3629a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ClientsForm_vue_vue_type_template_id_86216514___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
