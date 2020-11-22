@@ -353,7 +353,7 @@ export default {
       return ["Transactions", "Subject Evaluation"];
     },
     sy() {
-      return this.$store.state.currentSY.description;
+      return this.$store.state.currentSY?.description;
     },
     ...mapGetters("courseSubject", ["coursesSubjects"]),
     ...mapGetters("studentSubject", ["remainingSubjects", "studentSubjects"]),

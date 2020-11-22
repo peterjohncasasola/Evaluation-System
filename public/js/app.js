@@ -2123,11 +2123,29 @@ __webpack_require__.r(__webpack_exports__);
         icon: "book-multiple"
       }, {
         to: {
+          name: "sections-list"
+        },
+        label: "Sections",
+        icon: "cogs"
+      }, {
+        to: {
           name: "semesters"
         },
         label: "Settings",
         icon: "cogs"
       }], "Transactions", [{
+        to: {
+          name: "subject.offering"
+        },
+        label: "Subject Offering",
+        icon: "cogs"
+      }, {
+        to: {
+          name: "section.class"
+        },
+        label: "Section Class",
+        icon: "cogs"
+      }, {
         to: {
           name: "subject.evaluation"
         },
@@ -2170,18 +2188,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    document.getElementById("root").className = "has-spinner-active has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded"; // axios
-    //   .get("/user")
-    //   .then(r => {
-    //     this.$store.commit("user", r.data.data);
-    //   })
-    //   .catch(err => {
-    //     this.$buefy.toast.open({
-    //       message: `Error: ${err.message}`,
-    //       type: "is-danger"
-    //     });
-    //   });
-
+    document.getElementById("root").className = "has-spinner-active has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded";
     this.currentAY();
     this.currentSem();
   },
@@ -84313,7 +84320,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../js/router */ "./resources/js/router.js");
 
 
- // let token = document.head.querySelector('meta[name="csrf-token"]')
 
 var baseURL = 'http://localhost:8000/api';
 var apiClient = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
@@ -84333,8 +84339,7 @@ apiClient.interceptors.response.use(function (response) {
     localStorage.removeItem('token', null);
     _js_store__WEBPACK_IMPORTED_MODULE_1__["default"].state.auth.isLoggedIn = false;
     _js_store__WEBPACK_IMPORTED_MODULE_1__["default"].state.auth.token = null;
-    _js_router__WEBPACK_IMPORTED_MODULE_2__["default"].push('/login'); // this.showNotification("Invalid Credentials");
-
+    _js_router__WEBPACK_IMPORTED_MODULE_2__["default"].push('/login');
     return Promise.reject(error);
   } else {
     return Promise.reject(error);
@@ -85865,6 +85870,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
           delimiters: ['-'],
           blocks: [2, 5],
           numericOnly: true
+        },
+        cp_number: {
+          delimiters: ['-'],
+          blocks: [4, 3, 4],
+          numericOnly: true
         }
       },
       query: {
@@ -86039,7 +86049,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: "/users",
       name: "users-list",
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./views/Users.vue */ "./resources/js/views/Users.vue"));
+        return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./views/Users.vue */ "./resources/js/views/Users.vue"));
       }
     }, {
       path: "/students/new",
@@ -86057,7 +86067,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: "/subjects",
       name: "subjects-list",
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./views/Subjects.vue */ "./resources/js/views/Subjects.vue"));
+        return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./views/Subjects.vue */ "./resources/js/views/Subjects.vue"));
       },
       children: [{
         path: "/subjects/new",
@@ -86076,13 +86086,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: "/semesters",
       name: "semesters",
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./views/Semester.vue */ "./resources/js/views/Semester.vue"));
+        return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ./views/Semester.vue */ "./resources/js/views/Semester.vue"));
       }
     }, {
       path: "/students",
       name: "students-list",
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./views/Students/Index.vue */ "./resources/js/views/Students/Index.vue"));
+        return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./views/Students/Index.vue */ "./resources/js/views/Students/Index.vue"));
       }
     }, {
       path: "/instructors",
@@ -86094,13 +86104,25 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: "/curriculums",
       name: "curriculums-list",
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/CoursesSubjects/Index.vue */ "./resources/js/views/CoursesSubjects/Index.vue"));
+        return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./views/CoursesSubjects/Index.vue */ "./resources/js/views/CoursesSubjects/Index.vue"));
+      }
+    }, {
+      path: "/sections",
+      name: "sections-list",
+      component: function component() {
+        return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./views/Sections.vue */ "./resources/js/views/Sections.vue"));
+      }
+    }, {
+      path: "/transactions/:id/subjects",
+      name: "course-subjects",
+      component: function component() {
+        return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./views/CoursesSubjects/Index.vue */ "./resources/js/views/CoursesSubjects/Index.vue"));
       }
     }, {
       path: "/courses/:id/subjects",
       name: "course-subjects",
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/CoursesSubjects/Index.vue */ "./resources/js/views/CoursesSubjects/Index.vue"));
+        return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./views/CoursesSubjects/Index.vue */ "./resources/js/views/CoursesSubjects/Index.vue"));
       }
     }, {
       path: "/transactions/student/subjects/evaluation",
@@ -86130,7 +86152,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: "/tables",
       name: "tables",
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ./views/Tables.vue */ "./resources/js/views/Tables.vue"));
+        return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ./views/Tables.vue */ "./resources/js/views/Tables.vue"));
       }
     }, {
       path: "/clients/index",
@@ -86142,13 +86164,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: "/clients/new",
       name: "clients.new",
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./views/Clients/ClientsForm.vue */ "./resources/js/views/Clients/ClientsForm.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ./views/Clients/ClientsForm.vue */ "./resources/js/views/Clients/ClientsForm.vue"));
       }
     }, {
       path: "/clients/:id",
       name: "clients.edit",
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./views/Clients/ClientsForm.vue */ "./resources/js/views/Clients/ClientsForm.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ./views/Clients/ClientsForm.vue */ "./resources/js/views/Clients/ClientsForm.vue"));
       },
       props: true
     }]
@@ -86163,7 +86185,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: "*",
     name: "not-found",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ./views/PageNotFound.vue */ "./resources/js/views/PageNotFound.vue"));
+      return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ./views/PageNotFound.vue */ "./resources/js/views/PageNotFound.vue"));
     }
   }],
   scrollBehavior: function scrollBehavior(to, from, savedPosition) {
@@ -86322,6 +86344,39 @@ __webpack_require__.r(__webpack_exports__);
   },
   updateInstructor: function updateInstructor(instructor) {
     return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"].put("/instructors/".concat(instructor.id), instructor);
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/services/SectionService.js":
+/*!*************************************************!*\
+  !*** ./resources/js/services/SectionService.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _apiClient__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../apiClient */ "./resources/js/apiClient.js");
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helper */ "./resources/js/services/helper.js");
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getSections: function getSections() {
+    return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"].get('/sections');
+  },
+  getSection: function getSection(id) {
+    return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"].get("/sections/".concat(id));
+  },
+  postSection: function postSection(section) {
+    return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"].post('/sections', section);
+  },
+  deleteSection: function deleteSection(id) {
+    return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/sections/".concat(id));
+  },
+  putSection: function putSection(section) {
+    return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"].put("/sections/".concat(section.id), section);
   }
 });
 
@@ -86509,12 +86564,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_auth__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./store/auth */ "./resources/js/store/auth.js");
 /* harmony import */ var _store_academicYears__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./store/academicYears */ "./resources/js/store/academicYears.js");
 /* harmony import */ var _store_courseSubject__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./store/courseSubject */ "./resources/js/store/courseSubject.js");
-/* harmony import */ var _store_studentSubject__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./store//studentSubject */ "./resources/js/store/studentSubject.js");
+/* harmony import */ var _store_studentSubject__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./store/studentSubject */ "./resources/js/store/studentSubject.js");
+/* harmony import */ var _store_sections__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./store/sections */ "./resources/js/store/sections.js");
 'strict';
 
 
 
 /* Stores */
+
 
 
 
@@ -86538,7 +86595,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     academicYears: _store_academicYears__WEBPACK_IMPORTED_MODULE_9__["default"],
     courseSubject: _store_courseSubject__WEBPACK_IMPORTED_MODULE_10__["default"],
     studentSubject: _store_studentSubject__WEBPACK_IMPORTED_MODULE_11__["default"],
-    auth: _store_auth__WEBPACK_IMPORTED_MODULE_8__["default"]
+    auth: _store_auth__WEBPACK_IMPORTED_MODULE_8__["default"],
+    sections: _store_sections__WEBPACK_IMPORTED_MODULE_12__["default"]
   },
   state: {
     /* User */
@@ -87460,6 +87518,180 @@ var getters = {
   mutations: mutations,
   actions: actions,
   getters: getters
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/sections.js":
+/*!****************************************!*\
+  !*** ./resources/js/store/sections.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_SectionService_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/SectionService.js */ "./resources/js/services/SectionService.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+var state = {
+  sections: [],
+  section: {},
+  errors: null
+};
+var getters = {
+  getSectionById: function getSectionById(state) {
+    return function (id) {
+      return state.sections.find(function (section) {
+        return section.id === id;
+      });
+    };
+  },
+  sections: function sections(state) {
+    return state.sections;
+  },
+  section: function section(state) {
+    return state.section;
+  },
+  errors: function errors(state) {
+    return state.errors;
+  }
+};
+var mutations = {
+  ADD_SECTION: function ADD_SECTION(state, data) {
+    state.sections.unshift(data);
+  },
+  SET_SECTIONS: function SET_SECTIONS(state, data) {
+    state.sections = data;
+  },
+  SET_SECTION: function SET_SECTION(state, data) {
+    state.section = data;
+  },
+  DELETE_SECTION: function DELETE_SECTION(state, data) {
+    var index = state.sections.findIndex(function (section) {
+      return section.id === data.id;
+    });
+    state.sections.splice(index, 1);
+  },
+  UPDATE_SECTION: function UPDATE_SECTION(state, data) {
+    var index = state.sections.findIndex(function (section) {
+      return section.id === data.id;
+    });
+    var section = state.sections[index];
+    Object.assign(section, data);
+  },
+  SET_ERRORS: function SET_ERRORS(state, errors) {
+    state.errors = errors;
+  }
+};
+var actions = {
+  createSection: function createSection(_ref, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var commit, dispatch, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit, dispatch = _ref.dispatch;
+              _context.prev = 1;
+              _context.next = 4;
+              return _services_SectionService_js__WEBPACK_IMPORTED_MODULE_1__["default"].postSection(payload);
+
+            case 4:
+              response = _context.sent;
+              commit('ADD_SECTION', response.data.data);
+              _context.next = 11;
+              break;
+
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](1);
+              return _context.abrupt("return", _context.t0.response.data);
+
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 8]]);
+    }))();
+  },
+  fetchSections: function fetchSections(_ref2) {
+    var commit = _ref2.commit;
+    _services_SectionService_js__WEBPACK_IMPORTED_MODULE_1__["default"].getSections().then(function (response) {
+      commit('SET_SECTIONS', response.data.data);
+    })["catch"](function (errors) {
+      return errors.response.data;
+    });
+  },
+  fetchSection: function fetchSection(_ref3, id) {
+    var commit = _ref3.commit;
+    var section = getters.getSectionById(id);
+
+    if (section) {
+      commit('SET_SECTION', section);
+    } else {
+      _services_SectionService_js__WEBPACK_IMPORTED_MODULE_1__["default"].getSection(id).then(function (response) {
+        commit('SET_SECTION', response.data);
+      })["catch"](function (errors) {
+        return errors.response.data;
+      });
+    }
+  },
+  deleteSection: function deleteSection(_ref4, payload) {
+    var commit = _ref4.commit;
+
+    try {
+      _services_SectionService_js__WEBPACK_IMPORTED_MODULE_1__["default"].deleteSection(payload.id);
+      commit('DELETE_SECTION', payload);
+    } catch (errors) {
+      return errors.response.data;
+    }
+  },
+  updateSection: function updateSection(_ref5, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref5.commit;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return _services_SectionService_js__WEBPACK_IMPORTED_MODULE_1__["default"].putSection(payload);
+
+            case 4:
+              commit('UPDATE_SECTION', payload);
+              _context2.next = 10;
+              break;
+
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](1);
+              return _context2.abrupt("return", _context2.t0.response.data);
+
+            case 10:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 7]]);
+    }))();
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: state,
+  getters: getters,
+  mutations: mutations,
+  actions: actions
 });
 
 /***/ }),

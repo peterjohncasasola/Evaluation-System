@@ -143,6 +143,9 @@
                 <b-input
                   icon="contact-phone"
                   type="text"
+                  v-cleave="masks.cp_number"
+                  :value="form.contact_no"
+                  @input.native="onInputContactNumber"
                   v-model="form.contact_no"
                   name="phone"
                   expanded
@@ -228,14 +231,17 @@
                 "
               >
                 <b-input
+                  v-cleave="masks.cp_number"
+                  :value="form.guardian_contact"
+                  @input.native="onInputGuardianContact"
                   icon="contact-phone"
                   v-model="form.guardian_contact"
                   placeholder="Enter Guardian Contact No. (Optional)"
                 />
               </b-field>
             </b-field>
-
             <b-field label="Nationality/Religion" horizontal>
+
               <b-field>
                 <b-input
                   icon="translate"
@@ -360,6 +366,13 @@ export default {
     onInput(event) {
       this.form.student_id = event.target._vCleave.getFormattedValue();
     },
+    onInputContactNumber(event) {
+      this.form.contact_no = event.target._vCleave.getFormattedValue();
+    },
+
+    onInputGuardianContact(event) {
+      this.form.guardian_contact = event.target._vCleave.getFormattedValue();
+    },
     async submit() {
       this.errors = {};
       let response = null;
@@ -393,11 +406,6 @@ export default {
           return [];
         }
         return null;
-      });
-
-      this.$buefy.snackbar.open({
-        message: "Reset successfully",
-        queue: false
       });
     }
   }

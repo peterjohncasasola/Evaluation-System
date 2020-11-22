@@ -80,6 +80,11 @@ export default {
             label: "Courses",
             icon: "book-multiple"
           },
+           {
+            to: { name: "sections-list" },
+            label: "Sections",
+            icon: "cogs"
+          },
           {
             to: { name: "semesters" },
             label: "Settings",
@@ -88,6 +93,16 @@ export default {
         ],
         "Transactions",
         [
+          {
+            to: { name: "subject.offering" },
+            label: "Subject Offering",
+            icon: "cogs"
+          },
+          {
+            to: { name: "section.class" },
+            label: "Section Class",
+            icon: "cogs"
+          },
           {
             to: { name: "subject.evaluation" },
             label: "Subject Evaluation",
@@ -133,17 +148,6 @@ export default {
   },
   created() {
     document.getElementById("root").className = "has-spinner-active has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded";
-    // axios
-    //   .get("/user")
-    //   .then(r => {
-    //     this.$store.commit("user", r.data.data);
-    //   })
-    //   .catch(err => {
-    //     this.$buefy.toast.open({
-    //       message: `Error: ${err.message}`,
-    //       type: "is-danger"
-    //     });
-    //   });
 
     this.currentAY();
     this.currentSem();

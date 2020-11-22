@@ -189,7 +189,6 @@ export default {
       this.isModalActive = true;
       this.isNew = false;
       Object.assign(this.formData, data);
-      console.log(this.formData);
     },
 
     deleteConfirmation(trashObject = null) {

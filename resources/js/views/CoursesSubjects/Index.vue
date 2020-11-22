@@ -15,19 +15,7 @@
           title="Courses"
         >
           <card-toolbar>
-            <button
-              slot="right"
-              type="button"
-              class="button is-danger has-checked-rows-number"
-              @click="deleteConfirmation(null)"
-              :disabled="!checkedRows.length"
-            >
-              <b-icon icon="trash-can" custom-size="default" class="i" />
-              <span>Delete</span>
-              <span v-show="!!checkedRows.length"
-                >({{ checkedRows.length }})</span
-              >
-            </button>
+            
             <b-select v-model="perPage" slot="left">
               <option value="5">5 per page</option>
               <option value="10">10 per page</option>
