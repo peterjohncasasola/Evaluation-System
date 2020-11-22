@@ -65,8 +65,8 @@ class StudentController extends Controller
                 'nationality' => 'nullable|alpha_spaces',
                 'religion' => 'nullable|alpha_spaces',
                 'birth_date' => 'required|date',
-                'contact_no' => 'required|min:11|max:11|starts_with:09',
-                'guardian_contact' => 'nullable|min:11|max:11|starts_with:09',
+                'contact_no' => 'required|min:11|max:15|starts_with:09',
+                'guardian_contact' => 'nullable|min:11|max:15|starts_with:09',
                 'curriculum_year' => 'required|exists:academic_years,description',
                 'sex' => [
                     'required',
@@ -159,8 +159,8 @@ class StudentController extends Controller
             'nationality' => 'nullable|alpha_spaces',
             'religion' => 'nullable|alpha_spaces',
             'birth_date' => 'required',
-            'contact_no' => 'required|min:11|max:11|starts_with:09',
-            'guardian_contact' => 'nullable|min:11|max:11|starts_with:09',
+            'contact_no' => 'required|min:11|max:15|starts_with:09',
+            'guardian_contact' => 'nullable|min:11|max:15|starts_with:09',
             'curriculum_year' => 'required|exists:academic_years,description',
             'sex' => [
                 'required',

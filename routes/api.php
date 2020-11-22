@@ -16,14 +16,15 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group([
-    'middleware' => 'api',
-    'prefix' => 'auth'
+    'middleware' => 'api'
 
 ], function () {
-    Route::post('login', 'API\AuthController@login');
-    Route::post('logout', 'API\AuthController@logout');
-    Route::post('refresh', 'API\AuthController@refresh');
-    Route::get('user-profile', 'API\AuthController@userProfile');
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('login', 'API\AuthController@login');
+        Route::post('logout', 'API\AuthController@logout');
+        Route::post('refresh', 'API\AuthController@refresh');
+        Route::get('user-profile', 'API\AuthController@userProfile');
+    });
 });
 
 Route::prefix('/user')->group(function () {
@@ -34,12 +35,13 @@ Route::prefix('/user')->group(function () {
 });
 
 
-Route::group(['middleware' => ['autotrim', 'auth']], function () {
+Route::group(['middleware' => ['autotrim', 'auth:api']], function () {
     Route::apiResources([
         'courses' => 'API\CourseController',
         'users' => 'API\UserController',
         'subjects' => 'API\SubjectController',
         'students' => 'API\StudentController',
+        'sections' => 'API\SectionController',
         'instructors' => 'API\InstructorController',
         'courses-subjects' => 'API\CourseSubjectController',
         'academic-years' => 'API\AcademicYearController',
