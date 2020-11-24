@@ -25,6 +25,7 @@ class CreateStudentSubjectsTable extends Migration
             $table->string('lec', 10)->nullable();
             $table->string('semester', 20);
             $table->string('school_year', 20);
+            $table->string('curriculum_year', 20);
             $table->string('section', 20);
             $table->string('year_level', 20);
             $table->string('grade', 5)->nullable();
