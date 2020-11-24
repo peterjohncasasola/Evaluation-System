@@ -2,7 +2,7 @@
   <div>
     <nav-bar />
 
-    <aside-menu :menu="menu" />
+    <aside-menu :menu="modules" />
 
     <router-view />
 
@@ -14,8 +14,9 @@
 import NavBar from "@/components/NavBar";
 import AsideMenu from "@/components/AsideMenu";
 import FooterBar from "@/components/FooterBar";
-import { mapGetters } from "vuex";
 import apiClient from "./apiClient";
+import { mapGetters } from "vuex";
+
 export default {
   name: "home",
   components: {
@@ -25,19 +26,23 @@ export default {
   },
   data() {
     return {
-      isActive: true
+      isActive: true,
+      menu: [],
+     
     };
   },
   
   computed: {
-    menu() {
+    ...mapGetters('auth', ['user']),
+    modules() {
       return [
         "General",
         [
           {
             to: { name: "home" },
             icon: "desktop-mac",
-            label: "Dashboard"
+            label: "Dashboard",
+            adminAccess: false,
           }
         ],
         "Master Files",
@@ -46,48 +51,60 @@ export default {
             to: { name: "students-list" },
             label: "Students",
             icon: "account-multiple",
-            updateMark: true
+            updateMark: true,
+            adminAccess: false,
           },
 
           {
             to: { name: "academic-years-list" },
             label: "Academic Year",
             icon: "calendar-month",
-            updateMark: true
+            updateMark: true,
+            adminAccess: true,
           },
           {
             to: { name: "subjects-list" },
             label: "Subjects",
-            icon: "bookshelf"
+            icon: "bookshelf",
+            adminAccess: false,
           },
           {
             to: { name: "curriculums-list" },
             label: "Curriculums",
-            icon: "notebook"
+            icon: "notebook",
+            adminAccess: false,
           },
           {
             to: { name: "instructors-list" },
             label: "Instructors",
-            icon: "account-tie"
+            icon: "account-tie",
+            adminAccess: true,
+
           },
           {
             to: { name: "users-list" },
             label: "Users",
-            icon: "account-details"
+            icon: "account-details",
+            adminAccess: true,
+
           },
           {
             to: { name: "courses-list" },
             label: "Courses",
-            icon: "book-multiple"
+            icon: "book-multiple",
+            adminAccess: true,
+
           },
            {
             to: { name: "sections-list" },
             label: "Sections",
-            icon: "cogs"
+            icon: "cogs",
+            adminAccess: true,
           },
           {
             to: { name: "semesters" },
             label: "Settings",
+            adminAccess: true,
             icon: "cogs"
           }
         ],
@@ -96,17 +113,20 @@ export default {
           {
             to: { name: "subject.offering" },
             label: "Subject Offering",
-            icon: "cogs"
+            icon: "cogs",
+            adminAccess: false,
           },
           {
             to: { name: "section.class" },
             label: "Section Class",
-            icon: "cogs"
+            icon: "cogs",
+            adminAccess: false,
           },
           {
             to: { name: "subject.evaluation" },
             label: "Subject Evaluation",
-            icon: "book-search"
+            icon: "book-search",
+            adminAccess: false,
           },
           // {
           //   to: "/students/subjects",
@@ -122,7 +142,8 @@ export default {
           {
             to: { name: "grade.entry" },
             label: "Grade Entry",
-            icon: "table-large-plus"
+            icon: "table-large-plus",
+            adminAccess: false,
           }
           // {
           //   label: "Submenus",
@@ -148,11 +169,16 @@ export default {
   },
   created() {
     document.getElementById("root").className = "has-spinner-active has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded";
-
     this.currentAY();
     this.currentSem();
   },
   methods: {
+    userAccess() {
+      if (this.user.user_type !== 'Administrator') {
+        this.menu = this.modules.filter(m => m.adminAccess == false);
+      } else {
+      }
+    },
     currentAY() {
       apiClient
         .get("/sy/current")

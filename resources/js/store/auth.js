@@ -3,7 +3,7 @@ const state = {
   user: {},
   token: localStorage.getItem('token') || null,
   isLoggedIn: !!localStorage.getItem('token'),
-
+  access: [],
 };
 
 const mutations = {
@@ -20,6 +20,9 @@ const mutations = {
     apiClient.defaults.headers.common['Authorization'] = `Bearer ${data}`;
     state.token = data;
   },
+  SET_ACCESS: (state, data) => {
+    state.access = data;
+  }
 
 };
 
@@ -42,7 +45,11 @@ const actions = {
   logout({ commit }) {
     commit('CLEAR_USER_DATA'); 
     location.reload();
-  }
+  },
+  
+  access({commit}, payload) {
+    commit('SET_ACCESS', payload);
+  },
 };
 
 const getters = {

@@ -16,34 +16,16 @@ class UsersTableSeeder extends Seeder
             'username' => 'mgverbo',
             'source_id' => 0,
             'email' => 'marygrace@example.com',
-            'user_type' => 'admin',
+            'user_type' => 'Administrator',
             'password' => bcrypt('secret')
         ]);
 
         \App\User::create([
-            'name' => 'Juan Cruz',
+            'name' => 'Juan Dela Cruz',
             'username' => 'jcruz',
             'source_id' => 1,
-            'user_type' => 'Student',
+            'user_type' => 'Standard User',
             'email' => 'juandcruz@example.com',
-            'password' => bcrypt('secret')
-        ]);
-
-        \App\User::create([
-            'name' => 'Roman Alex Lustro',
-            'username' => 'ralustro',
-            'source_id' => 1,
-            'user_type' => 'Instructor',
-            'email' => 'romanlustro@example.com',
-            'password' => bcrypt('secret')
-        ]);
-
-        \App\User::create([
-            'name' => 'Angelo Gamara',
-            'username' => 'lordgamara',
-            'source_id' => 0,
-            'user_type' => 'Chairman',
-            'email' => 'angelogamara@example.com',
             'password' => bcrypt('secret')
         ]);
     }

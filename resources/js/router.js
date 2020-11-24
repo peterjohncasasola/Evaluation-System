@@ -18,45 +18,67 @@ const router = new Router({
     {
       path: "",
       name: "main",
-      redirect: '/home',
+      redirect: "/home",
       component: Main,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        userType: undefined
       },
       children: [
         {
           path: "/home",
           name: "home",
-          component: () => import("./views/Home.vue")
+          component: () => import("./views/Home.vue"),
+          meta: {
+            userType: undefined
+          }
         },
         {
           path: "/users",
           name: "users-list",
-          component: () => import("./views/Users.vue")
+          component: () => import("./views/Users.vue"),
+          meta: {
+            userType: "Administrator"
+          }
         },
         {
           path: "/students/new",
           name: "students-new",
-          component: () => import("./views/Students/Form.vue")
+          component: () => import("./views/Students/Form.vue"),
+          meta: {
+            userType: undefined
+          }
         },
 
         {
           path: "/students/:id/edit",
           name: "students-edit",
-          component: () => import("./views/Students/Form.vue")
+          component: () => import("./views/Students/Form.vue"),
+          meta: {
+            userType: undefined
+          }
         },
         {
           path: "/subjects",
           name: "subjects-list",
           component: () => import("./views/Subjects.vue"),
+          meta: {
+            userType: undefined,
+          },
           children: [
             {
               path: "/subjects/new",
-              name: "subjects-new"
+              name: "subjects-new",
+              meta: {
+                userType: undefined
+              }
             },
             {
               path: "/subjects/edit",
-              name: "subjects.edit"
+              name: "subjects.edit",
+              meta: {
+                userType: undefined
+              }
             }
           ]
         },
@@ -64,85 +86,84 @@ const router = new Router({
         {
           path: "/academic-years",
           name: "academic-years-list",
-          component: () => import("./views/AcademicYear.vue")
+          component: () => import("./views/AcademicYear.vue"),
+          meta: {
+            userType: "Administrator"
+          }
         },
         {
           path: "/semesters",
           name: "semesters",
-          component: () => import("./views/Semester.vue")
+          component: () => import("./views/Semester.vue"),
+          meta: {
+            userType: "Administrator"
+          }
         },
         {
           path: "/students",
           name: "students-list",
-          component: () => import("./views/Students/Index.vue")
+          component: () => import("./views/Students/Index.vue"),
+          meta: {
+            userType: undefined
+          }
         },
         {
           path: "/instructors",
           name: "instructors-list",
-          component: () => import("./views/Instructors.vue")
+          component: () => import("./views/Instructors.vue"),
+          meta: {
+            userType: "Administrator"
+          }
         },
         {
           path: "/curriculums",
           name: "curriculums-list",
-          component: () => import("./views/CoursesSubjects/Index.vue")
+          component: () => import("./views/CoursesSubjects/Index.vue"),
+          meta: {
+            userType: undefined,
+          }
         },
         {
           path: "/sections",
           name: "sections-list",
-          component: () => import("./views/Sections.vue")
+          component: () => import("./views/Sections.vue"),
+          meta: {
+            userType: "Administrator"
+          }
         },
-        {
-          path: "/transactions/class/subjects",
-          name: "course-subjects",
-          component: () => import("./views/CoursesSubjects/Index.vue")
-        },
+
         {
           path: "/courses/:id/subjects",
           name: "course-subjects",
-          component: () => import("./views/CoursesSubjects/Index.vue")
+          component: () => import("./views/CoursesSubjects/Index.vue"),
+          meta: {
+            userType: undefined
+          }
         },
         {
           path: "/transactions/student/subjects/evaluation",
           name: "subject.evaluation",
-          component: () => import("./views/SubjectEvaluation.vue")
+          component: () => import("./views/SubjectEvaluation.vue"),
+          meta: {
+            userType: undefined
+          }
         },
-        {
-          path: "/forms",
-          name: "forms",
-          component: () => import("./views/Forms.vue")
-        },
-
         {
           path: "/transactions/grade/entry",
           name: "grade.entry",
-          component: () => import("./views/GradeEntry.vue")
+          component: () => import("./views/GradeEntry.vue"),
+          meta: {
+            userType: undefined
+          }
         },
 
         {
           path: "/courses",
           name: "courses-list",
-          component: () => import("./views/Courses.vue")
-        },
-        {
-          path: "/tables",
-          name: "tables",
-          component: () => import("./views/Tables.vue")
-        },
-        {
-          path: "/clients/index",
-          name: "clients.index",
-          component: () => import("./views/Clients/ClientsIndex.vue")
-        },
-        {
-          path: "/clients/new",
-          name: "clients.new",
-          component: () => import("./views/Clients/ClientsForm.vue")
-        },
-        {
-          path: "/clients/:id",
-          name: "clients.edit",
-          component: () => import("./views/Clients/ClientsForm.vue"),
-          props: true
+          component: () => import("./views/Courses.vue"),
+          meta: {
+            userType: "Administrator"
+          }
         }
       ]
     },
@@ -151,14 +172,18 @@ const router = new Router({
       name: "login",
       component: Login,
       meta: {
-        requiresAuth: false
+        requiresAuth: false,
+        userType: undefined
       }
     },
 
     {
       path: "*",
       name: "not-found",
-      component: () => import("./views/PageNotFound.vue")
+      component: () => import("./views/PageNotFound.vue"),
+      meta: {
+        userType: undefined
+      }
     }
   ],
   scrollBehavior(to, from, savedPosition) {
@@ -174,17 +199,23 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  const isLoggedIn = JSON.parse(localStorage.getItem('user'));
-  if (to.matched.some(record => record.meta.requiresAuth) && !isLoggedIn) {
-    next('/login')
-  } else {
-    if (to.name == 'login' && isLoggedIn) {
-      next('/home')
-    } else {
-      next();
-    }
+  let user = JSON.parse(localStorage.getItem("user"));
+  if (to.matched.some(record => record.meta.requiresAuth) && !user) {
+    next("/login");
   }
+  if (to.name == "login" && user) {
+    next("/home");
+  }
+  if (
+    to.matched.some(
+      record =>
+        record.meta.userType === "Administrator" &&
+        user?.user_type !== "Administrator")
+  ) {
+    next("/home");
+  } 
   next();
+
 });
 
 export default router;

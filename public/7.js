@@ -38,10 +38,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/AcademicYear.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/AcademicYear.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Sections.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Sections.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -57,7 +57,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_HeroBar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/HeroBar */ "./resources/js/components/HeroBar.vue");
 /* harmony import */ var _components_CardToolbar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/CardToolbar */ "./resources/js/components/CardToolbar.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _apiClient__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../apiClient */ "./resources/js/apiClient.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -210,31 +209,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 
 
 
@@ -243,6 +217,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  name: "CourseIndex",
   components: {
     CardToolbar: _components_CardToolbar__WEBPACK_IMPORTED_MODULE_6__["default"],
     HeroBar: _components_HeroBar__WEBPACK_IMPORTED_MODULE_5__["default"],
@@ -253,32 +228,49 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       isModalActive: false,
-      isLoading: true,
+      isLoading: false,
       paginated: false,
       perPage: 10,
       checkedRows: [],
+      errors: {},
       isNew: true,
       formData: {
         id: "",
-        school_year: "",
-        description: "",
-        is_current: false
+        course_id: "",
+        section_name: ""
       }
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("academicYears", ["academicYears"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("sections", ["sections"])),
   created: function created() {
     var _this = this;
 
-    this.fetchAcademicYears();
-    setTimeout(function () {
-      _this.isLoading = false;
-    }, 300);
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.fetchSections();
+
+            case 2:
+              _context.next = 4;
+              return _this.fetchCourses();
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("academicYears", ["fetchAcademicYears", "fetchAcademicYear", "createAY", "updateAY", "deleteAY"])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("sections", ["fetchSections", "updateSection", "deleteSection", "createSection"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("courses", ["fetchCourses"])), {}, {
     edit: function edit(data) {
       this.isModalActive = true;
       this.isNew = false;
+      console.log(data);
+      this.options.course.searchText = data.course.description;
       Object.assign(this.formData, data);
     },
     deleteConfirmation: function deleteConfirmation() {
@@ -290,12 +282,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (trashObject || this.checkedRows.length) {
         this.$buefy.dialog.confirm({
           title: "Deleting",
-          message: "Are you sure you want to <b>delete ".concat(trashObject.description, "</b>?"),
-          confirmText: "DELETE",
+          message: "Are you sure you want to <b>delete</b> this? This action cannot be undone.",
+          confirmText: "Delete",
           type: "is-danger",
           hasIcon: true,
           onConfirm: function onConfirm() {
-            _this2.remove(_this2.trashObject);
+            _this2.removeSection(_this2.trashObject);
           }
         });
       }
@@ -308,95 +300,58 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         type: "is-".concat(type),
         hasIcon: true,
         closable: true,
-        qeue: false,
-        autoClose: true
+        queue: false
       });
     },
     save: function save() {
       var _this3 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response, key, message, _response;
-
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                response = "";
-
-                if (!_this3.isNew) {
-                  _context.next = 8;
-                  break;
-                }
-
-                _context.next = 4;
-                return _this3.createAY(_this3.formData);
-
-              case 4:
-                response = _context.sent;
-
-                if (response == undefined) {
-                  _this3.isModalActive = false;
-
-                  _this3.showNotification("Successfully created", "success");
-                } else {
-                  key = Object.keys(response.errors);
-                  message = response.errors[key[0]][0];
-
-                  _this3.showNotification(message, "danger");
-                }
-
-                _context.next = 12;
-                break;
-
-              case 8:
-                _context.next = 10;
-                return _this3.updateAY(_this3.formData);
-
-              case 10:
-                _response = _context.sent;
-
-                if (_response == undefined) {
-                  _this3.isModalActive = false;
-
-                  _this3.showNotification("Successfully updated", "success");
-                } else {
-                  key = Object.keys(_response.errors);
-                  message = _response.errors[key[0]][0];
-
-                  _this3.showNotification(message, "error");
-                }
-
-              case 12:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    setCurrent: function setCurrent(data) {
-      var _this4 = this;
-
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this4.isLoading = true;
-                _apiClient__WEBPACK_IMPORTED_MODULE_8__["default"].get("/academic-years/".concat(data.id, "/set-current")).then(function (_ref) {
-                  var data = _ref.data;
+                response = null;
 
-                  _this4.$store.commit("currentSY", data.data);
-                });
+                if (!_this3.isNew) {
+                  _context2.next = 8;
+                  break;
+                }
 
-                _this4.fetchAcademicYears();
-
-                setTimeout(function () {
-                  _this4.isLoading = false;
-                }, 500);
+                _context2.next = 4;
+                return _this3.createSection(_this3.formData);
 
               case 4:
+                response = _context2.sent;
+
+                if (response == undefined || response == null) {
+                  _this3.showNotification("Successfully created", "success");
+
+                  _this3.isModalActive = false;
+                } else {
+                  _this3.showErrorMessage(response);
+                }
+
+                _context2.next = 12;
+                break;
+
+              case 8:
+                _context2.next = 10;
+                return _this3.updateSection(_this3.formData);
+
+              case 10:
+                response = _context2.sent;
+
+                if (response == undefined || response == null) {
+                  _this3.showNotification("Successfully created", "success");
+
+                  _this3.isModalActive = false;
+                } else {
+                  _this3.showErrorMessage(response);
+                }
+
+              case 12:
               case "end":
                 return _context2.stop();
             }
@@ -404,9 +359,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee2);
       }))();
     },
-    remove: function remove(data) {
-      this.deleteAY(data);
+    removeSection: function removeSection(data) {
+      this.deleteSection(data);
       this.showNotification("Successfully deleted", "info");
+    },
+    setSelected: function setSelected(data) {
+      this.formData.course_id = data === null || data === void 0 ? void 0 : data.id;
     },
     cancel: function cancel() {
       this.isModalActive = false;
@@ -419,9 +377,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     clearForm: function clearForm() {
       this.formData = {
         id: "",
-        school_year: "",
-        description: ""
+        course_id: "",
+        section_name: ""
       };
+      this.options.course.searchText = "";
     }
   })
 });
@@ -559,10 +518,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/AcademicYear.vue?vue&type=template&id=ba2796fa&":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/AcademicYear.vue?vue&type=template&id=ba2796fa& ***!
-  \**********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Sections.vue?vue&type=template&id=72e99b4d&":
+/*!******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Sections.vue?vue&type=template&id=72e99b4d& ***!
+  \******************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -578,11 +537,11 @@ var render = function() {
     "div",
     [
       _c("title-bar", {
-        attrs: { "title-stack": ["Master Files", "Academic Years", "List"] }
+        attrs: { "title-stack": ["Master Files", "Sections", "List"] }
       }),
       _vm._v(" "),
       _c("hero-bar", [
-        _vm._v("\n    Academic Years\n    "),
+        _vm._v("\n    Sections\n    "),
         _c(
           "button",
           {
@@ -595,15 +554,7 @@ var render = function() {
             },
             slot: "right"
           },
-          [
-            _c("b-icon", {
-              staticClass: "i",
-              attrs: { icon: "file-plus", "custom-size": "default" }
-            }),
-            _vm._v(" "),
-            _c("span", [_vm._v("New")])
-          ],
-          1
+          [_vm._v("\n      New Section\n    ")]
         )
       ]),
       _vm._v(" "),
@@ -615,54 +566,12 @@ var render = function() {
             "card-component",
             {
               staticClass: "has-table has-mobile-sort-spaced",
-              attrs: { title: "Academic Years" }
+              attrs: { title: "Sections" }
             },
             [
               _c(
                 "card-toolbar",
                 [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "button is-danger has-checked-rows-number",
-                      attrs: {
-                        slot: "right",
-                        type: "button",
-                        disabled: !_vm.checkedRows.length
-                      },
-                      on: {
-                        click: function($event) {
-                          return _vm.deleteConfirmation(null)
-                        }
-                      },
-                      slot: "right"
-                    },
-                    [
-                      _c("b-icon", {
-                        staticClass: "i",
-                        attrs: { icon: "trash-can", "custom-size": "default" }
-                      }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("Delete")]),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: !!_vm.checkedRows.length,
-                              expression: "!!checkedRows.length"
-                            }
-                          ]
-                        },
-                        [_vm._v("(" + _vm._s(_vm.checkedRows.length) + ")")]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
                   _c(
                     "b-select",
                     {
@@ -723,15 +632,11 @@ var render = function() {
                     [
                       _c("div", { staticClass: "modal-card" }, [
                         _c("header", { staticClass: "modal-card-head" }, [
-                          _c("h3", { staticClass: "modal-card-title" }, [
+                          _c("p", { staticClass: "modal-card-title" }, [
                             _vm._v(
-                              "\n                " +
-                                _vm._s(
-                                  _vm.isNew
-                                    ? "Creating Academic Year"
-                                    : "Editing Academic Year"
-                                ) +
-                                "\n              "
+                              _vm._s(
+                                _vm.isNew ? "Create Section" : "Update Section"
+                              )
                             )
                           ]),
                           _vm._v(" "),
@@ -748,20 +653,66 @@ var render = function() {
                           [
                             _c(
                               "b-field",
-                              { attrs: { label: "School Year" } },
+                              { attrs: { label: "Course Code" } },
                               [
-                                _c("b-input", {
+                                _c("b-autocomplete", {
                                   attrs: {
-                                    placeholder: "Enter School Year",
-                                    type: "text",
-                                    required: ""
+                                    icon: "clipboard-list",
+                                    expanded: "",
+                                    required: "",
+                                    placeholder:
+                                      "e.g. Bachelor of Science in Information Technology",
+                                    data: _vm.getFilteredCourses,
+                                    field: "description",
+                                    "open-on-focus": true,
+                                    clearable: true
                                   },
+                                  on: {
+                                    select: function(option) {
+                                      return _vm.setSelected(option)
+                                    }
+                                  },
+                                  scopedSlots: _vm._u([
+                                    {
+                                      key: "default",
+                                      fn: function(props) {
+                                        return [
+                                          _c("div", { staticClass: "media" }, [
+                                            _c(
+                                              "div",
+                                              { staticClass: "media-content" },
+                                              [
+                                                _c("strong", [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      props.option.course_code
+                                                    )
+                                                  )
+                                                ]),
+                                                _vm._v(
+                                                  "\n                      | " +
+                                                    _vm._s(
+                                                      props.option.description
+                                                    ) +
+                                                    "\n                    "
+                                                )
+                                              ]
+                                            )
+                                          ])
+                                        ]
+                                      }
+                                    }
+                                  ]),
                                   model: {
-                                    value: _vm.formData.school_year,
+                                    value: _vm.options.course.searchText,
                                     callback: function($$v) {
-                                      _vm.$set(_vm.formData, "school_year", $$v)
+                                      _vm.$set(
+                                        _vm.options.course,
+                                        "searchText",
+                                        $$v
+                                      )
                                     },
-                                    expression: "formData.school_year"
+                                    expression: "options.course.searchText"
                                   }
                                 })
                               ],
@@ -770,20 +721,37 @@ var render = function() {
                             _vm._v(" "),
                             _c(
                               "b-field",
-                              { attrs: { label: "Description" } },
+                              {
+                                attrs: {
+                                  label: "Section",
+                                  type:
+                                    _vm.errors.section_name == null
+                                      ? ""
+                                      : "is-danger",
+                                  message:
+                                    _vm.errors.section_name == null
+                                      ? ""
+                                      : _vm.errors.section_name
+                                }
+                              },
                               [
                                 _c("b-input", {
                                   attrs: {
-                                    placeholder: "Enter Description",
+                                    placeholder: "E.g BSIT-1A",
                                     type: "text",
-                                    required: ""
+                                    required: "",
+                                    p: ""
                                   },
                                   model: {
-                                    value: _vm.formData.description,
+                                    value: _vm.formData.section_name,
                                     callback: function($$v) {
-                                      _vm.$set(_vm.formData, "description", $$v)
+                                      _vm.$set(
+                                        _vm.formData,
+                                        "section_name",
+                                        $$v
+                                      )
                                     },
-                                    expression: "formData.description"
+                                    expression: "formData.section_name"
                                   }
                                 })
                               ],
@@ -803,7 +771,11 @@ var render = function() {
                             [
                               _vm._v(
                                 "\n                " +
-                                  _vm._s(_vm.isNew ? "Save" : "Update") +
+                                  _vm._s(
+                                    _vm.isNew
+                                      ? "Save Section"
+                                      : "Update Section"
+                                  ) +
                                   "\n              "
                               )
                             ]
@@ -832,21 +804,12 @@ var render = function() {
                 "b-table",
                 {
                   attrs: {
-                    "checked-rows": _vm.checkedRows,
                     loading: _vm.isLoading,
                     paginated: true,
                     "per-page": _vm.perPage,
-                    checkable: true,
+                    narrowed: true,
                     hoverable: true,
-                    data: _vm.academicYears
-                  },
-                  on: {
-                    "update:checkedRows": function($event) {
-                      _vm.checkedRows = $event
-                    },
-                    "update:checked-rows": function($event) {
-                      _vm.checkedRows = $event
-                    }
+                    data: _vm.sections
                   },
                   scopedSlots: _vm._u([
                     {
@@ -858,12 +821,12 @@ var render = function() {
                             {
                               attrs: {
                                 searchable: "",
-                                label: "School Year",
-                                field: "school_year",
+                                label: "Course",
+                                field: "course_code",
                                 sortable: ""
                               }
                             },
-                            [_vm._v(_vm._s(props.row.school_year))]
+                            [_vm._v(_vm._s(props.row.course.course_code))]
                           ),
                           _vm._v(" "),
                           _c(
@@ -871,50 +834,12 @@ var render = function() {
                             {
                               attrs: {
                                 searchable: "",
-                                label: "Description",
-                                field: "description",
+                                label: "Section",
+                                field: "section_name",
                                 sortable: ""
                               }
                             },
-                            [_vm._v(_vm._s(props.row.description))]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-table-column",
-                            {
-                              attrs: {
-                                label: "Status",
-                                field: "is_active",
-                                sortable: ""
-                              }
-                            },
-                            [
-                              _c(
-                                "b-switch",
-                                {
-                                  attrs: {
-                                    value: props.row.is_current,
-                                    disabled: props.row.is_current,
-                                    type: "is-success"
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.setCurrent(props.row)
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n              " +
-                                      _vm._s(
-                                        props.row.is_current ? "Open" : "Closed"
-                                      ) +
-                                      "\n            "
-                                  )
-                                ]
-                              )
-                            ],
-                            1
+                            [_vm._v(_vm._s(props.row.section_name))]
                           ),
                           _vm._v(" "),
                           _c(
@@ -933,7 +858,6 @@ var render = function() {
                                     {
                                       attrs: {
                                         label: "Click to edit",
-                                        type: "is-dark",
                                         position: "is-left"
                                       }
                                     },
@@ -941,8 +865,7 @@ var render = function() {
                                       _c(
                                         "button",
                                         {
-                                          staticClass:
-                                            "button is-link btn-rounded",
+                                          staticClass: "button is-link",
                                           on: {
                                             click: function($event) {
                                               return _vm.edit(props.row)
@@ -967,7 +890,6 @@ var render = function() {
                                     {
                                       attrs: {
                                         label: "Click to Delete",
-                                        type: "is-dark",
                                         position: "is-left"
                                       }
                                     },
@@ -975,8 +897,7 @@ var render = function() {
                                       _c(
                                         "button",
                                         {
-                                          staticClass:
-                                            "button is-danger btn-rounded",
+                                          staticClass: "button is-danger",
                                           attrs: { type: "button" },
                                           on: {
                                             click: function($event) {
@@ -1136,17 +1057,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/AcademicYear.vue":
-/*!*********************************************!*\
-  !*** ./resources/js/views/AcademicYear.vue ***!
-  \*********************************************/
+/***/ "./resources/js/views/Sections.vue":
+/*!*****************************************!*\
+  !*** ./resources/js/views/Sections.vue ***!
+  \*****************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AcademicYear_vue_vue_type_template_id_ba2796fa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AcademicYear.vue?vue&type=template&id=ba2796fa& */ "./resources/js/views/AcademicYear.vue?vue&type=template&id=ba2796fa&");
-/* harmony import */ var _AcademicYear_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AcademicYear.vue?vue&type=script&lang=js& */ "./resources/js/views/AcademicYear.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Sections_vue_vue_type_template_id_72e99b4d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Sections.vue?vue&type=template&id=72e99b4d& */ "./resources/js/views/Sections.vue?vue&type=template&id=72e99b4d&");
+/* harmony import */ var _Sections_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Sections.vue?vue&type=script&lang=js& */ "./resources/js/views/Sections.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1156,9 +1077,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AcademicYear_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AcademicYear_vue_vue_type_template_id_ba2796fa___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AcademicYear_vue_vue_type_template_id_ba2796fa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Sections_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Sections_vue_vue_type_template_id_72e99b4d___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Sections_vue_vue_type_template_id_72e99b4d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1168,38 +1089,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/AcademicYear.vue"
+component.options.__file = "resources/js/views/Sections.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/AcademicYear.vue?vue&type=script&lang=js&":
-/*!**********************************************************************!*\
-  !*** ./resources/js/views/AcademicYear.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************/
+/***/ "./resources/js/views/Sections.vue?vue&type=script&lang=js&":
+/*!******************************************************************!*\
+  !*** ./resources/js/views/Sections.vue?vue&type=script&lang=js& ***!
+  \******************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AcademicYear_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./AcademicYear.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/AcademicYear.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AcademicYear_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Sections_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Sections.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Sections.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Sections_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/AcademicYear.vue?vue&type=template&id=ba2796fa&":
-/*!****************************************************************************!*\
-  !*** ./resources/js/views/AcademicYear.vue?vue&type=template&id=ba2796fa& ***!
-  \****************************************************************************/
+/***/ "./resources/js/views/Sections.vue?vue&type=template&id=72e99b4d&":
+/*!************************************************************************!*\
+  !*** ./resources/js/views/Sections.vue?vue&type=template&id=72e99b4d& ***!
+  \************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AcademicYear_vue_vue_type_template_id_ba2796fa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AcademicYear.vue?vue&type=template&id=ba2796fa& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/AcademicYear.vue?vue&type=template&id=ba2796fa&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AcademicYear_vue_vue_type_template_id_ba2796fa___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Sections_vue_vue_type_template_id_72e99b4d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Sections.vue?vue&type=template&id=72e99b4d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Sections.vue?vue&type=template&id=72e99b4d&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Sections_vue_vue_type_template_id_72e99b4d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AcademicYear_vue_vue_type_template_id_ba2796fa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Sections_vue_vue_type_template_id_72e99b4d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

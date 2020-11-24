@@ -211,9 +211,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 
@@ -242,8 +239,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: "",
         source_id: 0,
         email: "",
-        user_type: "admin",
-        password: ""
+        user_type: ""
       }
     };
   },
@@ -365,12 +361,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.isNew = true;
     },
     clearForm: function clearForm() {
-      this.form = {
+      this.formData = {
         id: "",
-        first_name: "",
-        middle_name: "",
-        last_name: "",
-        is_active: true
+        email: "",
+        name: "",
+        user_type: "",
+        source_id: 0
       };
     }
   })
@@ -532,7 +528,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("hero-bar", [
-        _vm._v("\n  Users\n  "),
+        _vm._v("\n    Users\n    "),
         _c(
           "button",
           {
@@ -571,48 +567,6 @@ var render = function() {
               _c(
                 "card-toolbar",
                 [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "button is-danger has-checked-rows-number",
-                      attrs: {
-                        slot: "right",
-                        type: "button",
-                        disabled: !_vm.checkedRows.length
-                      },
-                      on: {
-                        click: function($event) {
-                          return _vm.deleteConfirmation(null)
-                        }
-                      },
-                      slot: "right"
-                    },
-                    [
-                      _c("b-icon", {
-                        staticClass: "i",
-                        attrs: { icon: "trash-can", "custom-size": "default" }
-                      }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("Delete")]),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: !!_vm.checkedRows.length,
-                              expression: "!!checkedRows.length"
-                            }
-                          ]
-                        },
-                        [_vm._v("(" + _vm._s(_vm.checkedRows.length) + ")")]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
                   _c(
                     "b-select",
                     {
@@ -675,11 +629,11 @@ var render = function() {
                         _c("header", { staticClass: "modal-card-head" }, [
                           _c("h3", { staticClass: "modal-card-title" }, [
                             _vm._v(
-                              _vm._s(
-                                _vm.isNew
-                                  ? "Creating Instructor"
-                                  : "Editing Instructor"
-                              )
+                              "\n                " +
+                                _vm._s(
+                                  _vm.isNew ? "Creating User" : "Editing User"
+                                ) +
+                                "\n              "
                             )
                           ]),
                           _vm._v(" "),
@@ -696,22 +650,20 @@ var render = function() {
                           [
                             _c(
                               "b-field",
-                              { attrs: { label: "First Name" } },
+                              { attrs: { label: "Name" } },
                               [
                                 _c("b-input", {
                                   attrs: {
-                                    placeholder: "Enter First Name",
+                                    placeholder: "e.g Juan Dela Cruz",
                                     type: "text",
-                                    required: "",
-                                    minlength: "4",
-                                    maxlength: "30"
+                                    required: ""
                                   },
                                   model: {
-                                    value: _vm.formData.first_name,
+                                    value: _vm.formData.name,
                                     callback: function($$v) {
-                                      _vm.$set(_vm.formData, "first_name", $$v)
+                                      _vm.$set(_vm.formData, "name", $$v)
                                     },
-                                    expression: "formData.first_name"
+                                    expression: "formData.name"
                                   }
                                 })
                               ],
@@ -720,22 +672,20 @@ var render = function() {
                             _vm._v(" "),
                             _c(
                               "b-field",
-                              { attrs: { label: "Middle Name" } },
+                              { attrs: { label: "Email Address" } },
                               [
                                 _c("b-input", {
                                   attrs: {
-                                    placeholder: "Enter Middle Name",
-                                    type: "text",
-                                    required: "",
-                                    minlength: "4",
-                                    maxlength: "30"
+                                    placeholder: "e.g juandelacruz@email.com",
+                                    type: "email",
+                                    required: ""
                                   },
                                   model: {
-                                    value: _vm.formData.middle_name,
+                                    value: _vm.formData.email,
                                     callback: function($$v) {
-                                      _vm.$set(_vm.formData, "middle_name", $$v)
+                                      _vm.$set(_vm.formData, "email", $$v)
                                     },
-                                    expression: "formData.middle_name"
+                                    expression: "formData.email"
                                   }
                                 })
                               ],
@@ -744,24 +694,37 @@ var render = function() {
                             _vm._v(" "),
                             _c(
                               "b-field",
-                              { attrs: { label: "Last Name" } },
+                              { attrs: { label: "User Type" } },
                               [
-                                _c("b-input", {
-                                  attrs: {
-                                    placeholder: "Enter Last Name",
-                                    type: "text",
-                                    required: "",
-                                    minlength: "4",
-                                    maxlength: "30"
-                                  },
-                                  model: {
-                                    value: _vm.formData.last_name,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.formData, "last_name", $$v)
+                                _c(
+                                  "b-select",
+                                  {
+                                    attrs: {
+                                      expanded: "",
+                                      placeholder: "Select user type"
                                     },
-                                    expression: "formData.last_name"
-                                  }
-                                })
+                                    model: {
+                                      value: _vm.formData.user_type,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.formData, "user_type", $$v)
+                                      },
+                                      expression: "formData.user_type"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "option",
+                                      { attrs: { value: "Administrator" } },
+                                      [_vm._v("Administrator")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "option",
+                                      { attrs: { value: "Standard User" } },
+                                      [_vm._v("Standard User")]
+                                    )
+                                  ]
+                                )
                               ],
                               1
                             )
@@ -778,9 +741,9 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                _vm._s(
-                                  _vm.isNew ? "Save Course" : "Update Course"
-                                )
+                                "\n                " +
+                                  _vm._s(_vm.isNew ? "Save" : "Update") +
+                                  "\n              "
                               )
                             ]
                           ),
@@ -808,22 +771,12 @@ var render = function() {
                 "b-table",
                 {
                   attrs: {
-                    "checked-rows": _vm.checkedRows,
                     loading: _vm.isLoading,
                     paginated: true,
                     "per-page": _vm.perPage,
-                    checkable: true,
                     hoverable: true,
                     "default-sort": "name",
                     data: _vm.users
-                  },
-                  on: {
-                    "update:checkedRows": function($event) {
-                      _vm.checkedRows = $event
-                    },
-                    "update:checked-rows": function($event) {
-                      _vm.checkedRows = $event
-                    }
                   },
                   scopedSlots: _vm._u([
                     {
@@ -922,31 +875,33 @@ var render = function() {
                                       }
                                     },
                                     [
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass:
-                                            "button is-danger btn-rounded",
-                                          attrs: { type: "button" },
-                                          on: {
-                                            click: function($event) {
-                                              $event.preventDefault()
-                                              return _vm.deleteConfirmation(
-                                                props.row
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c("b-icon", {
-                                            attrs: {
-                                              icon: "trash-can",
-                                              size: "is-small"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      )
+                                      props.row.user_type != "Administrator"
+                                        ? _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "button is-danger btn-rounded",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  $event.preventDefault()
+                                                  return _vm.deleteConfirmation(
+                                                    props.row
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("b-icon", {
+                                                attrs: {
+                                                  icon: "trash-can",
+                                                  size: "is-small"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        : _vm._e()
                                     ]
                                   )
                                 ],
