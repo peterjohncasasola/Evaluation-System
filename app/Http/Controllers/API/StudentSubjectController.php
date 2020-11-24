@@ -39,13 +39,13 @@ class StudentSubjectController extends Controller
         }
 
         return response()->json($studentSubjects->get());
-        
     }
 
     public function remainingSubjects(Request $request)
     {
         $remainingSubjects = DB::table('vw_courses_subjects')
-        ->select('vw_courses_subjects.id',
+            ->select(
+                'vw_courses_subjects.id',
                 'vw_courses_subjects.course_id',
                 'subject_id',
                 'vw_courses_subjects.subject_code',
@@ -56,11 +56,12 @@ class StudentSubjectController extends Controller
                 'vw_courses_subjects.curriculum_year',
                 'vw_courses_subjects.semester',
                 'vw_courses_subjects.year_level',
-                'vw_courses_subjects.prerequisite')
-        ->where('vw_courses_subjects.deleted_at', '=', null)
-        ->where('vw_courses_subjects.curriculum_year', $request->query('curriculum'))
-        ->where('vw_courses_subjects.course_id', '=', $request->query('courseId'))
-        ->whereRaw('subject_description NOT IN (SELECT subject_description FROM student_subjects 
+                'vw_courses_subjects.prerequisite'
+            )
+            ->where('vw_courses_subjects.deleted_at', '=', null)
+            ->where('vw_courses_subjects.curriculum_year', $request->query('curriculum'))
+            ->where('vw_courses_subjects.course_id', '=', $request->query('courseId'))
+            ->whereRaw('subject_description NOT IN (SELECT subject_description FROM student_subjects 
                     WHERE grade <= 3.00 OR school_year = ? OR grade IS NULL OR grade = "")', [$request->query('sy')]);
         if ($request->query('subject_description')) {
 
@@ -74,7 +75,6 @@ class StudentSubjectController extends Controller
         return response()->json([
             'data' => $remainingSubjects->get(),
         ]);
-
     }
 
     /**
@@ -85,73 +85,73 @@ class StudentSubjectController extends Controller
      */
     public function store(Request $request)
     {
-            $request->validate([
-                'course_id' => 'required|exists:courses,id',
-                'subject_code' => ['required'],
-                'subject_description' => 'required',
-                'units' => 'required',
-                'semester' => ['required', Rule::in(['First', 'Second','Summer'])],
-                'school_year' => 'required',
-                'curriculum_year' => 'required|exists:academic_years,description',
-                'student_id' => 'required|integer|exists:students,id',
-                'year_level' => [
-                    'required',
-                    Rule::in(['First Year', 'Second Year', 'Third Year','Fourth Year', 'Fifth Year'])
-                ],
-               
-            ]);
-         
-            
-            $isValidated = $this->validatePrerequisites($request);
+        $request->validate([
+            'course_id' => 'required|exists:courses,id',
+            'subject_code' => ['required'],
+            'subject_description' => 'required',
+            'units' => 'required',
+            'semester' => ['required', Rule::in(['First', 'Second', 'Summer'])],
+            // 'school_year' => 'required',
+            'curriculum_year' => 'required|exists:academic_years,description',
+            'student_id' => 'required|integer|exists:students,id',
+            'year_level' => [
+                'required',
+                Rule::in(['First Year', 'Second Year', 'Third Year', 'Fourth Year', 'Fifth Year'])
+            ],
 
-            if (!$isValidated) {
-                return response()->json([
-                    'message' => 'You need to passed the pre-requisite of ' .$request->subject_code,
-                    'validation' => 'failed',
+        ]);
 
-                ], 400);
-            }
 
-            $studentSubject = new StudentSubject();
-            $studentSubject->student_id = $request->student_id;
-            $studentSubject->subject_code = $request->subject_code;
-            $studentSubject->subject_description = $request->subject_description;
-            $studentSubject->units = $request->units;
-            $studentSubject->semester = $request->semester;
-            $studentSubject->curriculum_year = $request->curriculum_year;
-            $studentSubject->school_year = $request->school_year;
-            $studentSubject->course_id = $request->course_id;
-            $studentSubject->year_level = $request->year_level;
-            $studentSubject->save();
+        $isValidated = $this->validatePrerequisites($request);
 
-            
+        if (!$isValidated) {
             return response()->json([
-                    'message' => $studentSubject->subject_description . ' successfully added',
-                    'validation' => 'passed',
-                    'data' => $studentSubject,
-           
-                ], 201);
+                'message' => 'You need to passed the pre-requisite of ' . $request->subject_code,
+                'validation' => 'failed',
+
+            ], 400);
+        }
+
+        $studentSubject = new StudentSubject();
+        $studentSubject->student_id = $request->student_id;
+        $studentSubject->subject_code = $request->subject_code;
+        $studentSubject->subject_description = $request->subject_description;
+        $studentSubject->units = $request->units;
+        $studentSubject->semester = $request->semester;
+        $studentSubject->curriculum_year = $request->curriculum_year;
+        $studentSubject->school_year = $request->school_year;
+        $studentSubject->course_id = $request->course_id;
+        $studentSubject->year_level = $request->year_level;
+        $studentSubject->save();
+
+
+        return response()->json([
+            'message' => $studentSubject->subject_description . ' successfully added',
+            'validation' => 'passed',
+            'data' => $studentSubject,
+
+        ], 201);
     }
 
     public function validatePrerequisites($request)
     {
-        if ($request->prerequisite === null || $request->prerequisite == '')  {
+        if ($request->prerequisite === null || $request->prerequisite == '') {
             return true;
         } else {
             $prerequisites = explode(',', $request->prerequisite);
             $data = DB::table('student_subjects')
-                            ->whereIn('subject_code', $prerequisites)
-                            ->where('student_id', $request->student_id)
-                            ->where('course_id', $request->course_id)
-                            ->where('curriculum_year', $request->curriculum_year)
-                            ->where('units', $request->units)
-                            ->whereIn('grade', ['1.00','1.25','1.50','1.75','2.00','2.25','2.50','2.75','3.00'])
-                            ->get();
-                if (count($data) < count($prerequisites)) {
-                  return false;
-                }      
-                
-                return true;
+                ->whereIn('subject_code', $prerequisites)
+                ->where('student_id', $request->student_id)
+                ->where('course_id', $request->course_id)
+                ->where('curriculum_year', $request->curriculum_year)
+                ->where('units', $request->units)
+                ->whereIn('grade', ['1.00', '1.25', '1.50', '1.75', '2.00', '2.25', '2.50', '2.75', '3.00'])
+                ->get();
+            if (count($data) < count($prerequisites)) {
+                return false;
+            }
+
+            return true;
         }
     }
 
@@ -175,13 +175,13 @@ class StudentSubjectController extends Controller
      */
     public function updateGrades(Request $request)
     {
-       $subjects = [];
+        $subjects = [];
         foreach ($request->all() as $row) {
             $subject = StudentSubject::find($row['id']);
             $subject->grade = $row['grade'];
             $subject->save();
 
-           array_push($subjects, $subject); 
+            array_push($subjects, $subject);
         }
         return $subjects;
     }
@@ -194,7 +194,7 @@ class StudentSubjectController extends Controller
      */
     public function destroy($id)
     {
-       $studentSubject = StudentSubject::findOrFail($id);
-       $studentSubject->delete();
+        $studentSubject = StudentSubject::findOrFail($id);
+        $studentSubject->delete();
     }
 }
