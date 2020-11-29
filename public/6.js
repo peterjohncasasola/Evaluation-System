@@ -57,6 +57,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_HeroBar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/HeroBar */ "./resources/js/components/HeroBar.vue");
 /* harmony import */ var _components_CardToolbar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/CardToolbar */ "./resources/js/components/CardToolbar.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var vue_json_excel__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue-json-excel */ "./node_modules/vue-json-excel/dist/vue-json-excel.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -218,6 +221,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -225,6 +239,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+
+vue__WEBPACK_IMPORTED_MODULE_8___default.a.component("downloadExcel", vue_json_excel__WEBPACK_IMPORTED_MODULE_9__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     CardToolbar: _components_CardToolbar__WEBPACK_IMPORTED_MODULE_6__["default"],
@@ -247,6 +264,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         middle_name: "",
         last_name: "",
         is_active: true
+      },
+      json_fields: {
+        "First Name": "first_name",
+        "Middle Name": "middle_name",
+        "Last Name": "last_name"
       }
     };
   },
@@ -514,7 +536,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("hero-bar", [
-        _vm._v("\n  Instructors\n  "),
+        _vm._v("\n    Instructors\n    "),
         _c(
           "button",
           {
@@ -554,48 +576,6 @@ var render = function() {
                 "card-toolbar",
                 [
                   _c(
-                    "button",
-                    {
-                      staticClass: "button is-danger has-checked-rows-number",
-                      attrs: {
-                        slot: "right",
-                        type: "button",
-                        disabled: !_vm.checkedRows.length
-                      },
-                      on: {
-                        click: function($event) {
-                          return _vm.deleteConfirmation(null)
-                        }
-                      },
-                      slot: "right"
-                    },
-                    [
-                      _c("b-icon", {
-                        staticClass: "i",
-                        attrs: { icon: "trash-can", "custom-size": "default" }
-                      }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("Delete")]),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: !!_vm.checkedRows.length,
-                              expression: "!!checkedRows.length"
-                            }
-                          ]
-                        },
-                        [_vm._v("(" + _vm._s(_vm.checkedRows.length) + ")")]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
                     "b-select",
                     {
                       attrs: { slot: "left" },
@@ -625,6 +605,22 @@ var render = function() {
                         _vm._v("20 per page")
                       ])
                     ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "download-excel",
+                    {
+                      staticClass: "button is-success",
+                      attrs: {
+                        slot: "right",
+                        data: _vm.instructors,
+                        fields: _vm.json_fields,
+                        worksheet: "Instructors",
+                        name: "instructors.xls"
+                      },
+                      slot: "right"
+                    },
+                    [_vm._v("\n          Export\n        ")]
                   )
                 ],
                 1
@@ -661,13 +657,13 @@ var render = function() {
                         _c("header", { staticClass: "modal-card-head" }, [
                           _c("h3", { staticClass: "modal-card-title" }, [
                             _vm._v(
-                              "\n        " +
+                              "\n                " +
                                 _vm._s(
                                   _vm.isNew
                                     ? "Creating Instructor"
                                     : "Editing Instructor"
                                 ) +
-                                "\n       "
+                                "\n              "
                             )
                           ]),
                           _vm._v(" "),
@@ -760,9 +756,9 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n        " +
+                                "\n                " +
                                   _vm._s(_vm.isNew ? "Save" : "Update") +
-                                  "\n       "
+                                  "\n              "
                               )
                             ]
                           ),

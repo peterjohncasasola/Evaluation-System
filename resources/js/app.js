@@ -15,6 +15,7 @@ import store from "./store";
 
 /* Vue. Main component */
 import App from "./App.vue";
+import JsonExcel from "vue-json-excel";
 
 /* Vue. Component in recursion */
 import AsideMenuList from "@/components/AsideMenuList";
@@ -28,6 +29,8 @@ Vue.config.productionTip = false;
 
 /* These components are used in recursion algorithm */
 Vue.component("AsideMenuList", AsideMenuList);
+ 
+Vue.component("downloadExcel", JsonExcel);
 
 /* Main component */
 Vue.component("App", App);
