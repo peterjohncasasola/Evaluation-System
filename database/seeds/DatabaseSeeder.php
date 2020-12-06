@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             AcademicYearsTableSeeder::class,
             SemestersTableSeeder::class,
             CourseTableSeeder::class,
+            CurriculumTableSeeder::class,
             SubjectTableSeeder::class,
             StudentTableSeeder::class,
             InstructorTableSeeder::class,

@@ -63,7 +63,7 @@ const router = new Router({
           name: "subjects-list",
           component: () => import("./views/Subjects.vue"),
           meta: {
-            userType: undefined,
+            userType: undefined
           },
           children: [
             {
@@ -116,11 +116,19 @@ const router = new Router({
           }
         },
         {
-          path: "/curriculums",
-          name: "curriculums-list",
+          path: "/courses/curriculums",
+          name: "courses-curriculums",
+          component: () => import("./views/Curriculums.vue"),
+          meta: {
+            userType: undefined
+          }
+        },
+        {
+          path: "/courses/curriculums/:curriculum_id/subjects",
+          name: "curriculum-subjects-list",
           component: () => import("./views/CoursesSubjects/Index.vue"),
           meta: {
-            userType: undefined,
+            userType: undefined
           }
         },
         {
@@ -178,6 +186,26 @@ const router = new Router({
     },
 
     {
+      path: "/courses/curriculums/:curriculum_id/subjects/print",
+      name: "curriculum-subjects-print",
+      component: () => import("./views/PrintCurriculum.vue"),
+      meta: {
+        requiresAuth: true,
+        userType: undefined
+      }
+    },
+
+    {
+      path: "/transaction/evaluation/:sy/:semester/student/:student_id",
+      name: "student-form-print",
+      component: () => import("./views/PrintSubjects.vue"),
+      meta: {
+        requiresAuth: true,
+        userType: undefined
+      }
+    },
+
+    {
       path: "*",
       name: "not-found",
       component: () => import("./views/PageNotFound.vue"),
@@ -210,12 +238,13 @@ router.beforeEach((to, from, next) => {
     to.matched.some(
       record =>
         record.meta.userType === "Administrator" &&
-        user?.user_type !== "Administrator")
+        user.user_type !== "Administrator"
+    )
   ) {
     next("/home");
-  } 
-  next();
-
+  } else {
+    next();
+  }
 });
 
 export default router;

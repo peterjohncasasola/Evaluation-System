@@ -26,7 +26,7 @@ class StudentController extends Controller
     public function index(Request $request)
     {
 
-        $students = Student::with(['course'])->latest()->get();
+        $students = Student::with(['course', 'curriculum'])->latest()->get();
 
         if ($request->query('active') == 'false') {
             $students =
@@ -67,7 +67,7 @@ class StudentController extends Controller
                 'birth_date' => 'required|date',
                 'contact_no' => 'required|min:11|max:15|starts_with:09',
                 'guardian_contact' => 'nullable|min:11|max:15|starts_with:09',
-                'curriculum_year' => 'required|exists:academic_years,description',
+                'curriculum_id' => 'required|exists:curriculums,id',
                 'sex' => [
                     'required',
                     Rule::in(['Male', 'Female'])
@@ -110,12 +110,12 @@ class StudentController extends Controller
                 'nationality' => $request->nationality,
                 'religion' => $request->religion,
                 'course_id' => $request->course_id,
-                'curriculum_year' => $request->curriculum_year,
+                'curriculum_id' => $request->curriculum_id,
             ]);
 
             return response()->json([
                 'failed' => false,
-                'data' => $request->all(),
+                'data' => $student,
                 'message' => 'Student Successfully created'
             ], 201);
         } catch (\Throwable $th) {
@@ -161,7 +161,7 @@ class StudentController extends Controller
             'birth_date' => 'required',
             'contact_no' => 'required|min:11|max:15|starts_with:09',
             'guardian_contact' => 'nullable|min:11|max:15|starts_with:09',
-            'curriculum_year' => 'required|exists:academic_years,description',
+            'curriculum_id' => 'required|exists:curriculums,id',
             'sex' => [
                 'required',
                 Rule::in(['Male', 'Female'])
@@ -209,7 +209,7 @@ class StudentController extends Controller
         $student->nationality = $request->nationality;
         $student->religion = $request->religion;
         $student->course_id = $request->course_id;
-        $student->curriculum_year = $request->curriculum_year;
+        $student->curriculum_id = $request->curriculum_id;
         $student->save();
 
         return response()->json([

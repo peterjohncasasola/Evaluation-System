@@ -2110,13 +2110,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         adminAccess: false
       }, {
         to: {
-          name: "curriculums-list"
-        },
-        label: "Curriculums",
-        icon: "notebook",
-        adminAccess: false
-      }, {
-        to: {
           name: "instructors-list"
         },
         label: "Instructors",
@@ -2138,6 +2131,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         adminAccess: true
       }, {
         to: {
+          name: "courses-curriculums"
+        },
+        label: "Curriculums",
+        icon: "notebook",
+        adminAccess: false
+      }, {
+        to: {
           name: "sections-list"
         },
         label: "Sections",
@@ -2150,21 +2150,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         label: "Settings",
         adminAccess: true,
         icon: "cogs"
-      }], "Transactions", [{
-        to: {
-          name: "subject.offering"
-        },
-        label: "Subject Offering",
-        icon: "cogs",
-        adminAccess: false
-      }, {
-        to: {
-          name: "section.class"
-        },
-        label: "Section Class",
-        icon: "cogs",
-        adminAccess: false
-      }, {
+      }], "Transactions", [// {
+      //   to: { name: "subject.offering" },
+      //   label: "Subject Offering",
+      //   icon: "cogs",
+      //   adminAccess: false,
+      // },
+      // {
+      //   to: { name: "section.class" },
+      //   label: "Section Class",
+      //   icon: "cogs",
+      //   adminAccess: false,
+      // },
+      {
         to: {
           name: "subject.evaluation"
         },
@@ -3383,11 +3381,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'TitleBar',
   props: {
@@ -3754,8 +3747,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.loading = "is-loading";
       this.login(this.form).then(function (response) {
         _this.errors = {};
-
-        _this.$router.push("/home");
+        setTimeout(function () {
+          _this.$router.push("/home");
+        }, 1000);
       })["catch"](function (errors) {
         _this.errors = {};
         _this.loading = "";
@@ -68078,22 +68072,13 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "level-right" }, [
+        _c("div", { staticClass: "level-item" }, [_vm._t("default")], 2)
+      ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "level-right" }, [
-      _c("div", { staticClass: "level-item" }, [
-        _c("div", { staticClass: "buttons is-right" })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -86665,6 +86650,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
 
       this.showNotification(message, "danger");
     },
+    isEmptyObject: function isEmptyObject(obj) {
+      return Object.keys(obj).length === 0;
+    },
     showNotification: function showNotification(message, type) {
       var position = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "is-bottom-right";
       this.$buefy.notification.open({
@@ -86750,7 +86738,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: "/users",
       name: "users-list",
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ./views/Users.vue */ "./resources/js/views/Users.vue"));
+        return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./views/Users.vue */ "./resources/js/views/Users.vue"));
       },
       meta: {
         userType: "Administrator"
@@ -86777,7 +86765,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: "/subjects",
       name: "subjects-list",
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ./views/Subjects.vue */ "./resources/js/views/Subjects.vue"));
+        return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ./views/Subjects.vue */ "./resources/js/views/Subjects.vue"));
       },
       meta: {
         userType: undefined
@@ -86808,7 +86796,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: "/semesters",
       name: "semesters",
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./views/Semester.vue */ "./resources/js/views/Semester.vue"));
+        return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./views/Semester.vue */ "./resources/js/views/Semester.vue"));
       },
       meta: {
         userType: "Administrator"
@@ -86817,7 +86805,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: "/students",
       name: "students-list",
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./views/Students/Index.vue */ "./resources/js/views/Students/Index.vue"));
+        return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ./views/Students/Index.vue */ "./resources/js/views/Students/Index.vue"));
       },
       meta: {
         userType: undefined
@@ -86826,14 +86814,23 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: "/instructors",
       name: "instructors-list",
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./views/Instructors.vue */ "./resources/js/views/Instructors.vue"));
+        return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./views/Instructors.vue */ "./resources/js/views/Instructors.vue"));
       },
       meta: {
         userType: "Administrator"
       }
     }, {
-      path: "/curriculums",
-      name: "curriculums-list",
+      path: "/courses/curriculums",
+      name: "courses-curriculums",
+      component: function component() {
+        return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./views/Curriculums.vue */ "./resources/js/views/Curriculums.vue"));
+      },
+      meta: {
+        userType: undefined
+      }
+    }, {
+      path: "/courses/curriculums/:curriculum_id/subjects",
+      name: "curriculum-subjects-list",
       component: function component() {
         return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./views/CoursesSubjects/Index.vue */ "./resources/js/views/CoursesSubjects/Index.vue"));
       },
@@ -86844,7 +86841,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: "/sections",
       name: "sections-list",
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./views/Sections.vue */ "./resources/js/views/Sections.vue"));
+        return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./views/Sections.vue */ "./resources/js/views/Sections.vue"));
       },
       meta: {
         userType: "Administrator"
@@ -86895,10 +86892,30 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       userType: undefined
     }
   }, {
+    path: "/courses/curriculums/:curriculum_id/subjects/print",
+    name: "curriculum-subjects-print",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./views/PrintCurriculum.vue */ "./resources/js/views/PrintCurriculum.vue"));
+    },
+    meta: {
+      requiresAuth: true,
+      userType: undefined
+    }
+  }, {
+    path: "/transaction/evaluation/:sy/:semester/student/:student_id",
+    name: "student-form-print",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./views/PrintSubjects.vue */ "./resources/js/views/PrintSubjects.vue"));
+    },
+    meta: {
+      requiresAuth: true,
+      userType: undefined
+    }
+  }, {
     path: "*",
     name: "not-found",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./views/PageNotFound.vue */ "./resources/js/views/PageNotFound.vue"));
+      return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ./views/PageNotFound.vue */ "./resources/js/views/PageNotFound.vue"));
     },
     meta: {
       userType: undefined
@@ -86929,12 +86946,12 @@ router.beforeEach(function (to, from, next) {
   }
 
   if (to.matched.some(function (record) {
-    return record.meta.userType === "Administrator" && (user === null || user === void 0 ? void 0 : user.user_type) !== "Administrator";
+    return record.meta.userType === "Administrator" && user.user_type !== "Administrator";
   })) {
     next("/home");
+  } else {
+    next();
   }
-
-  next();
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
@@ -87033,6 +87050,39 @@ __webpack_require__.r(__webpack_exports__);
   },
   updateCourseSubject: function updateCourseSubject(data) {
     return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"].put("/courses-subjects/".concat(data.id), data);
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/services/CurriculumService.js":
+/*!****************************************************!*\
+  !*** ./resources/js/services/CurriculumService.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _apiClient__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../apiClient */ "./resources/js/apiClient.js");
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helper */ "./resources/js/services/helper.js");
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getCurriculums: function getCurriculums(query) {
+    return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"].get('/curriculums?' + Object(_helper__WEBPACK_IMPORTED_MODULE_1__["setQueryParams"])(query));
+  },
+  getCurriculum: function getCurriculum(id) {
+    return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"].get("/curriculums/".concat(id));
+  },
+  postCurriculum: function postCurriculum(data) {
+    return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"].post('/curriculums', data);
+  },
+  deleteCurriculum: function deleteCurriculum(id) {
+    return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/curriculums/".concat(id));
+  },
+  updateCurriculum: function updateCurriculum(data) {
+    return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"].put("/curriculums/".concat(data.id), data);
   }
 });
 
@@ -87286,11 +87336,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_courseSubject__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./store/courseSubject */ "./resources/js/store/courseSubject.js");
 /* harmony import */ var _store_studentSubject__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./store/studentSubject */ "./resources/js/store/studentSubject.js");
 /* harmony import */ var _store_sections__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./store/sections */ "./resources/js/store/sections.js");
+/* harmony import */ var _store_curriculums__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./store/curriculums */ "./resources/js/store/curriculums.js");
 'strict';
 
 
 
 /* Stores */
+
 
 
 
@@ -87316,7 +87368,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     courseSubject: _store_courseSubject__WEBPACK_IMPORTED_MODULE_10__["default"],
     studentSubject: _store_studentSubject__WEBPACK_IMPORTED_MODULE_11__["default"],
     auth: _store_auth__WEBPACK_IMPORTED_MODULE_8__["default"],
-    sections: _store_sections__WEBPACK_IMPORTED_MODULE_12__["default"]
+    sections: _store_sections__WEBPACK_IMPORTED_MODULE_12__["default"],
+    curriculums: _store_curriculums__WEBPACK_IMPORTED_MODULE_13__["default"]
   },
   state: {
     /* User */
@@ -88007,6 +88060,191 @@ var actions = {
           }
         }
       }, _callee2, null, [[1, 7]]);
+    }))();
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: state,
+  getters: getters,
+  mutations: mutations,
+  actions: actions
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/curriculums.js":
+/*!*******************************************!*\
+  !*** ./resources/js/store/curriculums.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_CurriculumService_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/CurriculumService.js */ "./resources/js/services/CurriculumService.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+var state = {
+  curriculums: [],
+  curriculum: {},
+  errors: null
+};
+var getters = {
+  getCurriculumById: function getCurriculumById(state) {
+    return function (id) {
+      return state.curriculums.find(function (curriculum) {
+        return curriculum.id === id;
+      });
+    };
+  },
+  curriculums: function curriculums(state) {
+    return state.curriculums;
+  },
+  curriculum: function curriculum(state) {
+    return state.curriculum;
+  },
+  errors: function errors(state) {
+    return state.errors;
+  }
+};
+var mutations = {
+  ADD_CURRICULUM: function ADD_CURRICULUM(state, data) {
+    state.curriculums.unshift(data);
+  },
+  SET_CURRICULUMS: function SET_CURRICULUMS(state, data) {
+    state.curriculums = data;
+  },
+  SET_CURRICULUM: function SET_CURRICULUM(state, data) {
+    state.curriculum = data;
+  },
+  DELETE_CURRICULUM: function DELETE_CURRICULUM(state, data) {
+    var index = state.curriculums.findIndex(function (curriculum) {
+      return curriculum.id === data.id;
+    });
+    state.curriculums.splice(index, 1);
+  },
+  UPDATE_CURRICULUM: function UPDATE_CURRICULUM(state, data) {
+    var index = state.curriculums.findIndex(function (curriculum) {
+      return curriculum.id === data.id;
+    });
+    var curriculum = state.curriculums[index];
+    Object.assign(curriculum, data);
+  },
+  SET_ERRORS: function SET_ERRORS(state, errors) {
+    state.errors = errors;
+  }
+};
+var actions = {
+  createCurriculum: function createCurriculum(_ref, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var commit, dispatch, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit, dispatch = _ref.dispatch;
+              _context.prev = 1;
+              _context.next = 4;
+              return _services_CurriculumService_js__WEBPACK_IMPORTED_MODULE_1__["default"].postCurriculum(payload);
+
+            case 4:
+              response = _context.sent;
+              commit('ADD_CURRICULUM', response.data);
+              _context.next = 11;
+              break;
+
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](1);
+              return _context.abrupt("return", _context.t0.response.data);
+
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 8]]);
+    }))();
+  },
+  fetchCurriculums: function fetchCurriculums(_ref2, query) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.next = 3;
+              return _services_CurriculumService_js__WEBPACK_IMPORTED_MODULE_1__["default"].getCurriculums(query).then(function (response) {
+                commit('SET_CURRICULUMS', response.data);
+              })["catch"](function (errors) {
+                return errors.response.data;
+              });
+
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
+  fetchCurriculum: function fetchCurriculum(_ref3, id) {
+    var commit = _ref3.commit;
+    var curriculum = getters.getCurriculumById(id);
+    _services_CurriculumService_js__WEBPACK_IMPORTED_MODULE_1__["default"].getCurriculum(id).then(function (response) {
+      commit('SET_CURRICULUM', response.data);
+    })["catch"](function (errors) {
+      return errors.response.data;
+    });
+  },
+  deleteCurriculum: function deleteCurriculum(_ref4, payload) {
+    var commit = _ref4.commit;
+
+    try {
+      _services_CurriculumService_js__WEBPACK_IMPORTED_MODULE_1__["default"].deleteCurriculum(payload.id);
+      commit('DELETE_CURRICULUM', payload);
+    } catch (errors) {
+      return errors.response.data;
+    }
+  },
+  updateCurriculum: function updateCurriculum(_ref5, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref5.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return _services_CurriculumService_js__WEBPACK_IMPORTED_MODULE_1__["default"].updateCurriculum(payload);
+
+            case 4:
+              response = _context3.sent;
+              commit('UPDATE_CURRICULUM', response.data);
+              _context3.next = 11;
+              break;
+
+            case 8:
+              _context3.prev = 8;
+              _context3.t0 = _context3["catch"](1);
+              return _context3.abrupt("return", _context3.t0.response.data);
+
+            case 11:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 8]]);
     }))();
   }
 };

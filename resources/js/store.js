@@ -14,6 +14,7 @@ import academicYears from './store/academicYears'
 import courseSubject from './store/courseSubject'
 import studentSubject from './store/studentSubject'
 import sections from './store/sections'
+import curriculums from './store/curriculums'
 
 Vue.use(Vuex)
 
@@ -30,6 +31,7 @@ export default new Vuex.Store({
     studentSubject,
     auth,
     sections,
+    curriculums,
   },
   state: {
     /* User */

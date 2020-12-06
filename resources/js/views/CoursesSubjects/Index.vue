@@ -1,21 +1,42 @@
 <template>
   <div>
     <div>
-      <title-bar :title-stack="['Master Files', 'Courses Subjects', 'List']" />
+      <title-bar
+        :title-stack="['Master Files', 'Curriculum Subjects', 'List']"
+      />
       <hero-bar>
-        Courses Subjects
+        <!-- {{curriculum.course.course_code}} - {{curriculum.course.description}} Subjects -->
         <button class="button is-default" @click="showModal()" slot="right">
           <b-icon icon="file-plus" custom-size="default" class="i" />
           <span>New</span>
+        </button>
+        <button
+          class="button is-default ml-2"
+          @click="navigateToCurriculums()"
+          slot="right"
+        >
+          <!-- <b-icon icon="back" custom-size="default" class="i" /> -->
+          <span>Back</span>
         </button>
       </hero-bar>
       <section class="section is-main-section">
         <card-component
           class="has-table has-mobile-sort-spaced"
-          title="Courses"
+          :title="
+            `${curriculum.course.course_code} - ${curriculum.curriculum_year}`
+          "
         >
           <card-toolbar>
-            
+            <button
+              slot="right"
+              type="button"
+              class="button is-primary"
+              @click="print()"
+            >
+              <b-icon icon="printer" custom-size="default" class="i" />
+              <span>Print</span>
+            </button>
+
             <b-select v-model="perPage" slot="left">
               <option value="5">5 per page</option>
               <option value="10">10 per page</option>
@@ -34,6 +55,7 @@
                   <button type="button" class="delete" @click="cancel" />
                 </header>
                 <section class="modal-card-body">
+                  <!--
                   <b-field>
                     <template slot="label">
                       Course
@@ -62,7 +84,7 @@
                       </template>
                     </b-autocomplete>
                   </b-field>
-
+                  !-->
                   <b-field label="Subject">
                     <template slot="label">
                       Subject
@@ -102,28 +124,6 @@
                         | {{ props.option.description }}
                       </template>
                     </b-taginput>
-                  </b-field>
-
-                  <!-- <b-field grouped group-multiline> -->
-                  <b-field label="Academic Year">
-                    <template slot="label">
-                      Curriculum Year
-                      <span class="has-text-danger">*</span>
-                    </template>
-                    <b-autocomplete
-                      placeholder="e.g. S.Y 2013 - 2014"
-                      :open-on-focus="true"
-                      v-model="options.academicYear.searchText"
-                      :data="filteredYear"
-                      expanded
-                      field="description"
-                      @select="
-                        option =>
-                          (this.formData.sy_id =
-                            option === null ? '' : option.id)
-                      "
-                      :clearable="true"
-                    ></b-autocomplete>
                   </b-field>
 
                   <b-field label="Year Level">
@@ -177,23 +177,10 @@
             :per-page="perPage"
             :hoverable="true"
             default-sort="subject_code"
+            :narrowed="true"
             :data="coursesSubjects"
-            ref="table"
-            detailed
-            detail-key="id"
-            :show-detail-icon="true"
           >
             <template slot-scope="props">
-              <b-table-column
-                searchable
-                label="Course"
-                field="course_code"
-                sortable
-                class="wrap-text"
-                width="8%"
-                >{{ props.row.course_code }}</b-table-column
-              >
-
               <b-table-column
                 searchable
                 label="Subject Code"
@@ -230,23 +217,17 @@
                 }}</b-table-column
               >
 
-              <b-table-column
-                label="Year Level"
-                field="year_level"
-                sortable
-                width="10%"
-                class="wrap-text"
-                >{{ props.row.year_level }}</b-table-column
-              >
+              <b-table-column label="Units" field="units" width="5%" sortable>{{
+                props.row.units
+              }}</b-table-column>
 
-              <b-table-column
-                label="Curriculum Year"
-                field="curriculum_year"
-                width="12%"
-                sortable
-                searchable
-                >{{ props.row.curriculum_year }}</b-table-column
-              >
+              <b-table-column label="Lab" field="lab" width="5%" sortable>{{
+                props.row.lab
+              }}</b-table-column>
+
+              <b-table-column label="Lec" field="lec" width="5%" sortable>{{
+                props.row.lec
+              }}</b-table-column>
 
               <b-table-column
                 label="Semester"
@@ -254,6 +235,15 @@
                 width="10%"
                 sortable
                 >{{ props.row.semester }}</b-table-column
+              >
+
+              <b-table-column
+                label="Year Level"
+                field="year_level"
+                sortable
+                width="10%"
+                class="wrap-text"
+                >{{ props.row.year_level }}</b-table-column
               >
 
               <b-table-column
@@ -328,7 +318,7 @@ import ModalBox from "@/components/ModalBox";
 import TitleBar from "@/components/TitleBar";
 import HeroBar from "@/components/HeroBar";
 import CardToolbar from "@/components/CardToolbar";
-import { mapGetters, mapActions, mapState } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
@@ -347,7 +337,7 @@ export default {
       openedDetails: [],
       checkedRows: [],
       isNew: true,
-
+      curriculum_id: this.$route.params.curriculum_id,
       filteredSubjectsTags: [],
 
       tags: {
@@ -362,8 +352,10 @@ export default {
         prerequisite: [],
         subject_code: "",
         lec: "",
+        subject_id: "",
         lab: "",
         year_level: "",
+        curriculum_year: "",
         semester: ""
       }
     };
@@ -373,14 +365,14 @@ export default {
     ...mapGetters("courseSubject", ["coursesSubjects", "courseSubject"]),
     ...mapGetters("courses", ["courses"]),
     ...mapGetters("subjects", ["subjects"]),
+    ...mapGetters("curriculums", ["curriculum"]),
     ...mapGetters("academicYears", ["academicYears"])
   },
 
-  created() {
-    this.fetchCoursesSubjects();
-    this.fetchCourses();
+  async created() {
+    await this.fetcCurriculumSubjects();
+    this.getSubjects();
     this.fetchSubjects();
-    this.fetchAcademicYears();
     this.filteredSubjectsTags = this.subjects;
   },
 
@@ -392,6 +384,8 @@ export default {
       "updateCourseSubject",
       "deleteCourseSubject"
     ]),
+
+    ...mapActions("curriculums", ["fetchCurriculum"]),
 
     ...mapActions("courses", ["fetchCourses"]),
     ...mapActions("subjects", ["fetchSubjects"]),
@@ -410,6 +404,16 @@ export default {
             .indexOf(text.toLowerCase()) >= 0
         );
       });
+    },
+
+    async getSubjects() {
+      this.isLoading = true;
+      await this.fetchCoursesSubjects({
+        curriculum_id: this.curriculum_id
+      });
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 1000);
     },
 
     getTaggedPrerequisite(tags) {
@@ -438,6 +442,7 @@ export default {
 
     edit(data) {
       this.clearForm();
+      console.log(data);
       this.options.course.searchText = data.course_description;
       this.options.subject.searchText = data.subject_code;
       this.options.academicYear.searchText = data.curriculum_year;
@@ -462,6 +467,10 @@ export default {
           }
         });
       }
+    },
+
+    async fetcCurriculumSubjects() {
+      await this.fetchCurriculum(this.curriculum_id);
     },
 
     mapSubjectCode() {
@@ -493,10 +502,6 @@ export default {
       }
     },
 
-    toggle(row) {
-      this.$refs.table.toggleDetails(row);
-    },
-
     remove(data) {
       this.deleteCourseSubject(data);
       this.showNotification("Successfully deleted", "info");
@@ -505,10 +510,24 @@ export default {
     cancel() {
       this.isModalActive = false;
     },
+
+    navigateToCurriculums() {
+      this.$router.push({ path: "/courses/curriculums" });
+    },
+
     showModal() {
       this.clearForm();
       this.isModalActive = true;
       this.isNew = true;
+
+      this.formData.course_id = this.curriculum.course_id;
+      this.formData.curriculum_id = this.curriculum.id;
+    },
+
+    print() {
+      let routeData = this.$router.resolve({ name: "curriculum-subjects-print", 
+      params: {curriculum_id: this.curriculum_id} });
+      window.open(routeData.href, "_blank");
     },
 
     clearForm() {
@@ -520,9 +539,11 @@ export default {
         prerequisite: [],
         subject_code: "",
         lec: "",
+        subject_id: "",
         lab: "",
         year_level: "",
-        semester: ""
+        semester: "",
+        curriculum_id: ""
       };
 
       this.options.course.searchText = "";

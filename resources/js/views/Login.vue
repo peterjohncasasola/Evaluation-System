@@ -93,7 +93,9 @@ export default {
       this.login(this.form)
         .then(response => {
           this.errors = {};
-          this.$router.push("/home");
+          setTimeout(() => {
+            this.$router.push("/home");
+          }, 1000);
         })
         .catch(errors => {
           this.errors = {};

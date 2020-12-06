@@ -77,6 +77,15 @@
 
               <b-table-column
                 searchable
+                label="Curriculum"
+                field="curriculum.curriculum_year"
+                sortable
+                :title="props.row.curriculum.curriculum_year"
+                >{{ props.row.curriculum.curriculum_year }}</b-table-column
+              >
+
+              <b-table-column
+                searchable
                 label="Contact No"
                 field="contact_no"
                 sortable

@@ -10,8 +10,9 @@ $factory->define(CourseSubject::class, function (Faker $faker) {
         'year_level' => "First Year",
         'semester' =>  "First",
         'sy_id' =>  $faker->numberBetween(1, 11),
-        'course_id' => $faker->numberBetween(1, 4),
+        'course_id' => 1,
         'subject_id' => $faker->numberBetween(1, 100),
+        'curriculum_id' => 1,
         'created_at' => now(),
     ];
 });

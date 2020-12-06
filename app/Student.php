@@ -12,7 +12,6 @@ class Student extends Model
 
     protected $appends = ['full_name'];
 
-    // protected $guard = ['id'];
     protected $fillable = [
         'student_id', 'first_name', 'last_name', 'middle_name', 'contact_no', 'sex', 'birth_date', 'nationality', 'religion',
         'civil_status', 'birth_place', 'address', 'course_id', 'curriculum_year'
@@ -21,6 +20,11 @@ class Student extends Model
     public function course()
     {
         return $this->belongsTo('App\Course');
+    }
+
+    public function curriculum()
+    {
+        return $this->belongsTo('App\Curriculum');
     }
 
     public function getFullNameAttribute()

@@ -1,6 +1,21 @@
 <template>
   <div>
-    <title-bar :title-stack="titleStack" />
+    <title-bar :title-stack="titleStack">
+      <template>
+        <div class="buttons is-right">
+          <button
+            slot="right"
+            type="button"
+            class="button is-primary"
+            @click="print()"
+            :disabled="!student.curriculum_year"
+          >
+            <b-icon icon="printer" custom-size="default" class="i" />
+            <span>Print Form</span>
+          </button>
+        </div>
+      </template>
+    </title-bar>
     <b-loading
       :is-full-page="false"
       :active="isComponentLoading"
@@ -20,7 +35,7 @@
                     v-model="searchStudent"
                     :data="filteredStudents"
                     field="full_name"
-                    @select="option => setSelectedStudent(option)"
+                    @select="(option) => setSelectedStudent(option)"
                     :clearable="true"
                   >
                     <template slot-scope="props">
@@ -324,7 +339,7 @@ export default {
     HeroBar,
     CardComponent,
     TitleBar,
-    CardToolbar
+    CardToolbar,
   },
   data() {
     return {
@@ -343,8 +358,8 @@ export default {
         student_id: "",
         course_id: "",
         curriculum_year: "",
-        course: {}
-      }
+        course: {},
+      },
     };
   },
 
@@ -355,12 +370,15 @@ export default {
     sy() {
       return this.$store.state.currentSY?.description;
     },
+    semester() {
+      return this.$store.state.currentSem?.semester;
+    },
     ...mapGetters("courseSubject", ["coursesSubjects"]),
     ...mapGetters("studentSubject", ["remainingSubjects", "studentSubjects"]),
     ...mapGetters("students", ["students"]),
 
     filteredStudents() {
-      return this.students.filter(opt => {
+      return this.students.filter((opt) => {
         return (
           opt.full_name
             .toString()
@@ -368,7 +386,7 @@ export default {
             .indexOf(this.searchStudent.toLowerCase()) >= 0
         );
       });
-    }
+    },
   },
 
   async created() {
@@ -385,7 +403,7 @@ export default {
       "fetchStudentRemainingSubjects",
       "postStudentSubject",
       "getStudentSubjects",
-      "deleteStudentSubject"
+      "deleteStudentSubject",
     ]),
     ...mapActions("students", ["fetchStudents"]),
 
@@ -394,21 +412,35 @@ export default {
         courseId: this.student.course_id,
         curriculum: this.student.curriculum_year,
         studentId: this.student.student_id,
-        sy: this.sy
+        sy: this.sy,
       });
+    },
+
+    print() {
+      let routeData = this.$router.resolve({
+        name: "student-form-print",
+        params: { 
+          sy: this.sy,
+          semester: this.semester.toLowerCase(),
+          student_id: this.student.id,
+        }
+      });
+
+      window.open(routeData.href, "_blank");
     },
 
     showEnrolledSubjects() {
       this.getStudentSubjects({
         id: this.student.id,
         curriculum: this.student.curriculum_year,
-        sy: this.sy
+        sy: this.sy,
       });
     },
     setSelectedStudent(data) {
       this.isLoading = true;
       if (data !== null) {
         this.student = data;
+        this.student.curriculum_year = data.curriculum.curriculum_year;
       } else {
         this.reset();
         this.clearText();
@@ -425,7 +457,7 @@ export default {
         student_id: "",
         course_id: "",
         curriculum_year: "",
-        course: {}
+        course: {},
       };
     },
 
@@ -434,7 +466,7 @@ export default {
         this.$buefy.snackbar.open({
           message: `${data.subject_code} successfully removed`,
           queue: false,
-          position: "is-top"
+          position: "is-top",
         });
       });
       this.showSubjects();
@@ -445,9 +477,10 @@ export default {
       let studentSbj = data;
       studentSbj.school_year = this.sy;
       studentSbj.student_id = this.student.id;
+      studentSbj.semester = this.semester;
       apiClient
         .post("/student/subjects", studentSbj)
-        .then(response => {
+        .then((response) => {
           this.$store.commit(
             "studentSubject/REMOVE_ADDED_SUBJECT",
             response.data.data
@@ -461,7 +494,7 @@ export default {
           this.$buefy.snackbar.open({
             message: response.data.message,
             queue: false,
-            position: "is-top"
+            position: "is-top",
           });
           this.isAdding = false;
         })
@@ -469,21 +502,21 @@ export default {
           this.$buefy.snackbar.open({
             message: response.data.message,
             queue: false,
-            position: "is-top"
+            position: "is-top",
           });
           this.isAdding = false;
         });
     },
 
     reset() {
-      this.form = mapValues(this.form, item => {
+      this.form = mapValues(this.form, (item) => {
         if (item && typeof item === "object") {
           return [];
         }
         return null;
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

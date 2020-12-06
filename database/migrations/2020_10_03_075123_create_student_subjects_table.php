@@ -15,9 +15,9 @@ class CreateStudentSubjectsTable extends Migration
     {
         Schema::create('student_subjects', function (Blueprint $table) {
             $table->id();
-            // $table->unsignedBigInteger('enroll_id');
-            // $table->foreign('enroll_id')->references('id')->on('enrolled_students');
             $table->unsignedBigInteger('student_id');
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('subject_id');
             $table->string('subject_code', 20);
             $table->string('subject_description');
             $table->string('units', 10);
@@ -26,10 +26,12 @@ class CreateStudentSubjectsTable extends Migration
             $table->string('semester', 20);
             $table->string('school_year', 20);
             $table->string('curriculum_year', 20);
-            $table->string('section', 20);
+            $table->string('section', 20)->nullable();
             $table->string('year_level', 20);
             $table->string('grade', 5)->nullable();
             $table->foreign('student_id')->references('id')->on('students');
+            $table->foreign('course_id')->references('id')->on('courses');
+            $table->foreign('subject_id')->references('id')->on('subjects')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

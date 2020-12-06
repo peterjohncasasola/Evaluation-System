@@ -18,6 +18,7 @@ class StudentTableSeeder extends Seeder
             'last_name' => 'Verbo',
             'student_id' => '17-10001',
             'birth_date' => '',
+            'curriculum_id' => 1,
             'civil_status' => 'Single',
             'birth_place' => '',
             'address' => '',

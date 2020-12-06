@@ -384,6 +384,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -425,6 +440,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this$$store$state$cu;
 
       return (_this$$store$state$cu = this.$store.state.currentSY) === null || _this$$store$state$cu === void 0 ? void 0 : _this$$store$state$cu.description;
+    },
+    semester: function semester() {
+      var _this$$store$state$cu2;
+
+      return (_this$$store$state$cu2 = this.$store.state.currentSem) === null || _this$$store$state$cu2 === void 0 ? void 0 : _this$$store$state$cu2.semester;
     }
   }, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("courseSubject", ["coursesSubjects"])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("studentSubject", ["remainingSubjects", "studentSubjects"])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("students", ["students"])), {}, {
     filteredStudents: function filteredStudents() {
@@ -471,6 +491,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         sy: this.sy
       });
     },
+    print: function print() {
+      var routeData = this.$router.resolve({
+        name: "student-form-print",
+        params: {
+          sy: this.sy,
+          semester: this.semester.toLowerCase(),
+          student_id: this.student.id
+        }
+      });
+      window.open(routeData.href, "_blank");
+    },
     showEnrolledSubjects: function showEnrolledSubjects() {
       this.getStudentSubjects({
         id: this.student.id,
@@ -485,6 +516,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (data !== null) {
         this.student = data;
+        this.student.curriculum_year = data.curriculum.curriculum_year;
       } else {
         this.reset();
         this.clearText();
@@ -523,6 +555,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var studentSbj = data;
       studentSbj.school_year = this.sy;
       studentSbj.student_id = this.student.id;
+      studentSbj.semester = this.semester;
       _apiClient__WEBPACK_IMPORTED_MODULE_6__["default"].post("/student/subjects", studentSbj).then(function (response) {
         _this5.$store.commit("studentSubject/REMOVE_ADDED_SUBJECT", response.data.data);
 
@@ -774,7 +807,43 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("title-bar", { attrs: { "title-stack": _vm.titleStack } }),
+      _c(
+        "title-bar",
+        { attrs: { "title-stack": _vm.titleStack } },
+        [
+          [
+            _c("div", { staticClass: "buttons is-right" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "button is-primary",
+                  attrs: {
+                    slot: "right",
+                    type: "button",
+                    disabled: !_vm.student.curriculum_year
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.print()
+                    }
+                  },
+                  slot: "right"
+                },
+                [
+                  _c("b-icon", {
+                    staticClass: "i",
+                    attrs: { icon: "printer", "custom-size": "default" }
+                  }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Print Form")])
+                ],
+                1
+              )
+            ])
+          ]
+        ],
+        2
+      ),
       _vm._v(" "),
       _c("b-loading", {
         attrs: {

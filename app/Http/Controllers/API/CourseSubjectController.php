@@ -20,22 +20,30 @@ class CourseSubjectController extends Controller
     public function index(Request $request)
     {
 
-        $course_subjects = DB::table('vw_courses_subjects');
+        $query = DB::table('vw_courses_subjects');
 
         if ($request->query('course_id')) {
-            $course_subjects = $course_subjects->where('course_id', '=', $request->query('course_id'));
+            $query = $query->where('course_id', '=', $request->query('course_id'));
         }
 
         if ($request->query('curriculum')) {
-            $course_subjects = $course_subjects->where('curriculum_year', '=', $request->query('curriculum'));
+            $query = $query->where('curriculum_year', '=', $request->query('curriculum'));
         }
 
         if ($request->query('semester')) {
-            $course_subjects = $course_subjects->where('semester', '=', $request->query('semester'));
+            $query = $query->where('semester', '=', $request->query('semester'));
+        }
+
+        if ($request->query('year_level')) {
+            $query = $query->where('year_level', '=', $request->query('year_level'));
+        }
+
+        if ($request->query('curriculum_id')) {
+            $query = $query->where('curriculum_id', '=', $request->query('curriculum_id'));
         }
 
         return response()->json([
-            'data' => $course_subjects->get(),
+            'data' => $query->get(),
         ]);
     }
 
@@ -54,12 +62,12 @@ class CourseSubjectController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'sy_id' => 'required|exists:academic_years,id',
+            'curriculum_id' => 'required|exists:curriculums,id',
             'course_id' => 'exists:courses,id',
             'subject_id' => ['required', 'exists:subjects,id', Rule::unique('course_subjects')->where(function ($query) use ($request) {
                 return $query->where([
                     ['course_id', $request->course_id],
-                    ['sy_id', $request->sy_id],
+                    ['curriculum_id', $request->curriculum_id],
                     ['subject_id', $request->subject_id],
                 ]);
             })],
@@ -143,7 +151,7 @@ class CourseSubjectController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'sy_id' => 'required|exists:academic_years,id',
+            'curriculum_id' => 'required|exists:curriculums,id',
             'course_id' => 'exists:courses,id',
             'subject_id' => [
                 'required', 'exists:subjects,id',
@@ -151,7 +159,7 @@ class CourseSubjectController extends Controller
                     ->where(function ($query) use ($request) {
                         return $query->where([
                             ['course_id', $request->course_id],
-                            ['sy_id', $request->sy_id],
+                            ['curriculum_id', $request->curriculum_id],
                             ['subject_id', $request->subject_id],
                             ['id', '!=', $request->id],
                         ]);

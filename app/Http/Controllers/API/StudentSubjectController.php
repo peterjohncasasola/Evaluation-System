@@ -88,11 +88,13 @@ class StudentSubjectController extends Controller
         $request->validate([
             'course_id' => 'required|exists:courses,id',
             'subject_code' => ['required'],
+            'subject_id' => ['required'],
+            'student_id' => ['required'],
             'subject_description' => 'required',
             'units' => 'required',
             'semester' => ['required', Rule::in(['First', 'Second', 'Summer'])],
-            // 'school_year' => 'required',
-            'curriculum_year' => 'required|exists:academic_years,description',
+            'school_year' => 'required',
+            'curriculum_year' => 'required|exists:curriculums,curriculum_year',
             'student_id' => 'required|integer|exists:students,id',
             'year_level' => [
                 'required',
@@ -112,11 +114,23 @@ class StudentSubjectController extends Controller
             ], 400);
         }
 
+
+        $isMaxUnits = $this->validateTotalUnits($request);
+
+        if ($isMaxUnits) {
+            return response()->json([
+                'message' => 'Maximum of 24 units only',
+                'validation' => 'failed',
+
+            ], 400);
+        }
+
         $studentSubject = new StudentSubject();
         $studentSubject->student_id = $request->student_id;
         $studentSubject->subject_code = $request->subject_code;
         $studentSubject->subject_description = $request->subject_description;
         $studentSubject->units = $request->units;
+        $studentSubject->subject_id = $request->subject_id;
         $studentSubject->semester = $request->semester;
         $studentSubject->curriculum_year = $request->curriculum_year;
         $studentSubject->school_year = $request->school_year;
@@ -153,6 +167,19 @@ class StudentSubjectController extends Controller
 
             return true;
         }
+    }
+
+    public function validateTotalUnits($request)
+    {
+        $data = DB::table('student_subjects')
+            ->select(DB::raw("SUM(units) as total_units"))
+            ->where('student_id', '=', $request->student_id)
+            ->where("semester", '=', $request->semester)
+            ->where('school_year', '=', $request->school_year)
+            ->where('deleted_at', '=', NULL)
+            ->get();
+
+        return $data[0]->total_units + (int) $request->units > 24 ? true : false;
     }
 
     /**

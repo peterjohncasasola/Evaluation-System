@@ -307,6 +307,7 @@ export default {
       this.isLoading = true;
       if (data !== null) {
         this.student = data;
+        this.student.curriculum_year = data.curriculum.curriculum_year
       } else {
         this.reset();
         this.clearText();

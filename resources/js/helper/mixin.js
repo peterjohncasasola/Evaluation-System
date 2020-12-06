@@ -169,6 +169,10 @@ Vue.mixin({
       }
       this.showNotification(message, "danger");
     },
+
+    isEmptyObject(obj) {
+      return Object.keys(obj).length === 0;
+    },
     
     showNotification(message, type, position = "is-bottom-right") {
       this.$buefy.notification.open({

@@ -13,6 +13,7 @@ $factory->define(Student::class, function (Faker $faker) {
         'last_name' => $faker->lastName,
         'birth_date' => $faker->date(),
         'civil_status' => 'Single',
+        'curriculum_id' => 1,
         'birth_place' => $faker->country,
         'address' => $faker->address,
         'contact_no' => $faker->e164PhoneNumber,

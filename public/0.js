@@ -382,16 +382,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -416,6 +406,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       openedDetails: [],
       checkedRows: [],
       isNew: true,
+      curriculum_id: this.$route.params.curriculum_id,
       filteredSubjectsTags: [],
       tags: {
         prerequisite: []
@@ -428,36 +419,84 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         prerequisite: [],
         subject_code: "",
         lec: "",
+        subject_id: "",
         lab: "",
         year_level: "",
+        curriculum_year: "",
         semester: ""
       }
     };
   },
-  computed: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("courseSubject", ["coursesSubjects", "courseSubject"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("courses", ["courses"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("subjects", ["subjects"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("academicYears", ["academicYears"])),
+  computed: _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("courseSubject", ["coursesSubjects", "courseSubject"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("courses", ["courses"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("subjects", ["subjects"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("curriculums", ["curriculum"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])("academicYears", ["academicYears"])),
   created: function created() {
-    this.fetchCoursesSubjects();
-    this.fetchCourses();
-    this.fetchSubjects();
-    this.fetchAcademicYears();
-    this.filteredSubjectsTags = this.subjects;
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.fetcCurriculumSubjects();
+
+            case 2:
+              _this.getSubjects();
+
+              _this.fetchSubjects();
+
+              _this.filteredSubjectsTags = _this.subjects;
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   },
-  methods: _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("courseSubject", ["fetchCourseSubject", "fetchCoursesSubjects", "createCourseSubject", "updateCourseSubject", "deleteCourseSubject"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("courses", ["fetchCourses"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("subjects", ["fetchSubjects"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("academicYears", ["fetchAcademicYears"])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("courseSubject", ["fetchCourseSubject", "fetchCoursesSubjects", "createCourseSubject", "updateCourseSubject", "deleteCourseSubject"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("curriculums", ["fetchCurriculum"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("courses", ["fetchCourses"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("subjects", ["fetchSubjects"])), Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("academicYears", ["fetchAcademicYears"])), {}, {
     getFilteredSubjectTags: function getFilteredSubjectTags(text) {
       this.filteredSubjectsTags = this.subjects.filter(function (opt) {
         return opt.code.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0 || opt.description.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0;
       });
     },
+    getSubjects: function getSubjects() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.isLoading = true;
+                _context2.next = 3;
+                return _this2.fetchCoursesSubjects({
+                  curriculum_id: _this2.curriculum_id
+                });
+
+              case 3:
+                setTimeout(function () {
+                  _this2.isLoading = false;
+                }, 1000);
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
     getTaggedPrerequisite: function getTaggedPrerequisite(tags) {
-      var _this = this;
+      var _this3 = this;
 
       if (tags !== null) {
         tags = tags.includes(",") ? tags.split(",") : [].concat(tags);
         var sbjTag = null;
         tags.forEach(function (value) {
-          sbjTag = _this.subjects.forEach(function (sbj) {
+          sbjTag = _this3.subjects.forEach(function (sbj) {
             if (sbj.code == value) {
-              _this.tags.prerequisite.push(sbj);
+              _this3.tags.prerequisite.push(sbj);
 
               return sbj;
             }
@@ -475,6 +514,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     edit: function edit(data) {
       this.clearForm();
+      console.log(data);
       this.options.course.searchText = data.course_description;
       this.options.subject.searchText = data.subject_code;
       this.options.academicYear.searchText = data.curriculum_year;
@@ -484,7 +524,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.isModalActive = true;
     },
     deleteConfirmation: function deleteConfirmation() {
-      var _this2 = this;
+      var _this4 = this;
 
       var trashObject = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       this.trashObject = trashObject;
@@ -497,10 +537,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           type: "is-danger",
           hasIcon: true,
           onConfirm: function onConfirm() {
-            _this2.remove(_this2.trashObject);
+            _this4.remove(_this4.trashObject);
           }
         });
       }
+    },
+    fetcCurriculumSubjects: function fetcCurriculumSubjects() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this5.fetchCurriculum(_this5.curriculum_id);
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     },
     mapSubjectCode: function mapSubjectCode() {
       this.formData.prerequisite = this.tags.prerequisite.map(function (item) {
@@ -509,65 +568,62 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.formData.prerequisite = this.formData.prerequisite.toString();
     },
     save: function save() {
-      var _this3 = this;
+      var _this6 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 response = null;
 
-                _this3.mapSubjectCode();
+                _this6.mapSubjectCode();
 
-                if (!_this3.isNew) {
-                  _context.next = 9;
+                if (!_this6.isNew) {
+                  _context4.next = 9;
                   break;
                 }
 
-                _context.next = 5;
-                return _this3.createCourseSubject(_this3.formData);
+                _context4.next = 5;
+                return _this6.createCourseSubject(_this6.formData);
 
               case 5:
-                response = _context.sent;
+                response = _context4.sent;
 
                 if (response == undefined || response == null) {
-                  _this3.isModalActive = false;
+                  _this6.isModalActive = false;
 
-                  _this3.showNotification("Successfully created", "success");
+                  _this6.showNotification("Successfully created", "success");
                 } else {
-                  _this3.showErrorMessage(response);
+                  _this6.showErrorMessage(response);
                 }
 
-                _context.next = 13;
+                _context4.next = 13;
                 break;
 
               case 9:
-                _context.next = 11;
-                return _this3.updateCourseSubject(_this3.formData);
+                _context4.next = 11;
+                return _this6.updateCourseSubject(_this6.formData);
 
               case 11:
-                response = _context.sent;
+                response = _context4.sent;
 
                 if (response == undefined || response == null) {
-                  _this3.isModalActive = false;
+                  _this6.isModalActive = false;
 
-                  _this3.showNotification("Successfully updated", "success");
+                  _this6.showNotification("Successfully updated", "success");
                 } else {
-                  _this3.showErrorMessage(response);
+                  _this6.showErrorMessage(response);
                 }
 
               case 13:
               case "end":
-                return _context.stop();
+                return _context4.stop();
             }
           }
-        }, _callee);
+        }, _callee4);
       }))();
-    },
-    toggle: function toggle(row) {
-      this.$refs.table.toggleDetails(row);
     },
     remove: function remove(data) {
       this.deleteCourseSubject(data);
@@ -576,10 +632,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     cancel: function cancel() {
       this.isModalActive = false;
     },
+    navigateToCurriculums: function navigateToCurriculums() {
+      this.$router.push({
+        path: "/courses/curriculums"
+      });
+    },
     showModal: function showModal() {
       this.clearForm();
       this.isModalActive = true;
       this.isNew = true;
+      this.formData.course_id = this.curriculum.course_id;
+      this.formData.curriculum_id = this.curriculum.id;
+    },
+    print: function print() {
+      var routeData = this.$router.resolve({
+        name: "curriculum-subjects-print",
+        params: {
+          curriculum_id: this.curriculum_id
+        }
+      });
+      window.open(routeData.href, "_blank");
     },
     clearForm: function clearForm() {
       this.formData = {
@@ -590,9 +662,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         prerequisite: [],
         subject_code: "",
         lec: "",
+        subject_id: "",
         lab: "",
         year_level: "",
-        semester: ""
+        semester: "",
+        curriculum_id: ""
       };
       this.options.course.searchText = "";
       this.options.subject.searchText = "";
@@ -747,7 +821,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 var render = function() {
-  var this$1 = this
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -756,11 +829,12 @@ var render = function() {
       "div",
       [
         _c("title-bar", {
-          attrs: { "title-stack": ["Master Files", "Courses Subjects", "List"] }
+          attrs: {
+            "title-stack": ["Master Files", "Curriculum Subjects", "List"]
+          }
         }),
         _vm._v(" "),
         _c("hero-bar", [
-          _vm._v("\n      Courses Subjects\n      "),
           _c(
             "button",
             {
@@ -782,6 +856,21 @@ var render = function() {
               _c("span", [_vm._v("New")])
             ],
             1
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "button is-default ml-2",
+              attrs: { slot: "right" },
+              on: {
+                click: function($event) {
+                  return _vm.navigateToCurriculums()
+                }
+              },
+              slot: "right"
+            },
+            [_c("span", [_vm._v("Back")])]
           )
         ]),
         _vm._v(" "),
@@ -793,12 +882,40 @@ var render = function() {
               "card-component",
               {
                 staticClass: "has-table has-mobile-sort-spaced",
-                attrs: { title: "Courses" }
+                attrs: {
+                  title:
+                    _vm.curriculum.course.course_code +
+                    " - " +
+                    _vm.curriculum.curriculum_year
+                }
               },
               [
                 _c(
                   "card-toolbar",
                   [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "button is-primary",
+                        attrs: { slot: "right", type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.print()
+                          }
+                        },
+                        slot: "right"
+                      },
+                      [
+                        _c("b-icon", {
+                          staticClass: "i",
+                          attrs: { icon: "printer", "custom-size": "default" }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("Print")])
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
                     _c(
                       "b-select",
                       {
@@ -882,90 +999,6 @@ var render = function() {
                             "section",
                             { staticClass: "modal-card-body" },
                             [
-                              _c(
-                                "b-field",
-                                [
-                                  _c("template", { slot: "label" }, [
-                                    _vm._v(
-                                      "\n                    Course\n                    "
-                                    ),
-                                    _c(
-                                      "span",
-                                      { staticClass: "has-text-danger" },
-                                      [_vm._v("*")]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("b-autocomplete", {
-                                    attrs: {
-                                      placeholder:
-                                        "e.g. Bachelor of Science in Information Technology",
-                                      data: _vm.getFilteredCourses,
-                                      field: "description",
-                                      "open-on-focus": true,
-                                      clearable: true
-                                    },
-                                    on: {
-                                      select: function(option) {
-                                        return (this$1.formData.course_id =
-                                          option === null ? "" : option.id)
-                                      }
-                                    },
-                                    scopedSlots: _vm._u([
-                                      {
-                                        key: "default",
-                                        fn: function(props) {
-                                          return [
-                                            _c(
-                                              "div",
-                                              { staticClass: "media" },
-                                              [
-                                                _c(
-                                                  "div",
-                                                  {
-                                                    staticClass: "media-content"
-                                                  },
-                                                  [
-                                                    _c("strong", [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          props.option
-                                                            .course_code
-                                                        )
-                                                      )
-                                                    ]),
-                                                    _vm._v(
-                                                      "\n                          | " +
-                                                        _vm._s(
-                                                          props.option
-                                                            .description
-                                                        ) +
-                                                        "\n                        "
-                                                    )
-                                                  ]
-                                                )
-                                              ]
-                                            )
-                                          ]
-                                        }
-                                      }
-                                    ]),
-                                    model: {
-                                      value: _vm.options.course.searchText,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.options.course,
-                                          "searchText",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "options.course.searchText"
-                                    }
-                                  })
-                                ],
-                                2
-                              ),
-                              _vm._v(" "),
                               _c(
                                 "b-field",
                                 { attrs: { label: "Subject" } },
@@ -1075,54 +1108,6 @@ var render = function() {
                                   })
                                 ],
                                 1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-field",
-                                { attrs: { label: "Academic Year" } },
-                                [
-                                  _c("template", { slot: "label" }, [
-                                    _vm._v(
-                                      "\n                    Curriculum Year\n                    "
-                                    ),
-                                    _c(
-                                      "span",
-                                      { staticClass: "has-text-danger" },
-                                      [_vm._v("*")]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("b-autocomplete", {
-                                    attrs: {
-                                      placeholder: "e.g. S.Y 2013 - 2014",
-                                      "open-on-focus": true,
-                                      data: _vm.filteredYear,
-                                      expanded: "",
-                                      field: "description",
-                                      clearable: true
-                                    },
-                                    on: {
-                                      select: function(option) {
-                                        return (this$1.formData.sy_id =
-                                          option === null ? "" : option.id)
-                                      }
-                                    },
-                                    model: {
-                                      value:
-                                        _vm.options.academicYear.searchText,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.options.academicYear,
-                                          "searchText",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "options.academicYear.searchText"
-                                    }
-                                  })
-                                ],
-                                2
                               ),
                               _vm._v(" "),
                               _c(
@@ -1294,38 +1279,20 @@ var render = function() {
                 _c(
                   "b-table",
                   {
-                    ref: "table",
                     attrs: {
                       loading: _vm.isLoading,
                       paginated: true,
                       "per-page": _vm.perPage,
                       hoverable: true,
                       "default-sort": "subject_code",
-                      data: _vm.coursesSubjects,
-                      detailed: "",
-                      "detail-key": "id",
-                      "show-detail-icon": true
+                      narrowed: true,
+                      data: _vm.coursesSubjects
                     },
                     scopedSlots: _vm._u([
                       {
                         key: "default",
                         fn: function(props) {
                           return [
-                            _c(
-                              "b-table-column",
-                              {
-                                staticClass: "wrap-text",
-                                attrs: {
-                                  searchable: "",
-                                  label: "Course",
-                                  field: "course_code",
-                                  sortable: "",
-                                  width: "8%"
-                                }
-                              },
-                              [_vm._v(_vm._s(props.row.course_code))]
-                            ),
-                            _vm._v(" "),
                             _c(
                               "b-table-column",
                               {
@@ -1384,29 +1351,40 @@ var render = function() {
                             _c(
                               "b-table-column",
                               {
-                                staticClass: "wrap-text",
                                 attrs: {
-                                  label: "Year Level",
-                                  field: "year_level",
-                                  sortable: "",
-                                  width: "10%"
+                                  label: "Units",
+                                  field: "units",
+                                  width: "5%",
+                                  sortable: ""
                                 }
                               },
-                              [_vm._v(_vm._s(props.row.year_level))]
+                              [_vm._v(_vm._s(props.row.units))]
                             ),
                             _vm._v(" "),
                             _c(
                               "b-table-column",
                               {
                                 attrs: {
-                                  label: "Curriculum Year",
-                                  field: "curriculum_year",
-                                  width: "12%",
-                                  sortable: "",
-                                  searchable: ""
+                                  label: "Lab",
+                                  field: "lab",
+                                  width: "5%",
+                                  sortable: ""
                                 }
                               },
-                              [_vm._v(_vm._s(props.row.curriculum_year))]
+                              [_vm._v(_vm._s(props.row.lab))]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-table-column",
+                              {
+                                attrs: {
+                                  label: "Lec",
+                                  field: "lec",
+                                  width: "5%",
+                                  sortable: ""
+                                }
+                              },
+                              [_vm._v(_vm._s(props.row.lec))]
                             ),
                             _vm._v(" "),
                             _c(
@@ -1420,6 +1398,20 @@ var render = function() {
                                 }
                               },
                               [_vm._v(_vm._s(props.row.semester))]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-table-column",
+                              {
+                                staticClass: "wrap-text",
+                                attrs: {
+                                  label: "Year Level",
+                                  field: "year_level",
+                                  sortable: "",
+                                  width: "10%"
+                                }
+                              },
+                              [_vm._v(_vm._s(props.row.year_level))]
                             ),
                             _vm._v(" "),
                             _c(

@@ -45,6 +45,7 @@ Route::group(['middleware' => ['autotrim', 'auth:api']], function () {
         'instructors' => 'API\InstructorController',
         'courses-subjects' => 'API\CourseSubjectController',
         'academic-years' => 'API\AcademicYearController',
+        'curriculums' => 'API\CurriculumController',
     ]);
     Route::get('records/count', 'HomeController@dashboard');
     Route::get('courses/{course}/subjects', 'API\CourseSubjectController@subjectsByCourse');

@@ -152,6 +152,11 @@ return [
             'required' => 'student id is required'
         ],
 
+        'curriculum_id' => [
+            'required' => 'curriculum is required',
+            'exists' => 'curriculum not found in the database'
+        ],
+
     ],
 
     /*

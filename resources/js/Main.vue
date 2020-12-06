@@ -69,12 +69,6 @@ export default {
             adminAccess: false,
           },
           {
-            to: { name: "curriculums-list" },
-            label: "Curriculums",
-            icon: "notebook",
-            adminAccess: false,
-          },
-          {
             to: { name: "instructors-list" },
             label: "Instructors",
             icon: "account-tie",
@@ -93,9 +87,14 @@ export default {
             label: "Courses",
             icon: "book-multiple",
             adminAccess: true,
-
           },
-           {
+          {
+            to: { name: "courses-curriculums" },
+            label: "Curriculums",
+            icon: "notebook",
+            adminAccess: false,
+          },
+          {
             to: { name: "sections-list" },
             label: "Sections",
             icon: "cogs",
@@ -110,18 +109,18 @@ export default {
         ],
         "Transactions",
         [
-          {
-            to: { name: "subject.offering" },
-            label: "Subject Offering",
-            icon: "cogs",
-            adminAccess: false,
-          },
-          {
-            to: { name: "section.class" },
-            label: "Section Class",
-            icon: "cogs",
-            adminAccess: false,
-          },
+          // {
+          //   to: { name: "subject.offering" },
+          //   label: "Subject Offering",
+          //   icon: "cogs",
+          //   adminAccess: false,
+          // },
+          // {
+          //   to: { name: "section.class" },
+          //   label: "Section Class",
+          //   icon: "cogs",
+          //   adminAccess: false,
+          // },
           {
             to: { name: "subject.evaluation" },
             label: "Subject Evaluation",

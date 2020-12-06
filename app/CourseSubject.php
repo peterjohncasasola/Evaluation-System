@@ -16,8 +16,7 @@ class CourseSubject extends Model
 
     protected $fillable = [
         'subject_id', 'course_id',
-        'sy_id',
-        'year_level', 'semester', 'prerequisite'
+        'year_level', 'semester', 'prerequisite', 'curriculum_id'
 
     ];
 
@@ -30,5 +29,10 @@ class CourseSubject extends Model
     public function course()
     {
         return $this->belongsTo('App\Course');
+    }
+
+    public function curriculums()
+    {
+        return $this->belongsTo('App\Curriculum');
     }
 }

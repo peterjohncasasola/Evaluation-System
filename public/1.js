@@ -315,6 +315,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -350,6 +352,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         guardian_name: "",
         nationality: "",
         religion: "",
+        curriculum_id: "",
         address: "",
         civil_status: "",
         course_id: "",
@@ -403,9 +406,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this2 = this;
 
       this.form.course_id = id === null ? 0 : id;
-      _apiClient__WEBPACK_IMPORTED_MODULE_3__["default"].get("/courses/".concat(this.form.course_id, "/curriculums")).then(function (response) {
-        _this2.curriculums = response.data.data.map(function (cur) {
-          return cur.curriculum;
+      _apiClient__WEBPACK_IMPORTED_MODULE_3__["default"].get("/curriculums?course_id=".concat(id)).then(function (response) {
+        _this2.curriculums = response.data.map(function (cur) {
+          return cur;
         });
       });
     },
@@ -1040,10 +1043,9 @@ var render = function() {
                               name: "phone",
                               expanded: ""
                             },
-                            nativeOn: {
-                              input: function($event) {
-                                return _vm.onInputContactNumber($event)
-                              }
+                            on: {
+                              change: _vm.onInputContactNumber,
+                              blur: _vm.onInputContactNumber
                             },
                             model: {
                               value: _vm.form.contact_no,
@@ -1138,13 +1140,13 @@ var render = function() {
                         {
                           attrs: {
                             type:
-                              _vm.errors.curriculum_year == null
+                              _vm.errors.curriculum_id == null
                                 ? ""
                                 : "is-danger",
                             message:
-                              _vm.errors.curriculum_year == null
+                              _vm.errors.curriculum_id == null
                                 ? ""
-                                : _vm.errors.curriculum_year
+                                : _vm.errors.curriculum_id
                           }
                         },
                         [
@@ -1158,11 +1160,11 @@ var render = function() {
                                 required: ""
                               },
                               model: {
-                                value: _vm.form.curriculum_year,
+                                value: _vm.form.curriculum_id,
                                 callback: function($$v) {
-                                  _vm.$set(_vm.form, "curriculum_year", $$v)
+                                  _vm.$set(_vm.form, "curriculum_id", $$v)
                                 },
-                                expression: "form.curriculum_year"
+                                expression: "form.curriculum_id"
                               }
                             },
                             _vm._l(_vm.curriculums, function(
@@ -1171,11 +1173,14 @@ var render = function() {
                             ) {
                               return _c(
                                 "option",
-                                { key: index, domProps: { value: curriculum } },
+                                {
+                                  key: index,
+                                  domProps: { value: curriculum.id }
+                                },
                                 [
                                   _vm._v(
                                     "\n                  " +
-                                      _vm._s(curriculum) +
+                                      _vm._s(curriculum.curriculum_year) +
                                       "\n                "
                                   )
                                 ]
@@ -1281,10 +1286,9 @@ var render = function() {
                               placeholder:
                                 "Enter Guardian Contact No. (Optional)"
                             },
-                            nativeOn: {
-                              input: function($event) {
-                                return _vm.onInputGuardianContact($event)
-                              }
+                            on: {
+                              change: _vm.onInputGuardianContact,
+                              blur: _vm.onInputGuardianContact
                             },
                             model: {
                               value: _vm.form.guardian_contact,

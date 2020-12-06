@@ -145,7 +145,8 @@
                   type="text"
                   v-cleave="masks.cp_number"
                   :value="form.contact_no"
-                  @input.native="onInputContactNumber"
+                  @change="onInputContactNumber"
+                  @blur="onInputContactNumber"
                   v-model="form.contact_no"
                   name="phone"
                   expanded
@@ -181,24 +182,24 @@
               </b-field>
 
               <b-field
-                :type="errors.curriculum_year == null ? '' : 'is-danger'"
+                :type="errors.curriculum_id == null ? '' : 'is-danger'"
                 :message="
-                  errors.curriculum_year == null ? '' : errors.curriculum_year
+                  errors.curriculum_id == null ? '' : errors.curriculum_id
                 "
               >
                 <b-select
                   icon="calendar-account"
                   expanded
                   placeholder="Select Curriculum Year"
-                  v-model="form.curriculum_year"
+                  v-model="form.curriculum_id"
                   required
                 >
                   <option
                     v-for="(curriculum, index) in curriculums"
                     :key="index"
-                    :value="curriculum"
+                    :value="curriculum.id"
                   >
-                    {{ curriculum }}
+                    {{ curriculum.curriculum_year }}
                   </option>
                 </b-select>
               </b-field>
@@ -233,7 +234,8 @@
                 <b-input
                   v-cleave="masks.cp_number"
                   :value="form.guardian_contact"
-                  @input.native="onInputGuardianContact"
+                  @change="onInputGuardianContact"
+                  @blur="onInputGuardianContact"
                   icon="contact-phone"
                   v-model="form.guardian_contact"
                   placeholder="Enter Guardian Contact No. (Optional)"
@@ -315,6 +317,7 @@ export default {
         guardian_name: "",
         nationality: "",
         religion: "",
+        curriculum_id: "",
         address: "",
         civil_status: "",
         course_id: "",
@@ -355,10 +358,10 @@ export default {
     getCurriculumsByCourse(id) {
       this.form.course_id = id === null ? 0 : id;
       apiClient
-        .get(`/courses/${this.form.course_id}/curriculums`)
+        .get(`/curriculums?course_id=${id}`)
         .then(response => {
-          this.curriculums = response.data.data.map(cur => {
-            return cur.curriculum;
+          this.curriculums = response.data.map(cur => {
+            return cur;
           });
         });
     },

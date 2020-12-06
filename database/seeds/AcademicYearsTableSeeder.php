@@ -16,7 +16,7 @@ class AcademicYearsTableSeeder extends Seeder
             $currentYear = $year;
             \App\AcademicYear::create([
                 'school_year' => $currentYear,
-                'description' => 'S.Y ' . $currentYear . ' - ' . $currentYear += 1,
+                'description' => '' . $currentYear . '-' . $currentYear += 1,
                 'is_current' => false
             ]);
         }

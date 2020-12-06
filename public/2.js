@@ -382,6 +382,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (data !== null) {
         this.student = data;
+        this.student.curriculum_year = data.curriculum.curriculum_year;
       } else {
         this.reset();
         this.clearText();
