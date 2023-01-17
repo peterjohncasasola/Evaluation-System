@@ -28,10 +28,10 @@ export default {
     return {
       isActive: true,
       menu: [],
-     
+
     };
   },
-  
+
   computed: {
     ...mapGetters('auth', ['user']),
     modules() {
@@ -48,19 +48,17 @@ export default {
         "Master Files",
         [
           {
-            to: { name: "students-list" },
-            label: "Students",
-            icon: "account-multiple",
-            updateMark: true,
-            adminAccess: false,
-          },
-
-          {
             to: { name: "academic-years-list" },
             label: "Academic Year",
             icon: "calendar-month",
             updateMark: true,
             adminAccess: true,
+          },
+          {
+            to: { name: "departments-list" },
+            label: "Departments",
+            icon: "school",
+            adminAccess: false,
           },
           {
             to: { name: "subjects-list" },
@@ -109,41 +107,12 @@ export default {
         ],
         "Transactions",
         [
-          // {
-          //   to: { name: "subject.offering" },
-          //   label: "Subject Offering",
-          //   icon: "cogs",
-          //   adminAccess: false,
-          // },
-          // {
-          //   to: { name: "section.class" },
-          //   label: "Section Class",
-          //   icon: "cogs",
-          //   adminAccess: false,
-          // },
           {
             to: { name: "subject.evaluation" },
-            label: "Subject Evaluation",
+            label: "Subject Entry",
             icon: "book-search",
             adminAccess: false,
           },
-          // {
-          //   to: "/students/subjects",
-          //   label: "Students Subjects",
-          //   icon: "folder-account-outline"
-          // },
-
-          // {
-          //   to: "/transactions/credited-subjects",
-          //   label: "Credit Subject",
-          //   icon: "folder-plus"
-          // },
-          {
-            to: { name: "grade.entry" },
-            label: "Grade Entry",
-            icon: "table-large-plus",
-            adminAccess: false,
-          }
           // {
           //   label: "Submenus",
           //   subLabel: "Submenus Example",
@@ -152,7 +121,7 @@ export default {
           //     {
           //       href: "#void",
           //       icon: "view-list",
-
+          //
           //       label: "Sub-item One"
           //     },
           //     {

@@ -232,6 +232,135 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -257,18 +386,24 @@ vue__WEBPACK_IMPORTED_MODULE_8___default.a.component("downloadExcel", vue_json_e
       paginated: false,
       perPage: 10,
       checkedRows: [],
+      errors: {},
       isNew: true,
+      contractStatus: ['Permanent', 'Temporary Permanent', 'Temporary', 'Part-Time'],
       formData: {
         id: "",
         first_name: "",
         middle_name: "",
         last_name: "",
+        specialization: "",
+        min_units: "",
+        max_units: "",
         is_active: true
       },
       json_fields: {
         "First Name": "first_name",
         "Middle Name": "middle_name",
-        "Last Name": "last_name"
+        "Last Name": "last_name",
+        "Contract Status": "contract_status"
       }
     };
   },
@@ -276,7 +411,7 @@ vue__WEBPACK_IMPORTED_MODULE_8___default.a.component("downloadExcel", vue_json_e
   created: function created() {
     this.fetchInstructors();
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("instructors", ["fetchInstructors", "s", "createInstructor", "updateInstructor", "deleteInstructor"])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])("instructors", ["fetchInstructors", "createInstructor", "updateInstructor", "deleteInstructor"])), {}, {
     edit: function edit(data) {
       this.isModalActive = true;
       this.isNew = false;
@@ -311,15 +446,17 @@ vue__WEBPACK_IMPORTED_MODULE_8___default.a.component("downloadExcel", vue_json_e
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                _this2.errors = {};
+
                 if (!_this2.isNew) {
-                  _context.next = 7;
+                  _context.next = 8;
                   break;
                 }
 
-                _context.next = 3;
+                _context.next = 4;
                 return _this2.createInstructor(_this2.formData);
 
-              case 3:
+              case 4:
                 response = _context.sent;
 
                 if (response == undefined || response == null) {
@@ -327,17 +464,19 @@ vue__WEBPACK_IMPORTED_MODULE_8___default.a.component("downloadExcel", vue_json_e
 
                   _this2.showNotification("Successfully created", "success");
                 } else {
+                  _this2.errors = response.errors;
+
                   _this2.showErrorMessage(response, "danger");
                 }
 
-                _context.next = 11;
+                _context.next = 12;
                 break;
 
-              case 7:
-                _context.next = 9;
+              case 8:
+                _context.next = 10;
                 return _this2.updateInstructor(_this2.formData);
 
-              case 9:
+              case 10:
                 _response = _context.sent;
 
                 if (_response == undefined || _response == null) {
@@ -345,10 +484,12 @@ vue__WEBPACK_IMPORTED_MODULE_8___default.a.component("downloadExcel", vue_json_e
 
                   _this2.showNotification("Successfully updated", "success");
                 } else {
+                  _this2.errors = _response.errors;
+
                   _this2.showErrorMessage(_response, "danger");
                 }
 
-              case 11:
+              case 12:
               case "end":
                 return _context.stop();
             }
@@ -607,21 +748,23 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _c(
-                    "download-excel",
-                    {
-                      staticClass: "button is-success",
-                      attrs: {
-                        slot: "right",
-                        data: _vm.instructors,
-                        fields: _vm.json_fields,
-                        worksheet: "Instructors",
-                        name: "instructors.xls"
-                      },
-                      slot: "right"
+                  _c("download-excel", {
+                    staticClass: "button is-success",
+                    attrs: {
+                      data: _vm.instructors,
+                      fields: _vm.json_fields,
+                      worksheet: "Instructors",
+                      name: "instructors.xls"
                     },
-                    [_vm._v("\n          Export\n        ")]
-                  )
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function(right) {
+                          return [_vm._v("\n          Export\n        ")]
+                        }
+                      }
+                    ])
+                  })
                 ],
                 1
               ),
@@ -680,7 +823,19 @@ var render = function() {
                           [
                             _c(
                               "b-field",
-                              { attrs: { label: "First Name" } },
+                              {
+                                attrs: {
+                                  label: "First Name",
+                                  type:
+                                    _vm.errors.first_name == null
+                                      ? ""
+                                      : "is-danger",
+                                  message:
+                                    _vm.errors.first_name == null
+                                      ? ""
+                                      : _vm.errors.first_name
+                                }
+                              },
                               [
                                 _c("b-input", {
                                   attrs: {
@@ -702,7 +857,19 @@ var render = function() {
                             _vm._v(" "),
                             _c(
                               "b-field",
-                              { attrs: { label: "Middle Name" } },
+                              {
+                                attrs: {
+                                  label: "Middle Name",
+                                  type:
+                                    _vm.errors.middle_name == null
+                                      ? ""
+                                      : "is-danger",
+                                  message:
+                                    _vm.errors.middle_name == null
+                                      ? ""
+                                      : _vm.errors.middle_name
+                                }
+                              },
                               [
                                 _c("b-input", {
                                   attrs: {
@@ -724,7 +891,19 @@ var render = function() {
                             _vm._v(" "),
                             _c(
                               "b-field",
-                              { attrs: { label: "Last Name" } },
+                              {
+                                attrs: {
+                                  label: "Last Name",
+                                  type:
+                                    _vm.errors.last_name == null
+                                      ? ""
+                                      : "is-danger",
+                                  message:
+                                    _vm.errors.last_name == null
+                                      ? ""
+                                      : _vm.errors.last_name
+                                }
+                              },
                               [
                                 _c("b-input", {
                                   attrs: {
@@ -740,6 +919,234 @@ var render = function() {
                                     expression: "formData.last_name"
                                   }
                                 })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-field",
+                              {
+                                attrs: {
+                                  label: "Specialization",
+                                  type:
+                                    _vm.errors.specialization == null
+                                      ? ""
+                                      : "is-danger",
+                                  message:
+                                    _vm.errors.specialization == null
+                                      ? ""
+                                      : _vm.errors.specialization
+                                }
+                              },
+                              [
+                                _c("b-input", {
+                                  attrs: {
+                                    placeholder: "Specialization",
+                                    type: "text",
+                                    required: ""
+                                  },
+                                  model: {
+                                    value: _vm.formData.specialization,
+                                    callback: function($$v) {
+                                      _vm.$set(
+                                        _vm.formData,
+                                        "specialization",
+                                        $$v
+                                      )
+                                    },
+                                    expression: "formData.specialization"
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-field",
+                              {
+                                attrs: {
+                                  label: "Minimum Units",
+                                  type:
+                                    _vm.errors.min_units == null
+                                      ? ""
+                                      : "is-danger",
+                                  message:
+                                    _vm.errors.min_units == null
+                                      ? ""
+                                      : _vm.errors.min_units
+                                }
+                              },
+                              [
+                                _c("b-input", {
+                                  attrs: {
+                                    placeholder: "Minimum Units",
+                                    type: "text",
+                                    required: ""
+                                  },
+                                  model: {
+                                    value: _vm.formData.min_units,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.formData, "min_units", $$v)
+                                    },
+                                    expression: "formData.min_units"
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-field",
+                              {
+                                attrs: {
+                                  label: "Max Units",
+                                  type:
+                                    _vm.errors.max_units == null
+                                      ? ""
+                                      : "is-danger",
+                                  message:
+                                    _vm.errors.max_units == null
+                                      ? ""
+                                      : _vm.errors.max_units
+                                }
+                              },
+                              [
+                                _c("b-input", {
+                                  attrs: {
+                                    placeholder: "Maximum Units",
+                                    type: "text",
+                                    required: ""
+                                  },
+                                  model: {
+                                    value: _vm.formData.max_units,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.formData, "max_units", $$v)
+                                    },
+                                    expression: "formData.max_units"
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-field",
+                              {
+                                attrs: {
+                                  label: "Department",
+                                  type:
+                                    _vm.errors.department_id == null
+                                      ? ""
+                                      : "is-danger",
+                                  message:
+                                    _vm.errors.department_id == null
+                                      ? ""
+                                      : _vm.errors.department_id
+                                }
+                              },
+                              [
+                                _c(
+                                  "b-select",
+                                  {
+                                    attrs: {
+                                      expanded: "",
+                                      placeholder: "Department",
+                                      required: ""
+                                    },
+                                    model: {
+                                      value: _vm.formData.contract_status,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "contract_status",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "formData.contract_status"
+                                    }
+                                  },
+                                  _vm._l(_vm.contractStatus, function(
+                                    status,
+                                    index
+                                  ) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: index,
+                                        domProps: { value: status }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                    " +
+                                            _vm._s(status) +
+                                            "\n                  "
+                                        )
+                                      ]
+                                    )
+                                  }),
+                                  0
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-field",
+                              {
+                                attrs: {
+                                  label: "Status",
+                                  type:
+                                    _vm.errors.contract_status == null
+                                      ? ""
+                                      : "is-danger",
+                                  message:
+                                    _vm.errors.contract_status == null
+                                      ? ""
+                                      : _vm.errors.contract_status
+                                }
+                              },
+                              [
+                                _c(
+                                  "b-select",
+                                  {
+                                    attrs: {
+                                      expanded: "",
+                                      placeholder: "Select Contract Status",
+                                      required: ""
+                                    },
+                                    model: {
+                                      value: _vm.formData.contract_status,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "contract_status",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "formData.contract_status"
+                                    }
+                                  },
+                                  _vm._l(_vm.contractStatus, function(
+                                    status,
+                                    index
+                                  ) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: index,
+                                        domProps: { value: status }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                    " +
+                                            _vm._s(status) +
+                                            "\n                  "
+                                        )
+                                      ]
+                                    )
+                                  }),
+                                  0
+                                )
                               ],
                               1
                             )
@@ -790,8 +1197,11 @@ var render = function() {
                     loading: _vm.isLoading,
                     paginated: true,
                     "per-page": _vm.perPage,
-                    checkable: true,
                     hoverable: true,
+                    bordered: true,
+                    narrowed: true,
+                    draggable: true,
+                    "draggable-column": true,
                     "default-sort": "last_name",
                     data: _vm.instructors
                   },
@@ -845,6 +1255,58 @@ var render = function() {
                               }
                             },
                             [_vm._v(_vm._s(props.row.last_name))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            {
+                              attrs: {
+                                searchable: "",
+                                label: "Specialization",
+                                field: "specialization",
+                                sortable: ""
+                              }
+                            },
+                            [_vm._v(_vm._s(props.row.specialization))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            {
+                              attrs: {
+                                searchable: "",
+                                label: "Min. Units",
+                                field: "min_units",
+                                sortable: ""
+                              }
+                            },
+                            [_vm._v(_vm._s(props.row.min_units))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            {
+                              attrs: {
+                                searchable: "",
+                                label: "Max Units",
+                                field: "max_units",
+                                sortable: ""
+                              }
+                            },
+                            [_vm._v(_vm._s(props.row.max_units))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            {
+                              attrs: {
+                                searchable: "",
+                                label: "Contract Status",
+                                field: "contract_status",
+                                sortable: ""
+                              }
+                            },
+                            [_vm._v(_vm._s(props.row.contract_status))]
                           ),
                           _vm._v(" "),
                           _c(

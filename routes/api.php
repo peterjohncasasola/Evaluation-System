@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,6 +45,7 @@ Route::group(['middleware' => ['autotrim', 'auth:api']], function () {
         'courses-subjects' => 'API\CourseSubjectController',
         'academic-years' => 'API\AcademicYearController',
         'curriculums' => 'API\CurriculumController',
+        'departments' => 'API\DepartmentController'
     ]);
     Route::get('records/count', 'HomeController@dashboard');
     Route::get('courses/{course}/subjects', 'API\CourseSubjectController@subjectsByCourse');

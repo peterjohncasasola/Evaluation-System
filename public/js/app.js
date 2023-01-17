@@ -2087,20 +2087,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         adminAccess: false
       }], "Master Files", [{
         to: {
-          name: "students-list"
-        },
-        label: "Students",
-        icon: "account-multiple",
-        updateMark: true,
-        adminAccess: false
-      }, {
-        to: {
           name: "academic-years-list"
         },
         label: "Academic Year",
         icon: "calendar-month",
         updateMark: true,
         adminAccess: true
+      }, {
+        to: {
+          name: "departments-list"
+        },
+        label: "Departments",
+        icon: "school",
+        adminAccess: false
       }, {
         to: {
           name: "subjects-list"
@@ -2150,41 +2149,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         label: "Settings",
         adminAccess: true,
         icon: "cogs"
-      }], "Transactions", [// {
-      //   to: { name: "subject.offering" },
-      //   label: "Subject Offering",
-      //   icon: "cogs",
-      //   adminAccess: false,
-      // },
-      // {
-      //   to: { name: "section.class" },
-      //   label: "Section Class",
-      //   icon: "cogs",
-      //   adminAccess: false,
-      // },
-      {
+      }], "Transactions", [{
         to: {
           name: "subject.evaluation"
         },
-        label: "Subject Evaluation",
+        label: "Subject Entry",
         icon: "book-search",
-        adminAccess: false
-      }, // {
-      //   to: "/students/subjects",
-      //   label: "Students Subjects",
-      //   icon: "folder-account-outline"
-      // },
-      // {
-      //   to: "/transactions/credited-subjects",
-      //   label: "Credit Subject",
-      //   icon: "folder-plus"
-      // },
-      {
-        to: {
-          name: "grade.entry"
-        },
-        label: "Grade Entry",
-        icon: "table-large-plus",
         adminAccess: false
       } // {
       //   label: "Submenus",
@@ -2194,6 +2164,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       //     {
       //       href: "#void",
       //       icon: "view-list",
+      //
       //       label: "Sub-item One"
       //     },
       //     {
@@ -36943,7 +36914,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.footer {\n padding: 1.5rem;\n}\n", ""]);
+exports.push([module.i, "\n.footer {\r\n padding: 1.5rem;\n}\r\n", ""]);
 
 // exports
 
@@ -36962,7 +36933,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.section.section.is-title-bar {\n  padding: 1rem;\n}\n  \n", ""]);
+exports.push([module.i, "\n.section.section.is-title-bar {\r\n  padding: 1rem;\n}\r\n  \r\n", ""]);
 
 // exports
 
@@ -66980,7 +66951,7 @@ var render = function() {
       _c("aside-tools", { attrs: { "is-main-menu": true } }, [
         _c("span", { attrs: { slot: "label" }, slot: "label" }, [
           _c("b", { staticClass: "has-text-primary" }, [_vm._v("ISU")]),
-          _vm._v(" PRAAS ")
+          _vm._v("  Faculty Analysis ")
         ])
       ]),
       _vm._v(" "),
@@ -85000,7 +84971,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var baseURL = 'http://localhost:8000/api';
+var baseURL = 'http://facultyanalysis.test:8081/api';
 var apiClient = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
   baseURL: baseURL,
   Accept: 'application/json'
@@ -86796,7 +86767,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: "/semesters",
       name: "semesters",
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./views/Semester.vue */ "./resources/js/views/Semester.vue"));
+        return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./views/Semester.vue */ "./resources/js/views/Semester.vue"));
       },
       meta: {
         userType: "Administrator"
@@ -86882,6 +86853,15 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       meta: {
         userType: "Administrator"
       }
+    }, {
+      path: "/departments",
+      name: "departments-list",
+      component: function component() {
+        return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./views/Departments.vue */ "./resources/js/views/Departments.vue"));
+      },
+      meta: {
+        userType: "Administrator"
+      }
     }]
   }, {
     path: "/login",
@@ -86895,7 +86875,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: "/courses/curriculums/:curriculum_id/subjects/print",
     name: "curriculum-subjects-print",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./views/PrintCurriculum.vue */ "./resources/js/views/PrintCurriculum.vue"));
+      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./views/PrintCurriculum.vue */ "./resources/js/views/PrintCurriculum.vue"));
     },
     meta: {
       requiresAuth: true,
@@ -86905,7 +86885,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: "/transaction/evaluation/:sy/:semester/student/:student_id",
     name: "student-form-print",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./views/PrintSubjects.vue */ "./resources/js/views/PrintSubjects.vue"));
+      return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ./views/PrintSubjects.vue */ "./resources/js/views/PrintSubjects.vue"));
     },
     meta: {
       requiresAuth: true,
@@ -86915,7 +86895,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: "*",
     name: "not-found",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ./views/PageNotFound.vue */ "./resources/js/views/PageNotFound.vue"));
+      return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ./views/PageNotFound.vue */ "./resources/js/views/PageNotFound.vue"));
     },
     meta: {
       userType: undefined
@@ -87083,6 +87063,39 @@ __webpack_require__.r(__webpack_exports__);
   },
   updateCurriculum: function updateCurriculum(data) {
     return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"].put("/curriculums/".concat(data.id), data);
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/services/DepartmentService.js":
+/*!****************************************************!*\
+  !*** ./resources/js/services/DepartmentService.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _apiClient__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../apiClient */ "./resources/js/apiClient.js");
+/* harmony import */ var _services_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/helper */ "./resources/js/services/helper.js");
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getDepartments: function getDepartments() {
+    return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"].get('/departments');
+  },
+  getDepartment: function getDepartment(id) {
+    return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"].get("/departments/".concat(id));
+  },
+  postDepartment: function postDepartment(department) {
+    return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"].post('/departments', department);
+  },
+  deleteDepartment: function deleteDepartment(id) {
+    return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/departments/".concat(id));
+  },
+  putDepartment: function putDepartment(department) {
+    return _apiClient__WEBPACK_IMPORTED_MODULE_0__["default"].put("/departments/".concat(department.id), department);
   }
 });
 
@@ -87337,11 +87350,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_studentSubject__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./store/studentSubject */ "./resources/js/store/studentSubject.js");
 /* harmony import */ var _store_sections__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./store/sections */ "./resources/js/store/sections.js");
 /* harmony import */ var _store_curriculums__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./store/curriculums */ "./resources/js/store/curriculums.js");
+/* harmony import */ var _store_departments__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./store/departments */ "./resources/js/store/departments.js");
 'strict';
 
 
 
 /* Stores */
+
 
 
 
@@ -87369,7 +87384,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     studentSubject: _store_studentSubject__WEBPACK_IMPORTED_MODULE_11__["default"],
     auth: _store_auth__WEBPACK_IMPORTED_MODULE_8__["default"],
     sections: _store_sections__WEBPACK_IMPORTED_MODULE_12__["default"],
-    curriculums: _store_curriculums__WEBPACK_IMPORTED_MODULE_13__["default"]
+    curriculums: _store_curriculums__WEBPACK_IMPORTED_MODULE_13__["default"],
+    departments: _store_departments__WEBPACK_IMPORTED_MODULE_14__["default"]
   },
   state: {
     /* User */
@@ -87422,7 +87438,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     asideMobileStateToggle: function asideMobileStateToggle(state) {
       var payload = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
       var htmlClassName = 'has-aside-mobile-expanded';
-      var isShow;
+      var isShow = false;
 
       if (payload !== null) {
         isShow = payload;
@@ -88245,6 +88261,200 @@ var actions = {
           }
         }
       }, _callee3, null, [[1, 8]]);
+    }))();
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: state,
+  getters: getters,
+  mutations: mutations,
+  actions: actions
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/departments.js":
+/*!*******************************************!*\
+  !*** ./resources/js/store/departments.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_DepartmentService_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/DepartmentService.js */ "./resources/js/services/DepartmentService.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+var state = {
+  departments: [],
+  department: {},
+  errors: null
+};
+var getters = {
+  getDepartmentById: function getDepartmentById(state) {
+    return function (id) {
+      return state.department.find(function (department) {
+        return department.id === id;
+      });
+    };
+  },
+  departments: function departments(state) {
+    return state.departments;
+  },
+  department: function department(state) {
+    return state.department;
+  },
+  errors: function errors(state) {
+    return state.errors;
+  }
+};
+var mutations = {
+  ADD_DEPARTMENT: function ADD_DEPARTMENT(state, data) {
+    state.departments.unshift(data);
+  },
+  SET_DEPARTMENTS: function SET_DEPARTMENTS(state, data) {
+    state.departments = data;
+  },
+  SET_DEPARTMENT: function SET_DEPARTMENT(state, data) {
+    state.department = data;
+  },
+  DELETE_DEPARTMENT: function DELETE_DEPARTMENT(state, data) {
+    var index = state.departments.findIndex(function (department) {
+      return department.id === data.id;
+    });
+    state.departments.splice(index, 1);
+  },
+  UPDATE_DEPARTMENT: function UPDATE_DEPARTMENT(state, data) {
+    var index = state.departments.findIndex(function (department) {
+      return department.id === data.id;
+    });
+    var department = state.departments[index];
+    Object.assign(department, data);
+  },
+  SET_ERRORS: function SET_ERRORS(state, errors) {
+    state.errors = errors;
+  }
+};
+var actions = {
+  createDepartment: function createDepartment(_ref, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var commit, dispatch, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit, dispatch = _ref.dispatch;
+              _context.prev = 1;
+              _context.next = 4;
+              return _services_DepartmentService_js__WEBPACK_IMPORTED_MODULE_1__["default"].postDepartment(payload);
+
+            case 4:
+              response = _context.sent;
+              commit('ADD_DEPARTMENT', response.data.data);
+              _context.next = 11;
+              break;
+
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](1);
+              return _context.abrupt("return", _context.t0.response.data);
+
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 8]]);
+    }))();
+  },
+  fetchDepartments: function fetchDepartments(_ref2) {
+    var commit = _ref2.commit;
+    _services_DepartmentService_js__WEBPACK_IMPORTED_MODULE_1__["default"].getDepartments().then(function (response) {
+      commit('SET_DEPARTMENTS', response.data.data);
+    })["catch"](function (errors) {
+      return errors.response.data;
+    });
+  },
+  fetchDepartment: function fetchDepartment(_ref3, id) {
+    var commit = _ref3.commit;
+    var department = getters.getDepartmentById(id);
+
+    if (department) {
+      commit('SET_DEPARTMENT', department);
+    } else {
+      _services_DepartmentService_js__WEBPACK_IMPORTED_MODULE_1__["default"].getDepartment(id).then(function (response) {
+        commit('SET_DEPARTMENT', response.data);
+      })["catch"](function (errors) {
+        return errors.response.data;
+      });
+    }
+  },
+  deleteDepartment: function deleteDepartment(_ref4, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref4.commit;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return _services_DepartmentService_js__WEBPACK_IMPORTED_MODULE_1__["default"].deleteDepartment(payload.id);
+
+            case 4:
+              commit('DELETE_DEPARTMENT', payload);
+              _context2.next = 10;
+              break;
+
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](1);
+              return _context2.abrupt("return", _context2.t0.response.data);
+
+            case 10:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 7]]);
+    }))();
+  },
+  updateDepartment: function updateDepartment(_ref5, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref5.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return _services_DepartmentService_js__WEBPACK_IMPORTED_MODULE_1__["default"].putDepartment(payload);
+
+            case 4:
+              commit('UPDATE_DEPARTMENT', payload);
+              _context3.next = 10;
+              break;
+
+            case 7:
+              _context3.prev = 7;
+              _context3.t0 = _context3["catch"](1);
+              return _context3.abrupt("return", _context3.t0.response.data);
+
+            case 10:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 7]]);
     }))();
   }
 };
@@ -89664,8 +89874,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Projects\Thesis\evaluation-system\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Projects\Thesis\evaluation-system\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\laragon\www\facultyanalysis\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\laragon\www\facultyanalysis\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

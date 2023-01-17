@@ -25,7 +25,7 @@ class CurriculumRequest extends FormRequest
     public function rules()
     {
         return [
-            'course_id' => ['required', 'exists:courses,id'],
+            'course_id' => ['required', 'exists:departments,id'],
             'curriculum_year' =>
             [
                 'required', 'exists:academic_years,description',

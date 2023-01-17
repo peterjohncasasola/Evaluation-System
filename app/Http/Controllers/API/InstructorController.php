@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Requests\StoreInstructorRequest;
+use App\Http\Requests\UpdateInstructorRequest;
 use App\Instructor;
-use App\Rules\Propercase;
-use Illuminate\Http\Request;
-use App\Rules\AlphaSpaceDash;
-use Illuminate\Validation\Rule;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 
 class InstructorController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -27,47 +25,11 @@ class InstructorController extends Controller
     }
 
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StoreInstructorRequest $request): Response
     {
-        $messages = [
-            'first_name.unique' => "{$request->last_name} , {$request->first_name} {$request->middle_name} already exist",
-        ];
+        $validated = $request->validated();
 
-        $validator = Validator::make($request->all(), [
-            'first_name' => [
-                'required', new AlphaSpaceDash, new Propercase,
-                Rule::unique('instructors')->where(function ($query) use ($request) {
-                    return $query->where([
-                        ['first_name', $request->first_name],
-                        ['middle_name', $request->middle_name],
-                        ['last_name', $request->last_name],
-                    ]);
-                })
-            ],
-            'middle_name' => ['required', new AlphaSpaceDash, new Propercase],
-            'last_name' => ['required', new AlphaSpaceDash, new Propercase],
-        ], $messages);
-
-        if ($validator->fails()) {
-            return  response()->json([
-                'errors' => $validator->errors(),
-                'message' => 'Something went wrong.'
-            ], 422);
-        }
-
-
-        $instructor = Instructor::create([
-            'first_name' => $request->first_name,
-            'middle_name' => $request->middle_name,
-            'last_name' => $request->last_name,
-            'is_active' => true,
-        ]);
+        $instructor = Instructor::create($validated);
 
         return response()->json([
             'data' => $instructor,
@@ -86,65 +48,15 @@ class InstructorController extends Controller
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(UpdateInstructorRequest $request, Instructor $instructor): bool
     {
-        $messages = [
-            'first_name.unique' => "{$request->last_name} , {$request->first_name} {$request->middle_name} already exist",
-        ];
-
-        $validator = Validator::make($request->all(), [
-            'first_name' => [
-                'required', new AlphaSpaceDash,
-                new Propercase,
-                Rule::unique('instructors')->where(function ($query) use ($request) {
-                    return $query->where([
-                        ['first_name', $request->first_name],
-                        ['middle_name', $request->middle_name],
-                        ['last_name', $request->last_name],
-                        ['id', '!=', $request->id],
-                    ]);
-                })
-            ],
-            'middle_name' => ['required', new AlphaSpaceDash, new Propercase],
-            'last_name' => ['required', new AlphaSpaceDash, new Propercase],
-        ], $messages);
-
-
-
-        if ($validator->fails()) {
-            return  response()->json([
-                'errors' => $validator->errors(),
-                'message' => 'Something went wrong.'
-            ], 422);
-        }
-
-        $instructor = Instructor::findOrFail($id);
-        $instructor->update($request->all());
-
-        return response()->json([
-            'failed' => true,
-            'data' => $instructor,
-            'message' => 'Successfully updated'
-        ]);
+        $validated = $request->validated();
+        return $instructor->update($validated);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Instructor $instructor)
     {
-        $student = Instructor::find($id);
-        $student->delete();
+        $instructor->delete();
 
         return response()->json([
             'failed' => false,

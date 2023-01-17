@@ -61,7 +61,7 @@ class StudentSubjectController extends Controller
             ->where('vw_courses_subjects.deleted_at', '=', null)
             ->where('vw_courses_subjects.curriculum_year', $request->query('curriculum'))
             ->where('vw_courses_subjects.course_id', '=', $request->query('courseId'))
-            ->whereRaw('subject_description NOT IN (SELECT subject_description FROM student_subjects 
+            ->whereRaw('subject_description NOT IN (SELECT subject_description FROM student_subjects
                     WHERE grade <= 3.00 OR school_year = ? OR grade IS NULL OR grade = "")', [$request->query('sy')]);
         if ($request->query('subject_description')) {
 

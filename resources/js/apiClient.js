@@ -2,7 +2,7 @@ import axios from 'axios';
 import store from '../js/store';
 import router from '../js/router';
 
-let baseURL = 'http://localhost:8000/api'
+let baseURL = 'http://facultyanalysis.test:8081/api'
 
 let apiClient = axios.create({
   baseURL,
@@ -25,7 +25,7 @@ apiClient.interceptors.response.use((response) => {
     store.state.auth.isLoggedIn = false;
     store.state.auth.token = null;
 
-    
+
     router.push('/login');
     return Promise.reject(error)
   } else {

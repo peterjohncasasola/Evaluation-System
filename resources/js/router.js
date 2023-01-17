@@ -172,6 +172,14 @@ const router = new Router({
           meta: {
             userType: "Administrator"
           }
+        },
+        {
+          path: "/departments",
+          name: "departments-list",
+          component: () => import("./views/Departments.vue"),
+          meta: {
+            userType: "Administrator"
+          }
         }
       ]
     },

@@ -15,6 +15,7 @@ import courseSubject from './store/courseSubject'
 import studentSubject from './store/studentSubject'
 import sections from './store/sections'
 import curriculums from './store/curriculums'
+import departments from './store/departments'
 
 Vue.use(Vuex)
 
@@ -32,6 +33,7 @@ export default new Vuex.Store({
     auth,
     sections,
     curriculums,
+    departments,
   },
   state: {
     /* User */
@@ -84,7 +86,7 @@ export default new Vuex.Store({
     asideMobileStateToggle(state, payload = null) {
       let htmlClassName = 'has-aside-mobile-expanded'
 
-      let isShow
+      let isShow = false;
 
       if (payload !== null) {
         isShow = payload

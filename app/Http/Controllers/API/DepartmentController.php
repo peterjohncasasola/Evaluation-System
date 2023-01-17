@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Course;
-use App\CourseSubject;
+use App\Department;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -11,51 +10,36 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\Uppercase;
 
-class CourseController extends Controller
+class DepartmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
 
-        $courses = Course::with(['subjects'])->latest()->get();
-
-
-        // $courses = \App\CourseSubject::with(['subject', 'course'])->get();
-
+        $collection = Department::latest()->get();
         return response()->json([
-            'data' => $courses
+            'data' => $collection
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $messages = [
-            'course_code.unique' => 'using the same course code with same description is not allowed',
+            'name.unique' => 'using the same name with same description is not allowed',
             'description.unique' => ':attribute already exists in the database',
         ];
 
         $validator = Validator::make($request->all(), [
-            'course_code' => [
+            'name' => [
                 'required', 'alpha', 'min:3', 'max:25',
                 new Uppercase,
-                Rule::unique('courses')->where(function ($query) use ($request) {
+                Rule::unique('departments')->where(function ($query) use ($request) {
                     return $query->where([
-                        ['course_code', '=', $request->course_code],
+                        ['name', '=', $request->course_code],
                         ['description', '=', $request->description],
                     ]);
                 })
             ],
-            'description' => 'required|alpha_spaces|unique:courses,description'
+            'description' => 'required|alpha_spaces|unique:departments,description'
         ], $messages);
 
         if ($validator->fails()) {
@@ -67,61 +51,48 @@ class CourseController extends Controller
         }
 
 
-        $course = Course::create([
-            'course_code' => $request['course_code'],
+        $department = Department::create([
+            'name' => $request['name'],
             'description' => $request['description'],
         ]);
 
         return response()->json([
-            'data' => $course,
+            'data' => $department,
             'failed' => false,
-            'message' => 'Course successfully added'
+            'message' => 'Department successfully added'
         ], 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Course  $course
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Course $course)
+        public function show(Department $department)
     {
-        $selectedCourse = Course::findOrFail($course->id);
+        $data = Department::findOrFail($department->id);
 
         return response()->json([
-            'data' => $selectedCourse
+            'data' => $data
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Course  $course
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
 
         $messages = [
-            'course_code.unique' => 'using the same course code with same description is not allowed',
+            'name.unique' => 'using the same department name with same description is not allowed',
             'description.unique' => ':attribute already exists in the database',
         ];
 
         $validator = Validator::make($request->all(), [
-            'course_code' => [
+            'name' => [
                 'required', 'alpha', 'min:3', 'max:20',
                 new Uppercase,
-                Rule::unique('courses')->where(function ($query) use ($request) {
+                Rule::unique('departments')->where(function ($query) use ($request) {
                     return $query->where([
-                        ['course_code', '=', $request->course_code],
+                        ['name', '=', $request->name],
                         ['description', '=', $request->description],
                         ['id', '!-', $request->id],
                     ]);
                 })
             ],
-            'description' => 'required|alpha_spaces|unique:courses,description,' . $id
+            'description' => 'required|alpha_spaces|unique:departments,description,' . $id
         ], $messages);
 
         if ($validator->fails()) {
@@ -132,26 +103,20 @@ class CourseController extends Controller
             ], 422);
         }
 
-        $course = Course::findOrFail($id);
-        $course->update($request->all());
+        $department = Department::findOrFail($id);
+        $department->update($request->all());
 
         return response()->json([
             'failed' => true,
-            'data' => $course,
+            'data' => $department,
             'message' => 'Successfully updated'
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Course  $course
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        $course = Course::findOrFail($id);
-        $course->delete();
+        $department = Department::findOrFail($id);
+        $department->delete();
 
         return response()->json([
             'status' => true
@@ -164,7 +129,7 @@ class CourseController extends Controller
             'ids' => 'required|array'
         ]);
 
-        Course::destroy($request->ids);
+        Department::destroy($request->ids);
 
         return response()->json([
             'status' => true

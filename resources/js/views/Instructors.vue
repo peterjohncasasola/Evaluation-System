@@ -14,7 +14,7 @@
         title="Instructors"
       >
         <card-toolbar>
-      
+
           <b-select v-model="perPage" slot="left">
             <option value="5">5 per page</option>
             <option value="10">10 per page</option>
@@ -28,7 +28,7 @@
             :fields="json_fields"
             worksheet="Instructors"
             name="instructors.xls"
-            slot="right"
+            v-slot="right"
           >
             Export
           </download-excel>
@@ -44,7 +44,11 @@
                 <button type="button" class="delete" @click="cancel" />
               </header>
               <section class="modal-card-body">
-                <b-field label="First Name">
+                <b-field
+                  label="First Name"
+                  :type="errors.first_name == null ? '' : 'is-danger'"
+                  :message="errors.first_name == null ? '' : errors.first_name"
+                >
                   <b-input
                     placeholder="Enter First Name"
                     type="text"
@@ -53,7 +57,11 @@
                   ></b-input>
                 </b-field>
 
-                <b-field label="Middle Name">
+                <b-field
+                  label="Middle Name"
+                  :type="errors.middle_name == null ? '' : 'is-danger'"
+                  :message="errors.middle_name == null ? '' : errors.middle_name"
+                >
                   <b-input
                     placeholder="Enter Middle Name"
                     type="text"
@@ -62,7 +70,11 @@
                   ></b-input>
                 </b-field>
 
-                <b-field label="Last Name">
+                <b-field
+                  label="Last Name"
+                  :type="errors.last_name == null ? '' : 'is-danger'"
+                  :message="errors.last_name == null ? '' : errors.last_name"
+                >
                   <b-input
                     placeholder="Enter Last Name"
                     type="text"
@@ -70,6 +82,88 @@
                     required
                   ></b-input>
                 </b-field>
+
+                <b-field
+                  label="Specialization"
+                  :type="errors.specialization == null ? '' : 'is-danger'"
+                  :message="errors.specialization == null ? '' : errors.specialization"
+                >
+                  <b-input
+                    placeholder="Specialization"
+                    type="text"
+                    v-model="formData.specialization"
+                    required
+                  ></b-input>
+                </b-field>
+
+                <b-field
+                  label="Minimum Units"
+                  :type="errors.min_units == null ? '' : 'is-danger'"
+                  :message="errors.min_units == null ? '' : errors.min_units"
+                >
+                  <b-input
+                    placeholder="Minimum Units"
+                    type="text"
+                    v-model="formData.min_units"
+                    required
+                  ></b-input>
+                </b-field>
+
+                <b-field
+                  label="Max Units"
+                  :type="errors.max_units == null ? '' : 'is-danger'"
+                  :message="errors.max_units == null ? '' : errors.max_units"
+                >
+                  <b-input
+                    placeholder="Maximum Units"
+                    type="text"
+                    v-model="formData.max_units"
+                    required
+                  ></b-input>
+                </b-field>
+
+                <b-field
+                  label="Department"
+                  :type="errors.department_id == null ? '' : 'is-danger'"
+                  :message="errors.department_id == null ? '' : errors.department_id"
+                >
+                  <b-select
+                    expanded
+                    placeholder="Department"
+                    v-model="formData.contract_status"
+                    required
+                  >
+                    <option
+                      v-for="(status, index) in contractStatus"
+                      :key="index"
+                      :value="status"
+                    >
+                      {{ status }}
+                    </option>
+                  </b-select>
+                </b-field>
+
+                <b-field
+                  label="Status"
+                  :type="errors.contract_status == null ? '' : 'is-danger'"
+                  :message="errors.contract_status == null ? '' : errors.contract_status"
+                >
+                  <b-select
+                    expanded
+                    placeholder="Select Contract Status"
+                    v-model="formData.contract_status"
+                    required
+                  >
+                    <option
+                      v-for="(status, index) in contractStatus"
+                      :key="index"
+                      :value="status"
+                    >
+                      {{ status }}
+                    </option>
+                  </b-select>
+                </b-field>
+
               </section>
               <footer class="modal-card-foot">
                 <button type="submit" class="button is-success">
@@ -86,8 +180,11 @@
           :loading="isLoading"
           :paginated="true"
           :per-page="perPage"
-          :checkable="true"
           :hoverable="true"
+          :bordered="true"
+          :narrowed="true"
+          :draggable="true"
+          :draggable-column="true"
           default-sort="last_name"
           :data="instructors"
         >
@@ -114,6 +211,38 @@
               field="last_name"
               sortable
               >{{ props.row.last_name }}</b-table-column
+            >
+
+            <b-table-column
+              searchable
+              label="Specialization"
+              field="specialization"
+              sortable
+            >{{ props.row.specialization }}</b-table-column
+            >
+
+            <b-table-column
+              searchable
+              label="Min. Units"
+              field="min_units"
+              sortable
+            >{{ props.row.min_units }}</b-table-column
+            >
+
+            <b-table-column
+              searchable
+              label="Max Units"
+              field="max_units"
+              sortable
+            >{{ props.row.max_units }}</b-table-column
+            >
+
+            <b-table-column
+              searchable
+              label="Contract Status"
+              field="contract_status"
+              sortable
+            >{{ props.row.contract_status }}</b-table-column
             >
 
             <b-table-column custom-key="actions" class="is-actions-cell">
@@ -185,18 +314,24 @@ export default {
       paginated: false,
       perPage: 10,
       checkedRows: [],
+      errors: {},
       isNew: true,
+      contractStatus: ['Permanent','Temporary Permanent', 'Temporary','Part-Time'],
       formData: {
         id: "",
         first_name: "",
         middle_name: "",
         last_name: "",
+        specialization: "",
+        min_units: "",
+        max_units: "",
         is_active: true
       },
       json_fields: {
         "First Name": "first_name",
         "Middle Name": "middle_name",
         "Last Name": "last_name",
+        "Contract Status": "contract_status"
       }
     };
   },
@@ -211,7 +346,6 @@ export default {
   methods: {
     ...mapActions("instructors", [
       "fetchInstructors",
-      "s",
       "createInstructor",
       "updateInstructor",
       "deleteInstructor"
@@ -241,12 +375,14 @@ export default {
     },
 
     async save() {
+      this.errors = {};
       if (this.isNew) {
         let response = await this.createInstructor(this.formData);
         if (response == undefined || response == null) {
           this.isModalActive = false;
           this.showNotification("Successfully created", "success");
         } else {
+          this.errors = response.errors;
           this.showErrorMessage(response, "danger");
         }
       } else {
@@ -256,6 +392,7 @@ export default {
 
           this.showNotification("Successfully updated", "success");
         } else {
+          this.errors = response.errors;
           this.showErrorMessage(response, "danger");
         }
       }

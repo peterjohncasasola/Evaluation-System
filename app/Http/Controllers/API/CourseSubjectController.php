@@ -126,7 +126,7 @@ class CourseSubjectController extends Controller
                 'courses.course_code',
                 'courses.description as course_description',
                 'semesters.semester as  semestral',
-                "course_subjects.*",
+                "course_subjects.*"
             )
             ->get();
 
